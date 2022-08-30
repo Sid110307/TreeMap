@@ -161,8 +161,8 @@ class Main : AppCompatActivity() {
 					android.R.layout.simple_spinner_item,
 					arrayOf(
 						"Auto",
-						"JPEG (Very small file size, Normal image quality)",
-						"PNG (Compressed image, Small file size, Good image quality)",
+						"JPEG (Very small file size, Low image quality)",
+						"PNG (Small file size, Good image quality)",
 						"Lossy Bitmap (Small file size, Considerable image quality)",
 						"Lossless Bitmap (Medium file size, Normal image quality)"
 					)
@@ -203,6 +203,7 @@ class Main : AppCompatActivity() {
 							4 -> bitmap.compress(Bitmap.CompressFormat.WEBP_LOSSLESS, 100, stream)
 							else -> bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
 						}
+
 						val img = stream.toByteArray()
 						timestamp =
 							SimpleDateFormat("dd/MM/yyyy hh:mm:ss a", Locale.getDefault()).format(
@@ -285,33 +286,34 @@ class Main : AppCompatActivity() {
 		val nearbyAdapter = ListDataAdapter(this, R.layout.list, nearbyData)
 		nearbyListView!!.adapter = nearbyAdapter
 
-		if (adapter!!.count > 0) for (i in 0..adapter!!.count) try {
-			val currentLat = lat!!.text.toString().trim().toFloat()
-			val currentLng = lng!!.text.toString().trim().toFloat()
+		if (adapter!!.count > 0)
+			for (i in 0..adapter!!.count) try {
+				val currentLat = lat!!.text.toString().trim().toFloat()
+				val currentLng = lng!!.text.toString().trim().toFloat()
 
-			val listLat = adapter!!.getItem(i)!!.lat.toDouble()
-			val listLng = adapter!!.getItem(i)!!.lng.toDouble()
+				val listLat = adapter!!.getItem(i)!!.lat.toDouble()
+				val listLng = adapter!!.getItem(i)!!.lng.toDouble()
 
-			if (abs(currentLat - listLat) <= 1 / 10000000f && abs(currentLng - listLng) >= 1 / 10000000f) {
-				findViewById<View>(R.id.nearbyObjectsText).visibility = View.VISIBLE
-				findViewById<View>(R.id.listNearby).visibility = View.VISIBLE
+				if (abs(currentLat - listLat) <= 0.0001 && abs(currentLng - listLng) <= 0.0001) {
+					findViewById<View>(R.id.nearbyObjectsText).visibility = View.VISIBLE
+					findViewById<View>(R.id.listNearby).visibility = View.VISIBLE
 
-				nearbyData.add(
-					ListData(
-						adapter!!.getItem(i)!!.lat,
-						adapter!!.getItem(i)!!.lng,
-						adapter!!.getItem(i)!!.title,
-						adapter!!.getItem(i)!!.desc,
-						adapter!!.getItem(i)!!.image,
-						adapter!!.getItem(i)!!.timestamp
+					nearbyData.add(
+						ListData(
+							adapter!!.getItem(i)!!.lat,
+							adapter!!.getItem(i)!!.lng,
+							adapter!!.getItem(i)!!.title,
+							adapter!!.getItem(i)!!.desc,
+							adapter!!.getItem(i)!!.image,
+							adapter!!.getItem(i)!!.timestamp
+						)
 					)
-				)
-			} else Snackbar.make(v!!, "No nearby objects", Snackbar.LENGTH_SHORT).show()
 
-			nearbyAdapter.notifyDataSetChanged()
-		} catch (e: Exception) {
-			e.printStackTrace()
-		} else Snackbar.make(v!!, "No objects saved", Snackbar.LENGTH_SHORT).show()
+					nearbyAdapter.notifyDataSetChanged()
+				} else Snackbar.make(v!!, "No nearby objects", Snackbar.LENGTH_SHORT).show()
+			} catch (e: Exception) {
+				e.printStackTrace()
+			} else Snackbar.make(v!!, "No objects saved", Snackbar.LENGTH_SHORT).show()
 	}
 
 	@SuppressLint("SetTextI18n")
@@ -349,8 +351,8 @@ class Main : AppCompatActivity() {
 			android.R.layout.simple_spinner_item,
 			arrayOf(
 				"Auto",
-				"JPEG (Very small file size, Normal image quality)",
-				"PNG (Compressed image, Small file size, Good image quality)",
+				"JPEG (Very small file size, Low image quality)",
+				"PNG (Small file size, Good image quality)",
 				"Lossy Bitmap (Small file size, Considerable image quality)",
 				"Lossless Bitmap (Medium file size, Normal image quality)"
 			)
