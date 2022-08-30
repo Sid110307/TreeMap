@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2020 - Present Siddharth Praveen Bharadwaj.
+  ~ All rights reserved.
+  -->
+
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/refresh"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:scrollbars="vertical"
+	tools:context=".Main">
+
+	<androidx.appcompat.widget.LinearLayoutCompat
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:clipToPadding="false"
+		android:orientation="vertical"
+		android:padding="16dp">
+
+		<RelativeLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent">
+
+			<TextView
+				android:id="@+id/nearbyObjectsText"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:gravity="center_horizontal"
+				android:text="Nearby Objects:"
+				android:visibility="gone" />
+
+			<ListView
+				android:id="@+id/listNearby"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center"
+				android:elevation="10dp"
+				android:nestedScrollingEnabled="true"
+				android:padding="16dp"
+				android:visibility="gone" />
+		</RelativeLayout>
+
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="16dp"
+			android:padding="8dp"
+			android:text="Coordinates (Latitude and Longitude):"
+			android:textAlignment="center"
+			android:textSize="16sp" />
+
+		<androidx.appcompat.widget.LinearLayoutCompat
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal">
+
+			<TextView
+				android:id="@+id/latDisplay"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:padding="8dp"
+				android:text="0.0"
+				android:textAlignment="center"
+				android:textSize="15sp" />
+
+			<TextView
+				android:id="@+id/lngDisplay"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:padding="8dp"
+				android:text="0.0"
+				android:textAlignment="center"
+				android:textSize="15sp" />
+		</androidx.appcompat.widget.LinearLayoutCompat>
+
+		<androidx.appcompat.widget.LinearLayoutCompat
+			android:layout_width="match_parent"
+			android:layout_height="300dp"
+			android:orientation="horizontal">
+
+			<ImageButton
+				android:id="@+id/save"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				android:adjustViewBounds="true"
+				android:background="@android:color/transparent"
+				android:contentDescription="Save"
+				android:scaleType="fitCenter"
+				android:src="@drawable/pinpoint_logo"
+				android:tooltipText="Save my location with data to the list" />
+
+			<ImageButton
+				android:id="@+id/listNear"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				android:adjustViewBounds="true"
+				android:background="@android:color/transparent"
+				android:contentDescription="List"
+				android:scaleType="fitCenter"
+				android:src="@drawable/pinpoint_list_logo"
+				android:tooltipText="Find nearby objects accurate to 1 meter." />
+		</androidx.appcompat.widget.LinearLayoutCompat>
+
+		<androidx.appcompat.widget.LinearLayoutCompat
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:orientation="vertical">
+
+			<TextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:gravity="center_horizontal"
+				android:text="All Stored Objects:" />
+
+			<ListView
+				android:id="@+id/list"
+				android:layout_width="match_parent"
+				android:layout_height="500dp"
+				android:layout_gravity="center"
+				android:elevation="10dp"
+				android:nestedScrollingEnabled="true"
+				android:padding="8dp" />
+
+			<TextView
+				android:id="@+id/empty"
+				android:layout_width="match_parent"
+				android:layout_height="500dp"
+				android:gravity="center_horizontal|center_vertical"
+				android:text="Nothing is saved yet"
+				android:textSize="20sp"
+				android:visibility="gone" />
+		</androidx.appcompat.widget.LinearLayoutCompat>
+	</androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.core.widget.NestedScrollView>
