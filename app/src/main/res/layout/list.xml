@@ -3,86 +3,86 @@
   ~ All rights reserved.
   -->
 
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	android:orientation="vertical"
-	android:padding="16dp">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
 
-	<androidx.appcompat.widget.LinearLayoutCompat
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:orientation="horizontal"
-		android:paddingBottom="4dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingBottom="4dp">
 
-		<TextView
-			android:layout_width="176dp"
-			android:layout_height="wrap_content"
-			android:layout_weight="1"
-			android:text="Latitude:"
-			android:textAlignment="center" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Latitude: "
+            android:textAlignment="center" />
 
-		<TextView
-			android:id="@+id/latTxt"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_weight="1"
-			android:text="0.0"
-			android:textAlignment="viewStart" />
-	</androidx.appcompat.widget.LinearLayoutCompat>
+        <TextView
+            android:id="@+id/latTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0.0"
+            android:textAlignment="center" />
+    </LinearLayout>
 
-	<androidx.appcompat.widget.LinearLayoutCompat
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:orientation="horizontal"
-		android:paddingBottom="8dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingBottom="8dp">
 
-		<TextView
-			android:layout_width="176dp"
-			android:layout_height="wrap_content"
-			android:text="Longitude:"
-			android:textAlignment="center" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Longitude: "
+            android:textAlignment="center" />
 
-		<TextView
-			android:id="@+id/lngTxt"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:text="0.0"
-			android:textAlignment="viewStart" />
-	</androidx.appcompat.widget.LinearLayoutCompat>
+        <TextView
+            android:id="@+id/lngTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0.0"
+            android:textAlignment="center" />
+    </LinearLayout>
 
-	<RelativeLayout
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-		<ImageView
-			android:id="@+id/listImage"
-			android:layout_width="match_parent"
-			android:layout_height="128dp"
-			android:contentDescription="Image"
-			android:maxHeight="128dp" />
+        <ImageView
+            android:id="@+id/listImage"
+            android:layout_width="match_parent"
+            android:layout_height="128dp"
+            android:contentDescription="Image"
+            android:maxHeight="128dp" />
 
-		<ProgressBar
-			android:id="@+id/imageLoader"
-			android:layout_width="match_parent"
-			android:layout_height="64dp"
-			android:layout_centerInParent="true"
-			android:visibility="gone" />
-	</RelativeLayout>
+        <ProgressBar
+            android:id="@+id/imageLoader"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:layout_centerInParent="true"
+            android:visibility="gone" />
+    </RelativeLayout>
 
-	<TextView
-		android:id="@+id/titleTxt"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:text="Title"
-		android:textAlignment="center"
-		android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-		android:textStyle="bold" />
+    <TextView
+        android:id="@+id/titleTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Title"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        android:textStyle="bold" />
 
-	<TextView
-		android:id="@+id/bodyTxt"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:text="Description"
-		android:textAlignment="center" />
-</androidx.appcompat.widget.LinearLayoutCompat>
+    <TextView
+        android:id="@+id/descriptionTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Description"
+        android:textAlignment="center" />
+</LinearLayout>

@@ -4,19 +4,19 @@
   -->
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-	<item
-		android:id="@+id/refresh"
-		android:icon="@drawable/refresh"
-		android:title="Refresh App"
-		android:tooltipText="Reload the app"
-		app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/refresh"
+        android:icon="@drawable/refresh"
+        android:title="Refresh App"
+        android:tooltipText="Reload the app"
+        app:showAsAction="ifRoom" />
 
-	<item
-		android:id="@+id/howToUse"
-		android:icon="@drawable/help"
-		android:title="How to Use"
-		android:tooltipText="How to Use"
-		app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/howToUse"
+        android:icon="@drawable/help"
+        android:title="How to Use"
+        android:tooltipText="How to Use"
+        app:showAsAction="ifRoom" />
 </menu>

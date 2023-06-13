@@ -8,9 +8,9 @@ data class ListData(
 	var lat: String,
 	var lng: String,
 	var title: String,
-	var desc: String,
+	var description: String,
 	var image: ByteArray,
-	var timestamp: String
+	var timestamp: String,
 ) {
 	override fun equals(other: Any?): Boolean {
 		if (this === other) return true
@@ -20,7 +20,7 @@ data class ListData(
 		if (lat != other.lat) return false
 		if (lng != other.lng) return false
 		if (title != other.title) return false
-		if (desc != other.desc) return false
+		if (description != other.description) return false
 		if (!image.contentEquals(other.image)) return false
 		if (timestamp != other.timestamp) return false
 
@@ -32,7 +32,7 @@ data class ListData(
 
 		result = 31 * result + lng.hashCode()
 		result = 31 * result + title.hashCode()
-		result = 31 * result + desc.hashCode()
+		result = 31 * result + description.hashCode()
 		result = 31 * result + image.contentHashCode()
 		result = 31 * result + timestamp.hashCode()
 
