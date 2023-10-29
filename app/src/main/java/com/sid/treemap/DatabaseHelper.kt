@@ -16,7 +16,7 @@ class DatabaseHelper(context: Context?, name: String?, factory: CursorFactory?, 
 		db.execSQL(
 			"CREATE TABLE IF NOT EXISTS TreeMap (ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
 					"latitude VARCHAR, longitude VARCHAR, title VARCHAR, description VARCHAR, image " +
-					"VARCHAR, timestamp VARCHAR)"
+					"BLOB, timestamp VARCHAR)"
 		)
 	}
 

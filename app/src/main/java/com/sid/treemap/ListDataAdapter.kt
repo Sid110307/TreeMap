@@ -5,10 +5,7 @@
 package com.sid.treemap
 
 import android.content.Context
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,13 +31,11 @@ class ListDataAdapter(ctx: Context, private val resource: Int, private val list:
 		title.text = title1
 		description.text = "$timestamp\n$desc1"
 
-		val bmp = BitmapFactory.decodeByteArray(image1, 0, image1.size)
 		view.findViewById<View>(R.id.imageLoader).visibility = View.VISIBLE
-
-		image?.post { image.setImageBitmap(Bitmap.createBitmap(bmp)) }
-		Handler(Looper.getMainLooper()).postDelayed({
-			view.findViewById<View>(R.id.imageLoader).visibility = View.GONE
-		}, 500)
+		image?.post {
+			image.setImageBitmap(BitmapFactory.decodeByteArray(image1, 0, image1.size))
+		}
+		view.findViewById<View>(R.id.imageLoader).visibility = View.GONE
 
 		return view
 	}
