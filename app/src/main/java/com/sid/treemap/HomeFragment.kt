@@ -4,16 +4,11 @@
  */
 package com.sid.treemap
 
-import android.Manifest
-import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
-import android.graphics.Matrix
 import android.net.Uri
 import android.os.Bundle
-import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,12 +16,9 @@ import android.widget.AdapterView
 import android.widget.AdapterView.OnItemClickListener
 import android.widget.EditText
 import android.widget.ImageView
-import android.widget.ListView
 import android.widget.TableLayout
-import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.core.text.HtmlCompat
 import androidx.fragment.app.Fragment
@@ -42,24 +34,24 @@ import kotlin.math.abs
 
 data class LayoutItems(var title: String, var text: String, var image: Bitmap)
 
-class HomeFragment(latText: String?, lngText: String?) : Fragment() {
-	private var listView: ListView? = null
-	private var nearbyListView: ListView? = null
-	private var adapter: ListDataAdapter? = null
+class HomeFragment(private val latText: String?, private val lngText: String?) : Fragment() {
+	private lateinit var binding: HomeBinding
 
+	private var adapter: ListDataAdapter? = null
 	private var databaseHelper: DatabaseHelper? = null
 
-	private var lat: TextView? = null
-	private var lng: TextView? = null
 	private var timestamp: String? = null
 	private var imageView: ImageView? = null
-
 	private var currentPhotoUri: Uri? = null
 	private var dialog: AlertDialog? = null
 
 	private val takeImageLauncher =
 		registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
-			if (success) imageView?.setImageBitmap(setImageRotation(currentPhotoUri!!))
+			if (success) imageView?.setImageBitmap(
+				BitmapFactory.decodeStream(
+					requireContext().contentResolver.openInputStream(currentPhotoUri!!)
+				)
+			)
 			dialog?.dismiss()
 		}
 
@@ -71,78 +63,36 @@ class HomeFragment(latText: String?, lngText: String?) : Fragment() {
 			dialog?.dismiss()
 		}
 
-	init {
-		lat?.text = latText
-		lng?.text = lngText
-	}
-
 	override fun onCreateView(
 		inflater: LayoutInflater,
 		container: ViewGroup?,
 		savedInstanceState: Bundle?,
 	): View {
 		super.onCreateView(inflater, container, savedInstanceState)
-		val binding = HomeBinding.inflate(layoutInflater)
+		binding = HomeBinding.inflate(layoutInflater)
 
+		binding.latDisplay.text = latText
+		binding.lngDisplay.text = lngText
 		databaseHelper = DatabaseHelper(requireContext(), "TreeMap.sqlite", null, 1)
 
-		lat = binding.latDisplay
-		lng = binding.lngDisplay
+		binding.list.emptyView = binding.empty
+		binding.list.invalidateViews()
+		binding.list.refreshDrawableState()
 
-		listView = binding.list
-		listView?.emptyView = binding.empty
+		binding.listNearby.invalidateViews()
+		binding.listNearby.refreshDrawableState()
 
-		nearbyListView = binding.listNearby
-
-		listView?.invalidateViews()
-		listView?.refreshDrawableState()
-		nearbyListView?.invalidateViews()
-		nearbyListView?.refreshDrawableState()
 		timestamp = SimpleDateFormat("dd/MM/yyyy hh:mm:ss a", Locale.getDefault()).format(Date())
-
-		if (ContextCompat.checkSelfPermission(
-				requireContext(),
-				Manifest.permission.ACCESS_FINE_LOCATION
-			) != PackageManager.PERMISSION_GRANTED
-		) {
-			registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
-				var flag = true
-				for (i in it.values) if (!i) flag = false
-
-				if (!flag) {
-					MaterialAlertDialogBuilder(requireContext()).setTitle("Permissions")
-						.setMessage("Please grant all the permissions to use this app.")
-						.setPositiveButton("OK") { _, _ ->
-							val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-							intent.data =
-								Uri.fromParts("package", requireContext().packageName, null)
-							startActivity(intent)
-						}
-						.setNegativeButton("Already Granted", null)
-						.create().show()
-				}
-			}.launch(
-				arrayOf(
-					Manifest.permission.CAMERA,
-					Manifest.permission.INTERNET,
-					Manifest.permission.READ_EXTERNAL_STORAGE,
-					Manifest.permission.ACCESS_FINE_LOCATION,
-					Manifest.permission.READ_PHONE_STATE,
-					Manifest.permission.MANAGE_EXTERNAL_STORAGE
-				)
-			)
-		}
-
 		viewData()
 		binding.listNear.setOnClickListener(::viewNearbyObjects)
 		binding.save.setOnClickListener(::addData)
 
-		listView?.onItemClickListener =
+		binding.list.onItemClickListener =
 			OnItemClickListener { v, _, position, _ ->
 				editData(v, position + 1)
 			}
 
-		listView?.onItemLongClickListener =
+		binding.list.onItemLongClickListener =
 			AdapterView.OnItemLongClickListener { v, _, position, _ ->
 				deleteData(v, position + 1)
 				true
@@ -183,8 +133,8 @@ class HomeFragment(latText: String?, lngText: String?) : Fragment() {
 						textTitle.text.toString().trim(),
 						text.text.toString().trim(),
 						stream.toByteArray(),
-						lat!!.text.toString().trim(),
-						lng!!.text.toString().trim(),
+						binding.latDisplay.text.toString().trim(),
+						binding.lngDisplay.text.toString().trim(),
 						timestamp!!
 					)
 
@@ -316,7 +266,7 @@ class HomeFragment(latText: String?, lngText: String?) : Fragment() {
 		}
 	}
 
-	private fun createLayout(predefinedItems: LayoutItems? = null): List<View> {
+	private fun createLayout(default: LayoutItems? = null): List<View> {
 		val layout = TableLayout(requireContext())
 		layout.setPadding(50, 50, 50, 50)
 
@@ -325,17 +275,17 @@ class HomeFragment(latText: String?, lngText: String?) : Fragment() {
 			"Title <strong>(Required)</strong>",
 			HtmlCompat.FROM_HTML_MODE_COMPACT
 		)
-		textTitle.setText(predefinedItems?.title)
+		textTitle.setText(default?.title)
 		layout.addView(textTitle)
 
 		val text = EditText(requireContext())
 		text.maxLines = 10
 		text.hint = "Information"
-		text.setText(predefinedItems?.text)
+		text.setText(default?.text)
 		layout.addView(text)
 
 		imageView = ImageView(requireContext())
-		if (predefinedItems?.image != null) imageView!!.setImageBitmap(predefinedItems.image)
+		if (default?.image != null) imageView!!.setImageBitmap(default.image)
 		else imageView!!.setImageResource(R.drawable.camera)
 
 		imageView!!.isClickable = true
@@ -352,7 +302,7 @@ class HomeFragment(latText: String?, lngText: String?) : Fragment() {
 
 		val cursor = databaseHelper!!.query("SELECT * FROM TreeMap")
 		adapter = ListDataAdapter(requireContext(), R.layout.list, data)
-		listView!!.adapter = adapter
+		binding.list.adapter = adapter
 
 		try {
 			while (cursor.moveToNext()) {
@@ -378,13 +328,13 @@ class HomeFragment(latText: String?, lngText: String?) : Fragment() {
 	private fun viewNearbyObjects(v: View?) {
 		val nearbyData: MutableList<ListData> = ArrayList()
 		val nearbyAdapter = ListDataAdapter(requireContext(), R.layout.list, nearbyData)
-		nearbyListView!!.adapter = nearbyAdapter
+		binding.listNearby.adapter = nearbyAdapter
 
 		if (adapter!!.count > 0)
 			for (i in 0..adapter!!.count)
 				try {
-					val currentLat = lat!!.text.toString().trim().toDouble()
-					val currentLng = lng!!.text.toString().trim().toDouble()
+					val currentLat = binding.latDisplay.text.toString().trim().toDouble()
+					val currentLng = binding.lngDisplay.text.toString().trim().toDouble()
 
 					val listLat = adapter!!.getItem(i)!!.lat.toDouble()
 					val listLng = adapter!!.getItem(i)!!.lng.toDouble()
@@ -477,15 +427,6 @@ class HomeFragment(latText: String?, lngText: String?) : Fragment() {
 			e.printStackTrace()
 			Snackbar.make(v!!, "Error: ${e.message}", Snackbar.LENGTH_LONG).show()
 		}
-	}
-
-	private fun setImageRotation(uri: Uri): Bitmap? {
-		val bitmap =
-			BitmapFactory.decodeStream(requireContext().contentResolver.openInputStream(uri))
-
-		val matrix = Matrix()
-		matrix.postRotate(90f)
-		return Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true)
 	}
 
 	override fun onPause() {

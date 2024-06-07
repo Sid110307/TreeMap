@@ -5,28 +5,24 @@
 
 package com.sid.treemap
 
-import android.annotation.SuppressLint
 import android.graphics.BitmapFactory
-import android.location.Location
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.ProgressBar
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
-import com.google.android.gms.location.LocationServices
-import com.google.android.gms.tasks.Task
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.sid.treemap.databinding.MapBinding
 
-class MapFragment : Fragment() {
-	private var dialog: AlertDialog? = null
+class MapFragment(private val latText: String?, private val lngText: String?) : Fragment() {
+	private lateinit var binding: MapBinding
+
 	private var databaseHelper: DatabaseHelper? = null
-	private var mapView: LinearLayout? = null
+	private var dialog: AlertDialog? = null
 
 	override fun onCreateView(
 		inflater: LayoutInflater,
@@ -34,44 +30,31 @@ class MapFragment : Fragment() {
 		savedInstanceState: Bundle?,
 	): View {
 		super.onCreateView(inflater, container, savedInstanceState)
-		val binding = MapBinding.inflate(layoutInflater)
+		binding = MapBinding.inflate(layoutInflater)
 
 		databaseHelper = DatabaseHelper(requireContext(), "TreeMap.sqlite", null, 1)
-		mapView = binding.mapView
+		viewData()
 
-		getCurrentLocation(mapView!!)
-		viewData(binding.root)
 		return binding.root
 	}
 
-	@SuppressLint("MissingPermission")
-	private fun getCurrentLocation(mapView: LinearLayout) {
-		LocationServices.getFusedLocationProviderClient(requireContext()).lastLocation.addOnCompleteListener { task: Task<Location> ->
-			try {
-				val location = task.result
-				if (location != null) {
-					val imageView = ImageView(context)
-					imageView.layoutParams = ViewGroup.LayoutParams(
-						ViewGroup.LayoutParams.WRAP_CONTENT,
-						ViewGroup.LayoutParams.WRAP_CONTENT
-					)
+	private fun viewData() {
+		ImageView(context).apply {
+			layoutParams = ViewGroup.LayoutParams(
+				ViewGroup.LayoutParams.WRAP_CONTENT,
+				ViewGroup.LayoutParams.WRAP_CONTENT
+			)
 
-					imageView.x = location.latitude.toFloat()
-					imageView.y = location.longitude.toFloat()
+			x = latText?.toFloat() ?: 0f
+			y = lngText?.toFloat() ?: 0f
 
-					imageView.setImageResource(R.drawable.my_location)
-					imageView.layoutParams.height = 100
-					imageView.layoutParams.width = 100
+			setImageResource(R.drawable.my_location)
+			layoutParams.height = 100
+			layoutParams.width = 100
 
-					mapView.addView(imageView)
-				}
-			} catch (e: Exception) {
-				e.printStackTrace()
-			}
+			binding.mapView.addView(this)
 		}
-	}
 
-	private fun viewData(v: View) {
 		val progressDialog = ProgressBar(requireContext())
 		progressDialog.isIndeterminate = true
 		progressDialog.setPadding(16, 16, 16, 16)
@@ -81,11 +64,12 @@ class MapFragment : Fragment() {
 		)
 
 		val cursor = databaseHelper!!.query("SELECT * FROM TreeMap")
-		if (cursor.count == 0) Snackbar.make(v, "No data found", Snackbar.LENGTH_LONG).show()
+		if (cursor.count == 0)
+			Snackbar.make(binding.root, "No data found", Snackbar.LENGTH_LONG).show()
 		else {
 			dialog = MaterialAlertDialogBuilder(requireContext())
 				.setView(progressDialog)
-				.setCancelable(false)
+				.setOnCancelListener { _ -> cursor.close() }
 				.create()
 			dialog?.show()
 
@@ -111,7 +95,7 @@ class MapFragment : Fragment() {
 					imageView.layoutParams.width = 100
 				} else imageView.setImageBitmap(BitmapFactory.decodeByteArray(img, 0, img.size))
 
-				mapView!!.addView(imageView)
+				binding.mapView.addView(imageView)
 			}
 		}
 	}

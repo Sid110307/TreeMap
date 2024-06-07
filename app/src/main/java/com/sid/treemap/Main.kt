@@ -5,10 +5,13 @@
 
 package com.sid.treemap
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationManager
+import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -17,8 +20,10 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.text.HtmlCompat
 import androidx.fragment.app.Fragment
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -43,15 +48,9 @@ class Main : AppCompatActivity() {
 		if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
 			locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
 		) locationProvider.lastLocation.addOnCompleteListener { task: Task<Location> ->
-			try {
-				val location = task.result
-				if (location != null) {
-					latText = location.latitude.toString()
-					lngText = location.longitude.toString()
-				}
-			} catch (e: Exception) {
-				e.printStackTrace()
-			}
+			val location = task.result
+			latText = location.latitude.toString()
+			lngText = location.longitude.toString()
 		}
 		else {
 			dialog = MaterialAlertDialogBuilder(this).setTitle("Enable Location")
@@ -78,10 +77,8 @@ class Main : AppCompatActivity() {
 						locationProvider.removeLocationUpdates(this)
 
 						val location = locationResult.lastLocation
-						if (location != null) {
-							latText = location.latitude.toString()
-							lngText = location.longitude.toString()
-						}
+						latText = location?.latitude.toString()
+						lngText = location?.longitude.toString()
 					}
 				},
 				Looper.myLooper()
@@ -99,7 +96,7 @@ class Main : AppCompatActivity() {
 		binding.tabNavigation.setOnItemSelectedListener {
 			when (it.itemId) {
 				R.id.home -> setCurrentFragment(HomeFragment(latText, lngText))
-				R.id.map -> setCurrentFragment(MapFragment())
+				R.id.map -> setCurrentFragment(MapFragment(latText, lngText))
 			}
 
 			true
@@ -110,12 +107,13 @@ class Main : AppCompatActivity() {
 				dialog = MaterialAlertDialogBuilder(this@Main).setTitle("Exit TreeMap")
 					.setMessage("Are you sure you want to exit?")
 					.setPositiveButton("Yes") { _, _ -> finish() }
-					.setNegativeButton("No") { _, _ -> }
+					.setNegativeButton("No") { _, _ -> dialog?.dismiss() }
 					.create()
 				dialog?.show()
 			}
 		})
 
+		askPermissions()
 		Handler(Looper.getMainLooper()).postDelayed({
 			getLocation(LocationServices.getFusedLocationProviderClient(this))
 		}, 1000)
@@ -123,6 +121,32 @@ class Main : AppCompatActivity() {
 
 	private fun setCurrentFragment(fragment: Fragment) {
 		supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer, fragment).commit()
+	}
+
+	private fun askPermissions() {
+		val permissions = arrayOf(
+			Manifest.permission.CAMERA,
+			Manifest.permission.INTERNET,
+			Manifest.permission.READ_EXTERNAL_STORAGE,
+			Manifest.permission.ACCESS_FINE_LOCATION,
+			Manifest.permission.MANAGE_EXTERNAL_STORAGE
+		)
+
+		if (ContextCompat.checkSelfPermission(
+				this, Manifest.permission.ACCESS_FINE_LOCATION
+			) != PackageManager.PERMISSION_GRANTED
+		)
+			registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
+				MaterialAlertDialogBuilder(this).setTitle("Permissions")
+					.setMessage("Please grant all the permissions to use this app.")
+					.setPositiveButton("Grant") { _, _ ->
+						Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
+							data = Uri.fromParts("package", packageName, null)
+							startActivity(this)
+						}
+					}
+					.create().show()
+			}.launch(permissions)
 	}
 
 	override fun onCreateOptionsMenu(menu: Menu?): Boolean {
