@@ -17,9 +17,10 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/nearbyObjectsText"
@@ -40,7 +41,7 @@
                 android:nestedScrollingEnabled="true"
                 android:padding="8dp"
                 android:visibility="gone" />
-        </RelativeLayout>
+        </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"
@@ -80,6 +81,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginVertical="8dp"
             android:orientation="horizontal">
 
             <ImageButton
@@ -104,7 +106,7 @@
                 android:contentDescription="List"
                 android:scaleType="fitCenter"
                 android:src="@drawable/pinpoint_list_logo"
-                android:tooltipText="Find nearby objects accurate to 1 meter." />
+                android:tooltipText="Find nearby objects accurate to 10 meters." />
         </LinearLayout>
 
         <LinearLayout
@@ -134,7 +136,7 @@
                 android:id="@+id/empty"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal|center_vertical"
+                android:gravity="center"
                 android:maxHeight="500dp"
                 android:text="Nothing is saved yet"
                 android:textSize="20sp"

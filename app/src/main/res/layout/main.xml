@@ -3,25 +3,25 @@
   ~ All rights reserved.
   -->
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".Main">
 
     <FrameLayout
         android:id="@+id/fragmentContainer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:layout_gravity="top"
-        android:layout_marginBottom="16dp" />
+        android:layout_weight="1" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/tabNavigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         app:menu="@menu/tabs" />
-</RelativeLayout>
+</LinearLayout>
