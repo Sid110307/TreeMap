@@ -119,7 +119,7 @@ class HomeFragment : Fragment() {
 		val nearbyAdapter = ListDataAdapter(requireContext(), R.layout.list, nearbyData)
 		binding.listNearby.adapter = nearbyAdapter
 
-		if (adapter!!.count > 0) for (i in 0..<adapter!!.count) {
+		if (adapter!!.count > 0) for (i in 0..adapter!!.count) {
 			val currentLat = binding.latDisplay.text.toString().trim().toDouble()
 			val currentLng = binding.lngDisplay.text.toString().trim().toDouble()
 
