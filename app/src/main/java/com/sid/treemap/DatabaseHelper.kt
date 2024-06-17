@@ -4,19 +4,23 @@
  */
 package com.sid.treemap
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteDatabase.CursorFactory
 import android.database.sqlite.SQLiteOpenHelper
 
+
 class DatabaseHelper(context: Context?, name: String?, factory: CursorFactory?, version: Int) :
 	SQLiteOpenHelper(context, name, factory, version) {
+
+	@SuppressLint("DiscouragedPrivateApi")
 	override fun onCreate(db: SQLiteDatabase) {
 		db.execSQL(
 			"CREATE TABLE IF NOT EXISTS TreeMap (ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
 					"latitude VARCHAR, longitude VARCHAR, title VARCHAR, description VARCHAR, image " +
-					"BLOB, timestamp VARCHAR)"
+					"VARCHAR, timestamp VARCHAR)"
 		)
 	}
 
@@ -28,7 +32,7 @@ class DatabaseHelper(context: Context?, name: String?, factory: CursorFactory?, 
 	fun insertData(
 		title: String,
 		description: String,
-		image: ByteArray,
+		image: String,
 		lat: String,
 		lng: String,
 		timestamp: String,
@@ -44,13 +48,13 @@ class DatabaseHelper(context: Context?, name: String?, factory: CursorFactory?, 
 		statement.bindString(2, lng)
 		statement.bindString(3, title)
 		statement.bindString(4, description)
-		statement.bindBlob(5, image)
+		statement.bindString(5, image)
 		statement.bindString(6, timestamp)
 
 		statement.executeInsert()
 	}
 
-	fun editData(id: Int, title: String, description: String, image: ByteArray, timestamp: String) {
+	fun editData(id: Int, title: String, description: String, image: String, timestamp: String) {
 		val database = writableDatabase
 		val statement = database.compileStatement(
 			"UPDATE TreeMap SET title = ?, description = ?, image = ?, timestamp = ? WHERE ID = ?"
@@ -59,7 +63,7 @@ class DatabaseHelper(context: Context?, name: String?, factory: CursorFactory?, 
 		statement.clearBindings()
 		statement.bindString(1, title)
 		statement.bindString(2, description)
-		statement.bindBlob(3, image)
+		statement.bindString(3, image)
 		statement.bindString(4, timestamp)
 		statement.bindDouble(5, id.toDouble())
 

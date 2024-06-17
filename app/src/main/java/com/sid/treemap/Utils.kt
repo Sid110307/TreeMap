@@ -47,8 +47,8 @@ class Utils(
 				File.createTempFile(
 					"TreeMap_${System.currentTimeMillis()}",
 					".jpg",
-					context.cacheDir
-				)
+					context.filesDir
+				).apply { deleteOnExit() }
 			)
 			takeImageLauncher.launch(currentPhotoUri)
 		} catch (e: Exception) {
@@ -66,8 +66,8 @@ class Utils(
 				File.createTempFile(
 					"TreeMap_${System.currentTimeMillis()}",
 					".jpg",
-					context.cacheDir
-				)
+					context.filesDir
+				).apply { deleteOnExit() }
 			)
 			pickImageLauncher.launch("image/*")
 		} catch (e: Exception) {
@@ -82,7 +82,6 @@ class Utils(
 			imageView.setImageURI(uri)
 		} catch (e: Exception) {
 			e.printStackTrace()
-			Snackbar.make(imageView, "Error: ${e.message}", Snackbar.LENGTH_LONG).show()
 		}
 	}
 
@@ -119,7 +118,7 @@ class Utils(
 		layout.addView(text)
 
 		imageView = ImageView(context)
-		if (default?.image != null) imageView.setImageBitmap(default.image)
+		if (default?.image != null) imageView.setImageBitmap(BitmapFactory.decodeFile(default.image))
 		else imageView.setImageResource(R.drawable.camera)
 
 		imageView.isClickable = true
@@ -153,7 +152,7 @@ class Utils(
 					LayoutItems(
 						cur.getString(3),
 						cur.getString(4),
-						BitmapFactory.decodeByteArray(cur.getBlob(5), 0, cur.getBlob(5).size)
+						cur.getString(5),
 					)
 				) else createLayout()
 
@@ -181,6 +180,11 @@ class Utils(
 
 							val stream = ByteArrayOutputStream()
 							bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+							val imagePath = File.createTempFile(
+								"TreeMap_${System.currentTimeMillis()}",
+								".jpg",
+								context.filesDir
+							).also { it.writeBytes(stream.toByteArray()) }.absolutePath
 
 							val timestamp = SimpleDateFormat(
 								"dd/MM/yyyy hh:mm:ss a", Locale.getDefault()
@@ -189,7 +193,7 @@ class Utils(
 							if (mode == Mode.Add) databaseHelper.insertData(
 								textTitle.text.toString().trim(),
 								text.text.toString().trim(),
-								stream.toByteArray(),
+								imagePath,
 								lat.trim(),
 								lng.trim(),
 								timestamp
@@ -197,7 +201,7 @@ class Utils(
 								pos!!,
 								textTitle.text.toString().trim(),
 								text.text.toString().trim(),
-								stream.toByteArray(),
+								imagePath,
 								"$timestamp (edited)"
 							)
 
@@ -229,6 +233,6 @@ class Utils(
 		var pickingImage: MutableLiveData<Uri> = MutableLiveData()
 	}
 
-	data class LayoutItems(var title: String, var text: String, var image: Bitmap)
+	data class LayoutItems(var title: String, var text: String, var image: String)
 	enum class Mode { Add, Edit, Delete }
 }

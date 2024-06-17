@@ -18,7 +18,7 @@ data class ListData(
 	var lng: String,
 	var title: String,
 	var description: String,
-	var image: ByteArray,
+	var image: String,
 	var timestamp: String,
 ) {
 	override fun equals(other: Any?): Boolean {
@@ -30,7 +30,7 @@ data class ListData(
 		if (lng != other.lng) return false
 		if (title != other.title) return false
 		if (description != other.description) return false
-		if (!image.contentEquals(other.image)) return false
+		if (image != other.image) return false
 		if (timestamp != other.timestamp) return false
 
 		return true
@@ -42,7 +42,7 @@ data class ListData(
 		result = 31 * result + lng.hashCode()
 		result = 31 * result + title.hashCode()
 		result = 31 * result + description.hashCode()
-		result = 31 * result + image.contentHashCode()
+		result = 31 * result + image.hashCode()
 		result = 31 * result + timestamp.hashCode()
 
 		return result
@@ -68,9 +68,7 @@ class ListDataAdapter(ctx: Context, private val resource: Int, private val list:
 		description.text = "$timestamp\n$desc1"
 
 		view.findViewById<View>(R.id.imageLoader).visibility = View.VISIBLE
-		image?.post {
-			image.setImageBitmap(BitmapFactory.decodeByteArray(image1, 0, image1.size))
-		}
+		image?.post { image.setImageBitmap(BitmapFactory.decodeFile(image1)) }
 		view.findViewById<View>(R.id.imageLoader).visibility = View.GONE
 
 		return view

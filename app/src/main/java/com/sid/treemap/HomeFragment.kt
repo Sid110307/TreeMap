@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemClickListener
+import android.widget.ListView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
@@ -70,20 +71,24 @@ class HomeFragment : Fragment() {
 			viewData()
 		}
 
-		binding.list.onItemClickListener = OnItemClickListener { v, _, position, _ ->
+		setupListListeners(binding.list)
+		setupListListeners(binding.listNearby)
+
+		return binding.root
+	}
+
+	private fun setupListListeners(listView: ListView) {
+		listView.onItemClickListener = OnItemClickListener { v, _, position, _ ->
 			utils.showDialog(v, databaseHelper, Utils.Mode.Edit, position + 1)
 			viewData()
 		}
 
-		binding.list.onItemLongClickListener =
+		listView.onItemLongClickListener =
 			AdapterView.OnItemLongClickListener { v, _, position, _ ->
 				utils.showDialog(v, databaseHelper, Utils.Mode.Delete, position + 1)
 				viewData()
-
 				true
 			}
-
-		return binding.root
 	}
 
 	private fun viewData() {
@@ -101,7 +106,7 @@ class HomeFragment : Fragment() {
 						cursor.getString(2),
 						cursor.getString(3),
 						cursor.getString(4),
-						cursor.getBlob(5),
+						cursor.getString(5),
 						cursor.getString(6)
 					)
 				)
@@ -119,7 +124,7 @@ class HomeFragment : Fragment() {
 		val nearbyAdapter = ListDataAdapter(requireContext(), R.layout.list, nearbyData)
 		binding.listNearby.adapter = nearbyAdapter
 
-		if (adapter!!.count > 0) for (i in 0..adapter!!.count) {
+		if (adapter!!.count > 0) for (i in 0..<adapter!!.count) {
 			val currentLat = binding.latDisplay.text.toString().trim().toDouble()
 			val currentLng = binding.lngDisplay.text.toString().trim().toDouble()
 

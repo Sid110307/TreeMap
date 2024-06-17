@@ -54,7 +54,7 @@ class MapFragment : Fragment() {
 		}
 
 		Configuration.getInstance().userAgentValue = BuildConfig.LIBRARY_PACKAGE_NAME
-		binding.map.setTileSource(TileSourceFactory.MAPNIK)
+		binding.map.setTileSource(TileSourceFactory.DEFAULT_TILE_SOURCE)
 		binding.map.setMultiTouchControls(true)
 		mapController = binding.map.controller
 		mapController.setZoom(20.0)
@@ -130,10 +130,6 @@ class MapFragment : Fragment() {
 
 	override fun onDestroy() {
 		super.onDestroy()
-
-		binding.map.overlays.clear()
-		binding.map.invalidate()
-
 		databaseHelper.close()
 	}
 }
