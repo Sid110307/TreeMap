@@ -1,11 +1,14 @@
 import React from "react";
-import { ActivityIndicator, Text, View } from "react-native";
+import { ActivityIndicator, View } from "react-native";
+
+import { useRouter } from "expo-router";
 
 import colors from "../../assets/colors";
 
 import { useOnStartup } from "../utils/app";
 
 export default function Index() {
+	const router = useRouter();
 	const { loading, onStartup } = useOnStartup();
 
 	React.useEffect(() => {
@@ -14,6 +17,7 @@ export default function Index() {
 			.catch(console.error);
 	}, []);
 
+	if (!loading) router.navigate("/input");
 	return (
 		<View
 			style={{
@@ -22,11 +26,7 @@ export default function Index() {
 				alignItems: "center",
 			}}
 		>
-			{loading ? (
-				<ActivityIndicator size="large" color={colors.primary} />
-			) : (
-				<Text>Edit app/index.tsx to edit this screen.</Text>
-			)}
+			<ActivityIndicator size="large" color={colors.primary} />
 		</View>
 	);
 }

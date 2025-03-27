@@ -12,8 +12,13 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
 	orientation: "portrait",
 	icon: "./assets/images/icon.png",
 	scheme: "com.sid.treemap",
+	runtimeVersion: "2.0.0",
 	updates: { url: `https://u.expo.dev/${PID}` },
+	ios: {
+		bundleIdentifier: "com.sid.treemap",
+	},
 	android: {
+		package: "com.sid.treemap",
 		adaptiveIcon: {
 			foregroundImage: "./assets/images/adaptive-icon.png",
 			backgroundColor: "#FFFFFF",
