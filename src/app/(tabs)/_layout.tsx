@@ -4,33 +4,36 @@ import { GridPlus, InputField, Map, NavigatorAlt } from "iconoir-react-native";
 import colors from "../../../assets/colors";
 
 export default () => (
-	<Tabs screenOptions={{ tabBarActiveTintColor: colors.primary, headerShown: false }}>
+	<Tabs
+		initialRouteName="input"
+		screenOptions={{ tabBarActiveTintColor: colors.primary, headerShown: false }}
+	>
 		<Tabs.Screen
-			name="input/index"
+			name="input"
 			options={{
 				title: "Input",
-				tabBarIcon: ({ color }) => <InputField color={color} width={24} height={24} />,
+				tabBarIcon: ({ color }) => <InputField color={color} />,
 			}}
 		/>
 		<Tabs.Screen
-			name="nearby/index"
+			name="nearby"
 			options={{
 				title: "Nearby",
-				tabBarIcon: ({ color }) => <NavigatorAlt color={color} width={24} height={24} />,
+				tabBarIcon: ({ color }) => <NavigatorAlt color={color} />,
 			}}
 		/>
 		<Tabs.Screen
-			name="map/index"
+			name="map"
 			options={{
 				title: "Map",
-				tabBarIcon: ({ color }) => <Map color={color} width={24} height={24} />,
+				tabBarIcon: ({ color }) => <Map color={color} />,
 			}}
 		/>
 		<Tabs.Screen
-			name="manage/index"
+			name="manage"
 			options={{
 				title: "Manage",
-				tabBarIcon: ({ color }) => <GridPlus color={color} width={24} height={24} />,
+				tabBarIcon: ({ color }) => <GridPlus color={color} />,
 			}}
 		/>
 	</Tabs>

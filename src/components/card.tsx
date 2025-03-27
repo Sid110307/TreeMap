@@ -1,39 +1,42 @@
 import React from "react";
-import { Text, View } from "react-native";
+import { Pressable, StyleProp, TextStyle, ViewStyle } from "react-native";
+
+import * as Haptics from "expo-haptics";
 
 import colors from "../../assets/colors";
 
+import { HeadText } from "./text";
+
 interface CardProps {
+	children?: React.ReactNode;
 	title?: string;
-	children?: any;
-	style?: any;
+	titleStyle?: StyleProp<TextStyle>;
+	style?: StyleProp<ViewStyle>;
+	onPress?: () => void;
 }
 
 export default (props: CardProps) => (
-	<View
-		style={{
-			padding: 16,
-			backgroundColor: colors.light[0],
-			borderRadius: 8,
-			marginVertical: 8,
-			borderWidth: 1,
-			borderColor: colors.light[500],
-			gap: 8,
-			...props.style,
+	<Pressable
+		style={[
+			{
+				padding: 16,
+				backgroundColor: colors.light[0],
+				borderRadius: 8,
+				marginVertical: 8,
+				borderWidth: 1,
+				borderColor: colors.light[500],
+				gap: 8,
+			},
+			props.style,
+		]}
+		onPress={async () => {
+			if (!props.onPress) return;
+
+			await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+			props.onPress();
 		}}
 	>
-		{props.title && (
-			<Text
-				style={{
-					fontFamily: "Medium",
-					fontSize: 14,
-					letterSpacing: 2,
-					textTransform: "uppercase",
-				}}
-			>
-				{props.title}
-			</Text>
-		)}
+		{props.title && <HeadText style={props.titleStyle}>{props.title}</HeadText>}
 		{props.children}
-	</View>
+	</Pressable>
 );

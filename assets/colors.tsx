@@ -1,5 +1,5 @@
 export default {
-	primary: "#42692F",
+	primary: "#388E3C",
 	secondary: "#3D89DA",
 	error: "#D32F2F",
 	light: {

@@ -8,7 +8,7 @@
         "eas-build-pre-install": "corepack enable"
     },
     "dependencies": {
-        "@expo/vector-icons": "^14.0.2",
+        "@gorhom/bottom-sheet": "^5",
         "@shopify/flash-list": "1.7.3",
         "expo": "~52.0.41",
         "expo-blur": "~14.0.3",
@@ -18,6 +18,8 @@
         "expo-dev-client": "~5.0.15",
         "expo-font": "^13.0.4",
         "expo-haptics": "~14.0.1",
+        "expo-image-manipulator": "~13.0.6",
+        "expo-image-picker": "~16.0.6",
         "expo-linear-gradient": "~14.0.2",
         "expo-linking": "~7.0.5",
         "expo-location": "~18.0.8",
@@ -54,7 +56,8 @@
         "doctor": {
             "reactNativeDirectoryCheck": {
                 "exclude": [
-                    "iconoir-react-native"
+                    "iconoir-react-native",
+                    "react-native-leaflet-view"
                 ]
             }
         }
