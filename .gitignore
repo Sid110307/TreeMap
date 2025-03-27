@@ -1,17 +1,37 @@
-*.iml
-.gradle/
-local.properties
+# dependencies
+node_modules/
 
-.idea/caches/
-.idea/libraries/
-.idea/modules.xml
-.idea/workspace.xml
-.idea/navEditor.xml
-.idea/assetWizardSettings.xml
+# Expo
+.expo/
+dist/
+web-build/
+expo-env.d.ts
 
+# Native
+*.orig.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+
+# Metro
+.metro-health-check*
+
+# debug
+npm-*.*
+yarn-*.*
+
+# lockfiles
+package-lock.json
+yarn.lock
+
+# macOS
 .DS_Store
-build/
-captures/
+*.pem
 
-.vscode/
+# local env files
+.env*.local
 
+# typescript
+*.tsbuildinfo

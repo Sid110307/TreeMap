@@ -1,0 +1,31 @@
+{
+    "build": {
+        "development": {
+            "android": {
+                "resourceClass": "medium"
+            },
+            "channel": "development",
+            "developmentClient": true,
+            "distribution": "internal",
+            "environment": "development",
+            "ios": {
+                "resourceClass": "m-medium"
+            }
+        },
+        "production": {
+            "android": {
+                "credentialsSource": "local",
+                "resourceClass": "medium"
+            },
+            "autoIncrement": true,
+            "channel": "production",
+            "environment": "production",
+            "ios": {
+                "resourceClass": "m-medium"
+            }
+        }
+    },
+    "cli": {
+        "appVersionSource": "remote"
+    }
+}
