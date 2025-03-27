@@ -9,6 +9,7 @@ import {
 } from "@gorhom/bottom-sheet";
 import * as Font from "expo-font";
 import { useRouter } from "expo-router";
+import * as SQLite from "expo-sqlite";
 
 import colors from "../assets/colors";
 
@@ -101,3 +102,135 @@ export const BottomSheet = (props: BottomSheetProps) => {
 		</NativeBottomSheet>
 	);
 };
+
+export class DatabaseManager {
+	private db: SQLite.SQLiteDatabase | null = null;
+
+	constructor() {
+		this.init().catch(this.handleError);
+	}
+
+	init = async () => {
+		this.db = await SQLite.openDatabaseAsync("TreeMap.db");
+		await this.db.execAsync(`
+            CREATE TABLE IF NOT EXISTS TreeMap
+            (
+                id              TEXT NOT NULL PRIMARY KEY,
+                title           TEXT NOT NULL,
+                description     TEXT NOT NULL,
+                scientific_name TEXT NOT NULL,
+                latitude        REAL NOT NULL,
+                longitude       REAL NOT NULL,
+                created_at      DATETIME DEFAULT CURRENT_TIMESTAMP,
+                updated_at      DATETIME DEFAULT CURRENT_TIMESTAMP,
+                metadata        TEXT,
+                image           TEXT
+            );
+		`);
+	};
+
+	get = async (id: string) =>
+		this.runStatement(
+			`SELECT *
+             FROM TreeMap
+             WHERE id = ?`,
+			[id],
+			"first",
+		);
+
+	getAll = async () =>
+		this.runStatement(`SELECT *
+                           FROM TreeMap`);
+
+	upsert = async (data: DataEntry) => {
+		if (!this.db) {
+			this.handleError("Database not initialized");
+			return false;
+		}
+
+		const values = [
+			data.id,
+			data.title,
+			data.description,
+			data.scientific_name,
+			data.latitude,
+			data.longitude,
+			JSON.stringify(data.metadata ?? null),
+			data.image ?? null,
+		];
+		const statement = await this.db.prepareAsync(`
+            INSERT INTO TreeMap (id, title, description, scientific_name, latitude, longitude, metadata, image)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            ON CONFLICT(id) DO UPDATE SET title           = EXCLUDED.title,
+                                          description     = EXCLUDED.description,
+                                          scientific_name = EXCLUDED.scientific_name,
+                                          latitude        = EXCLUDED.latitude,
+                                          longitude       = EXCLUDED.longitude,
+                                          updated_at      = CURRENT_TIMESTAMP,
+                                          metadata        = EXCLUDED.metadata,
+                                          image           = EXCLUDED.image;
+		`);
+
+		try {
+			await this.db.withTransactionAsync(async () => {
+				await statement.executeAsync(values);
+			});
+			return true;
+		} catch (error) {
+			this.handleError(error);
+			return false;
+		} finally {
+			await statement.finalizeAsync();
+		}
+	};
+
+	delete = async (id: string) => {
+		if (!this.db) {
+			this.handleError("Database not initialized");
+			return false;
+		}
+
+		const statement = await this.db.prepareAsync(`DELETE
+                                                      FROM TreeMap
+                                                      WHERE id = ?`);
+
+		try {
+			await this.db.withTransactionAsync(async () => {
+				await statement.executeAsync([id]);
+			});
+			return true;
+		} catch (error) {
+			this.handleError(error);
+			return false;
+		} finally {
+			await statement.finalizeAsync();
+		}
+	};
+
+	private handleError = (error: any) => {
+		console.error(`Database Error: ${error.toString()}`);
+	};
+
+	private runStatement = async (
+		sql: string,
+		params: any[] = [],
+		mode: "first" | "all" = "all",
+	): Promise<any | null> => {
+		if (!this.db) {
+			this.handleError("Database not initialized");
+			return null;
+		}
+
+		const statement = await this.db.prepareAsync(sql);
+
+		try {
+			const result = await statement.executeAsync(params);
+			return mode === "first" ? await result.getFirstAsync() : await result.getAllAsync();
+		} catch (error) {
+			this.handleError(error);
+			return null;
+		} finally {
+			await statement.finalizeAsync();
+		}
+	};
+}
