@@ -5,9 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0f2f6cc9-dd77-41d9-ba42-74e6a37b6fc3" name="Changes" comment="v2 init">
+      <change afterPath="$PROJECT_DIR$/src/app/(tabs)/_layout.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/card.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/text.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.yarn/install-state.gz" beforeDir="false" afterPath="$PROJECT_DIR$/.yarn/install-state.gz" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app.config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/colors.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/assets/colors.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/adaptive-icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/adaptive-icon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/icon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/splash-icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/splash-icon.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/_layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/_layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/input/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(tabs)/input/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/manage/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(tabs)/manage/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/map/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(tabs)/map/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/nearby/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(tabs)/nearby/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/app.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,26 +34,26 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "Sid110307"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Sid110307&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Sid110307/TreeMap.git",
-    "accountId": "e55ef5bf-5c4b-4924-8487-ffc8e1846f3b"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Sid110307/TreeMap.git&quot;,
+    &quot;accountId&quot;: &quot;e55ef5bf-5c4b-4924-8487-ffc8e1846f3b&quot;
   }
-}]]></component>
+}</component>
   <component name="JsbtTreeLayoutManager">
     <layout place="tools.popupnpm">
       <scroll-view-position x="0" y="0" />
     </layout>
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 2
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
   <component name="ProjectId" id="2ut14EhgF39WwDCzNWYKcxZHNlc" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -47,38 +64,39 @@
     <option name="showExcludedFiles" value="false" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "master",
-    "ignore.virus.scanning.warn.message": "true",
-    "javascript.nodejs.core.library.configured.version": "20.18.0",
-    "javascript.nodejs.core.library.typings.version": "20.17.28",
-    "last_opened_file_path": "C:/Users/srsfo/Downloads/TreeMap",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_interpreter_path": "C:/Users/srsfo/AppData/Roaming/fnm/aliases/default/node",
-    "nodejs_package_manager_path": "yarn",
-    "prettierjs.PrettierConfiguration.Package": "C:\\Users\\srsfo\\Downloads\\TreeMap\\node_modules\\prettier",
-    "settings.editor.selected.configurable": "settings.javascript.prettier",
-    "ts.external.directory.path": "C:\\Users\\srsfo\\Downloads\\TreeMap\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;20.18.0&quot;,
+    &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;20.17.28&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/srsfo/Downloads/TreeMap/src/app/(tabs)&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_interpreter_path&quot;: &quot;C:/Users/srsfo/AppData/Roaming/fnm/aliases/default/node&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;yarn&quot;,
+    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;C:\\Users\\srsfo\\Downloads\\TreeMap\\node_modules\\prettier&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;settings.javascript.prettier&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\srsfo\\Downloads\\TreeMap\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\srsfo\Downloads\TreeMap\src\app\(tabs)" />
+      <recent name="C:\Users\srsfo\Downloads\TreeMap\assets\images" />
       <recent name="C:\Users\srsfo\Downloads\TreeMap\" />
       <recent name="C:\Users\srsfo\Downloads\TreeMap\assets\fonts" />
       <recent name="C:\Users\srsfo\Downloads\TreeMap\src\nearby" />
-      <recent name="C:\Users\srsfo\Downloads\TreeMap\src\map" />
-      <recent name="C:\Users\srsfo\Downloads\TreeMap\src\input" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\srsfo\Downloads\TreeMap\src" />
+      <recent name="C:\Users\srsfo\Downloads\TreeMap\src\app\(tabs)" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -96,7 +114,9 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1743052864468</updated>
-      <workItem from="1743052866102" duration="3988000" />
+      <workItem from="1743052866102" duration="4959000" />
+      <workItem from="1743057959807" duration="1682000" />
+      <workItem from="1743059682221" duration="2128000" />
     </task>
     <task id="LOCAL-00001" summary="v2 init">
       <option name="closed" value="true" />

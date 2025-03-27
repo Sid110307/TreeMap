@@ -1,32 +1,31 @@
 import React from "react";
 import { ActivityIndicator, View } from "react-native";
-
-import { useRouter } from "expo-router";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import Toast from "react-native-toast-message";
 
 import colors from "../../assets/colors";
 
-import { useOnStartup } from "../utils/app";
+import { useOnStartup } from "../utils";
 
 export default function Index() {
-	const router = useRouter();
 	const { loading, onStartup } = useOnStartup();
 
 	React.useEffect(() => {
-		onStartup()
-			.then(() => console.log("onStartup done"))
-			.catch(console.error);
+		onStartup().catch(console.error);
 	}, []);
 
-	if (!loading) router.navigate("/input");
 	return (
-		<View
-			style={{
-				flex: 1,
-				justifyContent: "center",
-				alignItems: "center",
-			}}
-		>
-			<ActivityIndicator size="large" color={colors.primary} />
-		</View>
+		<GestureHandlerRootView>
+			<View
+				style={{
+					flex: 1,
+					justifyContent: "center",
+					alignItems: "center",
+				}}
+			>
+				{loading && <ActivityIndicator size="large" color={colors.primary} />}
+			</View>
+			<Toast />
+		</GestureHandlerRootView>
 	);
 }

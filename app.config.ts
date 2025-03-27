@@ -21,7 +21,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
 		package: "com.sid.treemap",
 		adaptiveIcon: {
 			foregroundImage: "./assets/images/adaptive-icon.png",
-			backgroundColor: "#FFFFFF",
+			backgroundColor: "#3D89DA",
 		},
 	},
 	plugins: [
@@ -32,7 +32,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
 				image: "./assets/images/splash-icon.png",
 				imageWidth: 200,
 				resizeMode: "contain",
-				backgroundColor: "#FFFFFF",
+				backgroundColor: "#3D89DA",
 			},
 		],
 		[

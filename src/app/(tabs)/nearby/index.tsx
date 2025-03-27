@@ -1,7 +1,7 @@
 import { Text, View } from "react-native";
 
 export default () => (
-	<View>
+	<View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
 		<Text>Nearby</Text>
 	</View>
 );
