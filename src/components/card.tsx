@@ -3,8 +3,7 @@ import { Pressable, StyleProp, TextStyle, ViewStyle } from "react-native";
 
 import * as Haptics from "expo-haptics";
 
-import colors from "../../assets/colors";
-
+import colors from "../core/colors";
 import { HeadText } from "./text";
 
 interface CardProps {

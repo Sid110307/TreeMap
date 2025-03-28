@@ -4,10 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0f2f6cc9-dd77-41d9-ba42-74e6a37b6fc3" name="Changes" comment="Integrated local SQLite DB and reorganized utils">
+    <list default="true" id="0f2f6cc9-dd77-41d9-ba42-74e6a37b6fc3" name="Changes" comment="Minor update">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.yarn/install-state.gz" beforeDir="false" afterPath="$PROJECT_DIR$/.yarn/install-state.gz" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prettier.config.cjs" beforeDir="false" afterPath="$PROJECT_DIR$/prettier.config.cjs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/sheets/camera.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/sheets/camera.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/sheets/details.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/sheets/details.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/bottomSheet.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/bottomSheet.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/button.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/button.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/camera.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/camera.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/card.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/card.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/inputField.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/inputField.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/text.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/text.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/core/database.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/database.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/utils.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/utils.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/state.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/state.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/input.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/input.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -109,7 +121,7 @@
       <workItem from="1743057959807" duration="1682000" />
       <workItem from="1743059682221" duration="12434000" />
       <workItem from="1743072802454" duration="7897000" />
-      <workItem from="1743141043134" duration="4940000" />
+      <workItem from="1743141043134" duration="10804000" />
     </task>
     <task id="LOCAL-00001" summary="v2 init">
       <option name="closed" value="true" />
@@ -143,7 +155,15 @@
       <option name="project" value="LOCAL" />
       <updated>1743145468587</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Minor update">
+      <option name="closed" value="true" />
+      <created>1743146063694</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1743146063694</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -155,6 +175,7 @@
     <MESSAGE value="Added manual data entry with camera+gallery+url image" />
     <MESSAGE value="Added SQLite starter class" />
     <MESSAGE value="Integrated local SQLite DB and reorganized utils" />
-    <option name="LAST_COMMIT_MESSAGE" value="Integrated local SQLite DB and reorganized utils" />
+    <MESSAGE value="Minor update" />
+    <option name="LAST_COMMIT_MESSAGE" value="Minor update" />
   </component>
 </project>

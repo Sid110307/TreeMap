@@ -1,6 +1,11 @@
 import React from "react";
 import { Text as NativeText, TextProps } from "react-native";
-import Animated, { useDerivedValue, useSharedValue, withTiming } from "react-native-reanimated";
+import Animated, {
+	useAnimatedProps,
+	useDerivedValue,
+	useSharedValue,
+	withTiming,
+} from "react-native-reanimated";
 
 const AnimatedText = Animated.createAnimatedComponent(NativeText);
 
@@ -27,19 +32,22 @@ export const HeadText = (props: TextProps) => (
 );
 
 export const IncrementText = (props: IncrementTextProps) => {
-	const { value, duration = 1000 } = props;
+	const { value, duration = 1000, style, ...rest } = props;
 	const animatedValue = useSharedValue(value);
 
 	React.useEffect(() => {
-		if (value === animatedValue.value) return;
-		animatedValue.value = withTiming(value, { duration });
+		if (value !== animatedValue.value) animatedValue.value = withTiming(value, { duration });
 	}, [value, duration]);
 
 	const derivedText = useDerivedValue(() => Math.round(animatedValue.value).toString());
+	const animatedProps = useAnimatedProps(() => ({ children: derivedText.value }));
+
 	return (
-		<AnimatedText {...props} style={[{ fontFamily: "Regular" }, props.style]}>
-			{derivedText.value}
-		</AnimatedText>
+		<AnimatedText
+			{...rest}
+			animatedProps={animatedProps}
+			style={[{ fontFamily: "Regular" }, style]}
+		/>
 	);
 };
 

@@ -6,21 +6,21 @@ import Toast from "react-native-toast-message";
 import { CameraType, CameraView, FlashMode } from "expo-camera";
 import { ImageManipulator, SaveFormat } from "expo-image-manipulator";
 import { requestCameraPermissionsAsync } from "expo-image-picker";
+import { useRouter } from "expo-router";
 import {
 	AutoFlash,
 	Camera as CameraIcon,
+	Check,
 	Flash,
 	FlashOff,
 	Redo,
 	RotateCameraRight,
 } from "iconoir-react-native";
 
-import colors from "../../assets/colors";
-
+import colors from "../core/colors";
 import { heightToDp, widthToDp } from "../core/utils";
 
 interface CameraProps {
-	image: string;
 	setImage: (image: string) => void;
 	cameraRef: React.RefObject<CameraView>;
 	hideFlash?: boolean;
@@ -29,7 +29,10 @@ interface CameraProps {
 }
 
 export default (props: CameraProps) => {
+	const router = useRouter();
+
 	const [permissionGranted, setPermissionGranted] = React.useState<boolean | null>(null);
+	const [image, setImage] = React.useState<string | null>(null);
 	const [type, setType] = React.useState<"camera" | "preview">("camera");
 	const [face, setFace] = React.useState<CameraType>("back");
 	const [flash, setFlash] = React.useState<FlashMode>("off");
@@ -43,7 +46,7 @@ export default (props: CameraProps) => {
 	return (
 		<View style={{ alignItems: "center", justifyContent: "center" }}>
 			{permissionGranted ? (
-				<>
+				<View style={{ alignItems: "center", justifyContent: "center", gap: 16 }}>
 					<View
 						style={{
 							width: widthToDp("92%"),
@@ -80,7 +83,7 @@ export default (props: CameraProps) => {
 									>
 										<RotateCameraRight color={colors.light[500]} />
 									</Pressable>
-									{props.hideFlash && (
+									{!props.hideFlash && (
 										<Pressable
 											onPress={() =>
 												setFlash(
@@ -104,16 +107,18 @@ export default (props: CameraProps) => {
 								</View>
 							</CameraView>
 						) : (
-							<Image
-								source={{ uri: props.image }}
-								style={{ width: "100%", height: "100%" }}
-							/>
+							image && (
+								<Image
+									source={{ uri: image }}
+									style={{ width: "100%", height: "100%" }}
+								/>
+							)
 						)}
 					</View>
 					{type === "camera" ? (
 						<Pressable
 							style={{
-								backgroundColor: colors.light[0],
+								backgroundColor: colors.dark[500],
 								padding: 16,
 								borderRadius: 64,
 								justifyContent: "center",
@@ -138,7 +143,7 @@ export default (props: CameraProps) => {
 											})
 										).base64 as string;
 
-										props.setImage(`data:image/jpeg;base64,${compressedImage}`);
+										setImage(`data:image/jpeg;base64,${compressedImage}`);
 										setType("preview");
 									} catch (error) {
 										console.error("Error taking or compressing photo:", error);
@@ -151,23 +156,44 @@ export default (props: CameraProps) => {
 								}
 							}}
 						>
-							<CameraIcon color={colors.dark[400]} />
+							<CameraIcon color={colors.light[0]} />
 						</Pressable>
 					) : (
-						<Pressable
-							style={{
-								backgroundColor: colors.light[0],
-								padding: 16,
-								borderRadius: 64,
-								justifyContent: "center",
-								alignItems: "center",
-							}}
-							onPress={() => setType("camera")}
-						>
-							<Redo color={colors.dark[400]} />
-						</Pressable>
+						<View style={{ flexDirection: "row", gap: 16 }}>
+							<Pressable
+								style={{
+									backgroundColor: colors.dark[500],
+									borderWidth: 2,
+									borderColor: colors.dark[0],
+									padding: 16,
+									borderRadius: 64,
+									justifyContent: "center",
+									alignItems: "center",
+								}}
+								onPress={() => setType("camera")}
+							>
+								<Redo color={colors.light[300]} />
+							</Pressable>
+							<Pressable
+								style={{
+									backgroundColor: colors.dark[500],
+									borderWidth: 2,
+									borderColor: colors.primary,
+									padding: 16,
+									borderRadius: 64,
+									justifyContent: "center",
+									alignItems: "center",
+								}}
+								onPress={() => {
+									if (image) props.setImage(image);
+									router.back();
+								}}
+							>
+								<Check color={colors.primary} />
+							</Pressable>
+						</View>
 					)}
-				</>
+				</View>
 			) : (
 				<ActivityIndicator size="large" color={colors.primary} />
 			)}

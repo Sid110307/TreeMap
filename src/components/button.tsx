@@ -2,8 +2,7 @@ import React from "react";
 import { ActivityIndicator, StyleProp, TextStyle, View, ViewStyle } from "react-native";
 import { Pressable } from "react-native-gesture-handler";
 
-import colors from "../../assets/colors";
-
+import colors from "../core/colors";
 import Text from "./text";
 
 interface Props {

@@ -1,5 +1,5 @@
 import React from "react";
-import { View } from "react-native";
+import { Image, View } from "react-native";
 import Toast from "react-native-toast-message";
 
 import { FlashList } from "@shopify/flash-list";
@@ -8,7 +8,7 @@ import * as Location from "expo-location";
 import { useRouter } from "expo-router";
 
 import Card from "../components/card";
-import Text, { IncrementText } from "../components/text";
+import Text, { HeadText, IncrementText } from "../components/text";
 
 import colors from "../core/colors";
 import { databaseManager } from "../core/database";
@@ -159,7 +159,7 @@ export const StatsCard = () => {
 	}, []);
 
 	return (
-		<Card title="Statistics">
+		<Card title="Statistics" style={{ height: "100%" }}>
 			<View
 				style={{
 					flexDirection: "row",
@@ -185,21 +185,78 @@ export const StatsCard = () => {
 				</Card>
 			</View>
 			<FlashList
-				style={{ marginTop: 16 }}
-				data={data}
-				renderItem={({ item }) => (
+				data={data
+					?.sort(
+						(a, b) =>
+							new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime(),
+					)
+					.slice(0, 5)}
+				estimatedItemSize={120}
+				ListHeaderComponent={() => (
+					<HeadText style={{ marginVertical: 8 }}>Recently Added</HeadText>
+				)}
+				ListEmptyComponent={() => (
+					<Text style={{ textAlign: "center", marginVertical: 8 }}>
+						No entries found.
+					</Text>
+				)}
+				renderItem={({ item }: { item: DataEntry }) => (
 					<View
 						style={{
-							marginVertical: 8,
-							padding: 8,
-							backgroundColor: colors.light[200],
-							gap: 4,
+							flexDirection: "row",
+							alignItems: "center",
+							gap: 16,
+							borderBottomWidth: 1,
+							borderBottomColor: colors.dark[400],
+							paddingVertical: 8,
 						}}
 					>
-						<Text key={item.id}>
-							{item.title} - {item.scientific_name}
-						</Text>
-						<Text>{item.description}</Text>
+						<Image
+							source={{ uri: item.image }}
+							style={{ width: 64, height: 64, borderRadius: 8 }}
+							resizeMode="cover"
+						/>
+						<View style={{ flex: 1, gap: 8 }}>
+							<View
+								style={{
+									flexDirection: "row",
+									justifyContent: "space-between",
+									alignItems: "center",
+								}}
+							>
+								<Text style={{ fontFamily: "Bold" }}>{item.title}</Text>
+								{item.scientific_name && (
+									<Text
+										style={{
+											fontFamily: "Caption",
+											fontSize: 10,
+											color: colors.dark[500],
+										}}
+									>
+										{item.scientific_name}
+									</Text>
+								)}
+							</View>
+							{item.description && (
+								<Text style={{ textAlign: "justify" }}>{item.description}</Text>
+							)}
+							{item.metadata &&
+								item.metadata.length &&
+								!Object.values(item.metadata).every(
+									value => value.trim() === "",
+								) && (
+									<View style={{ gap: 4, marginTop: 4 }}>
+										{Object.entries(item.metadata).map(
+											([key, value]) =>
+												value.trim() !== "" && (
+													<Text key={key}>
+														{key}: {value}
+													</Text>
+												),
+										)}
+									</View>
+								)}
+						</View>
 					</View>
 				)}
 				keyExtractor={item => item.id}

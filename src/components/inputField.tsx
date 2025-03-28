@@ -3,8 +3,7 @@ import { KeyboardTypeOptions, StyleProp, TextInputProps, TextStyle } from "react
 
 import { BottomSheetTextInput } from "@gorhom/bottom-sheet";
 
-import colors from "../../assets/colors";
-
+import colors from "../core/colors";
 import { heightToDp, widthToDp } from "../core/utils";
 
 interface InputProps {
@@ -45,7 +44,7 @@ export default (props: InputProps) => {
 				},
 				props.customStyle,
 			]}
-			placeholderTextColor={colors.dark[500]}
+			placeholderTextColor={colors.light[500]}
 			multiline={props.multiline}
 		/>
 	);

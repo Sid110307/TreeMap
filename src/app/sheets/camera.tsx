@@ -1,5 +1,7 @@
 import React from "react";
 
+import { BottomSheetView } from "@gorhom/bottom-sheet";
+
 import BottomSheet from "../../components/bottomSheet";
 import Camera from "../../components/camera";
 import { HeadText } from "../../components/text";
@@ -12,8 +14,10 @@ export default () => {
 
 	return (
 		<BottomSheet>
-			<HeadText>Take a photo</HeadText>
-			<Camera cameraRef={cameraRef} image={image} setImage={setImage} />
+			<BottomSheetView style={{ padding: 16, gap: 12 }}>
+				<HeadText>Take a photo</HeadText>
+				<Camera cameraRef={cameraRef} setImage={setImage} />
+			</BottomSheetView>
 		</BottomSheet>
 	);
 };

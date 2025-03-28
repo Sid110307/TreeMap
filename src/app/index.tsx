@@ -1,16 +1,21 @@
 import React from "react";
 import { Image, View } from "react-native";
 
-import { SplashScreen } from "expo-router";
+import { SplashScreen, useRouter } from "expo-router";
 
 import { onStartup } from "../core/utils";
 
 SplashScreen.preventAutoHideAsync();
 
 export default () => {
+	const router = useRouter();
+
 	React.useEffect(() => {
 		onStartup()
-			.then(() => SplashScreen.hideAsync())
+			.then(() => {
+				SplashScreen.hideAsync();
+				router.navigate("/(tabs)/input");
+			})
 			.catch(console.error);
 	}, []);
 

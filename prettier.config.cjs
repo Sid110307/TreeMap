@@ -23,6 +23,8 @@ module.exports = {
 		"",
 		"^(.*)components(.*)$",
 		"",
+		"^(.*)core(.*)$",
+		"",
 		"^[.]",
 	],
 	importOrderTypeScriptVersion: "5.0.0",

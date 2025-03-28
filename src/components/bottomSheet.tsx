@@ -1,10 +1,6 @@
 import { Pressable } from "react-native-gesture-handler";
 
-import {
-	BottomSheetProps,
-	BottomSheetView,
-	default as NativeBottomSheet,
-} from "@gorhom/bottom-sheet";
+import { BottomSheetProps, default as NativeBottomSheet } from "@gorhom/bottom-sheet";
 import { useRouter } from "expo-router";
 
 export default (props: BottomSheetProps) => {
@@ -21,9 +17,7 @@ export default (props: BottomSheetProps) => {
 				/>
 			)}
 		>
-			<BottomSheetView style={{ flex: 1, padding: 8, paddingHorizontal: 16, gap: 12 }}>
-				{props.children}
-			</BottomSheetView>
+			{props.children}
 		</NativeBottomSheet>
 	);
 };

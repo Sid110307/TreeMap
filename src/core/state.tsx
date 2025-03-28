@@ -13,7 +13,7 @@ export const useEntryState = create<EntryState>(set => ({
 	scientificName: "",
 	image: "",
 	hasImageUrl: false,
-	metadata: {},
+	metadata: { "Trunk Diameter (cm)": "", "Height (m)": "", "Age (years)": "" },
 
 	setTitle: (title: string) => set({ title }),
 	setDescription: (description: string) => set({ description }),

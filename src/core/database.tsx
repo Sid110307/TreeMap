@@ -106,8 +106,23 @@ class DatabaseManager {
 			const statement = await this.db!.prepareAsync(sql);
 
 			try {
-				const result = await statement.executeAsync<DataEntry>(params ?? []);
-				return mode === "first" ? await result.getFirstAsync() : await result.getAllAsync();
+				const query = await statement.executeAsync<DataEntry>(params ?? []);
+
+				if (mode === "first") {
+					const result = await query.getFirstAsync();
+					if (!result) return null;
+
+					result.metadata = JSON.parse(result.metadata as unknown as string);
+					return result;
+				} else if (mode === "all") {
+					const result = await query.getAllAsync();
+					if (!result) return [];
+
+					result.forEach(
+						entry => (entry.metadata = JSON.parse(entry.metadata as unknown as string)),
+					);
+					return result;
+				} else return null;
 			} catch (error) {
 				throw new Error(`Database Error: ${error}`);
 			} finally {
