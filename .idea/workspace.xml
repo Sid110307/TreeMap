@@ -4,22 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0f2f6cc9-dd77-41d9-ba42-74e6a37b6fc3" name="Changes" comment="Fixed camera bugs, added stats, added custom metadata option, and refactored code">
-      <change afterPath="$PROJECT_DIR$/src/components/dataEntryItem.tsx" afterDir="false" />
+    <list default="true" id="0f2f6cc9-dd77-41d9-ba42-74e6a37b6fc3" name="Changes" comment="Added workflow">
+      <change afterPath="$PROJECT_DIR$/.eas/workflows/update.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/(tabs)/input.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(tabs)/input.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/(tabs)/nearby.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(tabs)/nearby.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/sheets/details.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/sheets/details.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/camera.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/camera.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/button.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/button.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/card.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/card.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/inputField.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/inputField.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/text.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/text.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/database.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/database.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/state.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/state.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/utils.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/utils.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/screens/input.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/input.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/types.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,40 +52,40 @@
     <option name="showExcludedFiles" value="false" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;20.18.0&quot;,
-    &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;20.17.28&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/srsfo/Downloads/TreeMap/assets/fonts&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_interpreter_path&quot;: &quot;C:/Users/srsfo/AppData/Roaming/fnm/aliases/default/node&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;yarn&quot;,
-    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;C:\\Users\\srsfo\\Downloads\\TreeMap\\node_modules\\prettier&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\srsfo\\Downloads\\TreeMap\\node_modules\\typescript\\lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "javascript.nodejs.core.library.configured.version": "20.18.0",
+    "javascript.nodejs.core.library.typings.version": "20.17.28",
+    "last_opened_file_path": "C:/Users/srsfo/Downloads/TreeMap/.eas/workflows",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_interpreter_path": "C:/Users/srsfo/AppData/Roaming/fnm/aliases/default/node",
+    "nodejs_package_manager_path": "yarn",
+    "prettierjs.PrettierConfiguration.Package": "C:\\Users\\srsfo\\Downloads\\TreeMap\\node_modules\\prettier",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "ts.external.directory.path": "C:\\Users\\srsfo\\Downloads\\TreeMap\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;sqlite&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "sqlite"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\srsfo\Downloads\TreeMap\.eas\workflows" />
       <recent name="C:\Users\srsfo\Downloads\TreeMap\assets\fonts" />
       <recent name="C:\Users\srsfo\Downloads\TreeMap\assets\images" />
       <recent name="C:\Users\srsfo\Downloads\TreeMap\src\app\(tabs)" />
       <recent name="C:\Users\srsfo\Downloads\TreeMap\" />
-      <recent name="C:\Users\srsfo\Downloads\TreeMap\src\nearby" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\srsfo\Downloads\TreeMap\src\core" />
@@ -121,7 +114,7 @@
       <workItem from="1743057959807" duration="1682000" />
       <workItem from="1743059682221" duration="12434000" />
       <workItem from="1743072802454" duration="7897000" />
-      <workItem from="1743141043134" duration="18764000" />
+      <workItem from="1743141043134" duration="20513000" />
     </task>
     <task id="LOCAL-00001" summary="v2 init">
       <option name="closed" value="true" />
@@ -171,7 +164,15 @@
       <option name="project" value="LOCAL" />
       <updated>1743152036814</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Refactor camera component, enhance database queries, and add recent entries display">
+      <option name="closed" value="true" />
+      <created>1743160234020</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1743160234020</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -185,6 +186,7 @@
     <MESSAGE value="Integrated local SQLite DB and reorganized utils" />
     <MESSAGE value="Minor update" />
     <MESSAGE value="Fixed camera bugs, added stats, added custom metadata option, and refactored code" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed camera bugs, added stats, added custom metadata option, and refactored code" />
+    <MESSAGE value="Refactor camera component, enhance database queries, and add recent entries display" />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactor camera component, enhance database queries, and add recent entries display" />
   </component>
 </project>
