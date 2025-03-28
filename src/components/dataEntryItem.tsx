@@ -1,6 +1,7 @@
 import React from "react";
-import { Image, View } from "react-native";
+import { View } from "react-native";
 import { Pressable } from "react-native-gesture-handler";
+import Animated, { Easing, LinearTransition } from "react-native-reanimated";
 
 import { useRouter } from "expo-router";
 import { Calendar, MapPin, PageEdit } from "iconoir-react-native";
@@ -8,6 +9,7 @@ import { DateTime } from "luxon";
 
 import colors from "../core/colors";
 import { useMapState } from "../core/state";
+import { heightToDp } from "../core/utils";
 import Text from "./text";
 
 interface DataEntryItemProps {
@@ -19,10 +21,13 @@ interface DataEntryItemProps {
 export default (props: DataEntryItemProps) => {
 	const router = useRouter();
 	const { setLatitude, setLongitude } = useMapState();
+
+	const [imageClicked, setImageClicked] = React.useState(false);
 	const [pressed, setPressed] = React.useState(false);
 
 	return (
-		<View
+		<Animated.View
+			layout={LinearTransition.easing(Easing.linear)}
 			style={{
 				alignItems: "center",
 				gap: 8,
@@ -31,18 +36,41 @@ export default (props: DataEntryItemProps) => {
 				paddingVertical: 8,
 			}}
 		>
-			<View style={{ flexDirection: "row", gap: 16, marginLeft: "auto" }}>
-				<Image
-					source={{ uri: props.item.image }}
-					style={{ width: 64, height: 64, borderRadius: 8 }}
-					resizeMode="cover"
-				/>
-				<View style={{ flex: 1, gap: 8 }}>
-					<View
+			<Animated.View
+				layout={LinearTransition.easing(Easing.linear)}
+				style={{
+					width: "100%",
+					flexDirection: imageClicked ? "column" : "row",
+					gap: 16,
+					marginLeft: "auto",
+				}}
+			>
+				<Pressable
+					onPress={() => setImageClicked(!imageClicked)}
+					style={{ justifyContent: imageClicked ? "center" : "flex-start" }}
+				>
+					<Animated.Image
+						layout={LinearTransition.easing(Easing.linear)}
+						source={{ uri: props.item.image }}
 						style={{
-							flexDirection: "row",
-							justifyContent: "space-between",
-							alignItems: "center",
+							width: imageClicked ? "100%" : 100,
+							height: imageClicked ? heightToDp("30%") : 100,
+							borderRadius: 8,
+						}}
+						resizeMode="cover"
+					/>
+				</Pressable>
+
+				<Animated.View
+					layout={LinearTransition.easing(Easing.linear)}
+					style={{ flex: 1, gap: 8 }}
+				>
+					<Animated.View
+						layout={LinearTransition.easing(Easing.linear)}
+						style={{
+							flexDirection: imageClicked ? "row" : "column",
+							justifyContent: imageClicked ? "space-between" : "flex-start",
+							gap: imageClicked ? 4 : 0,
 						}}
 					>
 						<Text style={{ fontFamily: "Bold" }}>{props.item.title}</Text>
@@ -57,7 +85,7 @@ export default (props: DataEntryItemProps) => {
 								{props.item.scientific_name}
 							</Text>
 						)}
-					</View>
+					</Animated.View>
 					{props.item.description && (
 						<Text style={{ textAlign: "justify", fontSize: 12 }}>
 							{props.item.description}
@@ -65,7 +93,7 @@ export default (props: DataEntryItemProps) => {
 					)}
 					{props.item.metadata &&
 						!Object.values(props.item.metadata).every(value => value.trim() === "") && (
-							<View style={{ gap: 4, marginTop: 4 }}>
+							<View>
 								{Object.entries(props.item.metadata).map(
 									([key, value]) =>
 										value.trim() !== "" && (
@@ -86,8 +114,8 @@ export default (props: DataEntryItemProps) => {
 								)}
 							</View>
 						)}
-				</View>
-			</View>
+				</Animated.View>
+			</Animated.View>
 			<View style={{ alignSelf: "flex-start", gap: 4 }}>
 				<Pressable
 					onPress={() => {
@@ -178,6 +206,6 @@ export default (props: DataEntryItemProps) => {
 					</Pressable>
 				)}
 			</View>
-		</View>
+		</Animated.View>
 	);
 };

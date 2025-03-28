@@ -69,15 +69,18 @@ export const UpdateButton = () => {
 					Updates.fetchUpdateAsync()
 						.then(() => {
 							try {
-								console.log("Update fetched. Reloading app...");
-								Updates.reloadAsync().catch(
-									e => `An error occurred while reloading the app: ${e}`,
+								Updates.reloadAsync().catch(e =>
+									console.error(
+										`An error occurred while reloading the app: ${e}`,
+									),
 								);
 							} catch (e) {
 								console.error(`An error occurred while updating the app: ${e}`);
 							}
 						})
-						.catch(e => `An error occurred while fetching the update: ${e}`);
+						.catch(e =>
+							console.error(`An error occurred while fetching the update: ${e}`),
+						);
 				}}
 			>
 				<Refresh width={12} height={12} color={colors.light[200]} />
@@ -131,6 +134,58 @@ export const CoordinatesCard = () => {
 								: "Loading..."}
 					</Text>
 				</View>
+			</View>
+		</Card>
+	);
+};
+
+export const StatsCard = () => {
+	const [identifiedTrees, setIdentifiedTrees] = React.useState<number>(0);
+	const [nearbyTrees, setNearbyTrees] = React.useState<number>(0);
+
+	const { listNearby } = useGeoState();
+
+	React.useEffect(() => {
+		databaseManager
+			.query("SELECT COUNT(*) as count FROM TreeMap")
+			.then(res => setIdentifiedTrees(res[0].count))
+			.catch(err => {
+				console.error(err);
+				Toast.show({
+					type: "error",
+					text1: "Error Fetching Data",
+					text2: "An error occurred while fetching your data.",
+				});
+			});
+		listNearby()
+			.then(data => setNearbyTrees(data.length))
+			.catch(console.error);
+	}, []);
+
+	return (
+		<Card title="Statistics">
+			<View
+				style={{
+					flexDirection: "row",
+					justifyContent: "space-between",
+					flexWrap: "wrap",
+					gap: 16,
+				}}
+			>
+				<Card style={{ alignItems: "center", width: widthToDp("40%"), marginVertical: 0 }}>
+					<IncrementText
+						style={{ fontFamily: "Bold", fontSize: 24, color: colors.primary }}
+						value={identifiedTrees}
+					/>
+					<Text>Identified Tree{identifiedTrees === 1 ? "" : "s"}</Text>
+				</Card>
+				<Card style={{ alignItems: "center", width: widthToDp("40%"), marginVertical: 0 }}>
+					<IncrementText
+						style={{ fontFamily: "Bold", fontSize: 24, color: colors.primary }}
+						value={nearbyTrees}
+					/>
+					<Text>Tree{nearbyTrees === 1 ? "" : "s"} near you</Text>
+				</Card>
 			</View>
 		</Card>
 	);
@@ -203,58 +258,6 @@ export const Actions = () => {
 				</View>
 			</Card>
 		</View>
-	);
-};
-
-export const StatsCard = () => {
-	const [identifiedTrees, setIdentifiedTrees] = React.useState<number>(0);
-	const [nearbyTrees, setNearbyTrees] = React.useState<number>(0);
-
-	const { listNearby } = useGeoState();
-
-	React.useEffect(() => {
-		databaseManager
-			.query("SELECT COUNT(*) as count FROM TreeMap")
-			.then(res => setIdentifiedTrees(res[0].count))
-			.catch(err => {
-				console.error(err);
-				Toast.show({
-					type: "error",
-					text1: "Error Fetching Data",
-					text2: "An error occurred while fetching your data.",
-				});
-			});
-		listNearby()
-			.then(data => setNearbyTrees(data.length))
-			.catch(console.error);
-	}, []);
-
-	return (
-		<Card title="Statistics">
-			<View
-				style={{
-					flexDirection: "row",
-					justifyContent: "space-between",
-					flexWrap: "wrap",
-					gap: 16,
-				}}
-			>
-				<Card style={{ alignItems: "center", width: widthToDp("40%"), marginVertical: 0 }}>
-					<IncrementText
-						style={{ fontFamily: "Bold", fontSize: 24, color: colors.primary }}
-						value={identifiedTrees}
-					/>
-					<Text>Identified Tree{identifiedTrees === 1 ? "" : "s"}</Text>
-				</Card>
-				<Card style={{ alignItems: "center", width: widthToDp("40%"), marginVertical: 0 }}>
-					<IncrementText
-						style={{ fontFamily: "Bold", fontSize: 24, color: colors.primary }}
-						value={nearbyTrees}
-					/>
-					<Text>Tree{nearbyTrees === 1 ? "" : "s"} near you</Text>
-				</Card>
-			</View>
-		</Card>
 	);
 };
 

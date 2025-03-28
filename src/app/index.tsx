@@ -32,10 +32,6 @@ export default () => {
 			location => {
 				setLatitude(location.coords.latitude);
 				setLongitude(location.coords.longitude);
-
-				console.info(
-					`Location Updated: ${location.coords.latitude}, ${location.coords.longitude}`,
-				);
 			},
 		)
 			.then(subscription => (locationSubscription.current = subscription))

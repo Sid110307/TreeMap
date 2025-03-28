@@ -13,8 +13,8 @@ export default () => (
 	<ScrollView contentContainerStyle={{ padding: 8, paddingHorizontal: 16 }}>
 		<UpdateButton />
 		<CoordinatesCard />
-		<Actions />
 		<StatsCard />
+		<Actions />
 		<RecentEntries />
 	</ScrollView>
 );
