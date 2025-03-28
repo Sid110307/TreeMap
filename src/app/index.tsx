@@ -3,6 +3,7 @@ import { Image, View } from "react-native";
 
 import * as Location from "expo-location";
 import { SplashScreen, useFocusEffect, useRouter } from "expo-router";
+import { StatusBar } from "expo-status-bar";
 
 import { useGeoState } from "../core/state";
 import { onStartup } from "../core/utils";
@@ -53,6 +54,7 @@ export default () => {
 
 	return (
 		<View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+			<StatusBar style="light" />
 			<Image
 				source={require("../../assets/images/icon.png")}
 				style={{ width: 200, height: 200 }}

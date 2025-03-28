@@ -1,7 +1,9 @@
 {
     "name": "treemap",
+    "description": "A Geospatial Tree Mapping Tool for Environmental Research",
     "main": "expo-router/entry",
     "version": "2.0.0",
+    "author": "Siddharth Praveen Bharadwaj",
     "scripts": {
         "dev": "expo start",
         "build-dev": "eas build --profile development",

@@ -4,14 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0f2f6cc9-dd77-41d9-ba42-74e6a37b6fc3" name="Changes" comment="UI animations">
+    <list default="true" id="0f2f6cc9-dd77-41d9-ba42-74e6a37b6fc3" name="Changes" comment="UI haptics refactor">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(tabs)/nearby.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(tabs)/nearby.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/sheets/details.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/sheets/details.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/card.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/card.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/inputField.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/inputField.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/text.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/text.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/screens/input.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/input.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/index.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,7 +66,7 @@
     "nodejs_package_manager_path": "yarn",
     "prettierjs.PrettierConfiguration.Package": "C:\\Users\\srsfo\\Downloads\\TreeMap\\node_modules\\prettier",
     "settings.editor.selected.configurable": "preferences.pluginManager",
-    "ts.external.directory.path": "C:\\Users\\srsfo\\Downloads\\TreeMap\\node_modules\\typescript\\lib",
+    "ts.external.directory.path": "C:\\Users\\srsfo\\AppData\\Local\\Programs\\WebStorm\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -113,7 +110,7 @@
       <workItem from="1743057959807" duration="1682000" />
       <workItem from="1743059682221" duration="12434000" />
       <workItem from="1743072802454" duration="7897000" />
-      <workItem from="1743141043134" duration="24963000" />
+      <workItem from="1743141043134" duration="25547000" />
     </task>
     <task id="LOCAL-00001" summary="v2 init">
       <option name="closed" value="true" />
@@ -211,7 +208,15 @@
       <option name="project" value="LOCAL" />
       <updated>1743166334758</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="UI haptics refactor">
+      <option name="closed" value="true" />
+      <created>1743166819298</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1743166819298</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -231,6 +236,7 @@
     <MESSAGE value="Add haptic feedback on tab press, enhance data entry item layout, and update nearby trees stats" />
     <MESSAGE value="Better date formatting and UI updates" />
     <MESSAGE value="UI animations" />
-    <option name="LAST_COMMIT_MESSAGE" value="UI animations" />
+    <MESSAGE value="UI haptics refactor" />
+    <option name="LAST_COMMIT_MESSAGE" value="UI haptics refactor" />
   </component>
 </project>
