@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleProp, TextStyle, ViewStyle } from "react-native";
+import { TextStyle, ViewStyle } from "react-native";
 import { Pressable } from "react-native-gesture-handler";
 
 import * as Haptics from "expo-haptics";
@@ -11,8 +11,8 @@ interface CardProps {
 	cta?: React.ReactNode;
 	children?: React.ReactNode;
 	title?: string;
-	titleStyle?: StyleProp<TextStyle>;
-	style?: StyleProp<ViewStyle>;
+	titleStyle?: TextStyle;
+	style?: ViewStyle;
 	onPress?: () => void;
 }
 

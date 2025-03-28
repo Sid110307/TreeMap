@@ -8,7 +8,8 @@ import * as Haptics from "expo-haptics";
 import { LinearGradient } from "expo-linear-gradient";
 import * as Location from "expo-location";
 import { useRouter } from "expo-router";
-import { RefreshDouble } from "iconoir-react-native";
+import * as Updates from "expo-updates";
+import { Refresh, RefreshDouble } from "iconoir-react-native";
 
 import Card from "../components/card";
 import DataEntryItem from "../components/dataEntryItem";
@@ -18,6 +19,73 @@ import colors from "../core/colors";
 import { databaseManager } from "../core/database";
 import { useGeoState } from "../core/state";
 import { heightToDp, widthToDp } from "../core/utils";
+
+export const UpdateButton = () => {
+	const [isUpdateAvailable, setIsUpdateAvailable] = React.useState(false);
+
+	React.useEffect(() => {
+		try {
+			if (!__DEV__)
+				Updates.checkForUpdateAsync().then(({ isAvailable }) =>
+					setIsUpdateAvailable(isAvailable),
+				);
+		} catch (e) {
+			console.error(`An error occurred while checking for updates: ${e}`);
+		}
+	}, []);
+
+	if (!isUpdateAvailable) return null;
+	return (
+		<View
+			style={{
+				width: "100%",
+				backgroundColor: colors.light[200],
+				borderWidth: 2,
+				borderColor: colors.primary,
+				borderRadius: 8,
+				alignSelf: "center",
+				flexDirection: "row",
+				justifyContent: "space-between",
+				alignItems: "center",
+				paddingVertical: 8,
+				paddingHorizontal: 12,
+				gap: 8,
+			}}
+		>
+			<Text style={{ fontFamily: "Bold" }}>Update available</Text>
+			<Pressable
+				style={{
+					backgroundColor: colors.primary,
+					paddingVertical: 8,
+					paddingHorizontal: 16,
+					borderRadius: 64,
+					gap: 8,
+					flexDirection: "row",
+					justifyContent: "center",
+					alignItems: "center",
+				}}
+				onPress={() => {
+					if (__DEV__) return;
+					Updates.fetchUpdateAsync()
+						.then(() => {
+							try {
+								console.log("Update fetched. Reloading app...");
+								Updates.reloadAsync().catch(
+									e => `An error occurred while reloading the app: ${e}`,
+								);
+							} catch (e) {
+								console.error(`An error occurred while updating the app: ${e}`);
+							}
+						})
+						.catch(e => `An error occurred while fetching the update: ${e}`);
+				}}
+			>
+				<Refresh width={12} height={12} color={colors.light[200]} />
+				<Text style={{ color: colors.light[200], fontSize: 12 }}>Restart</Text>
+			</Pressable>
+		</View>
+	);
+};
 
 export const CoordinatesCard = () => {
 	const [hasLocation, setHasLocation] = React.useState(false);
@@ -102,9 +170,14 @@ export const Actions = () => {
 					start={{ x: 0, y: 0 }}
 					colors={[colors.tint[0], colors.tint[200], colors.tint[400]]}
 				/>
-				<HeadText style={{ fontFamily: "Bold", color: colors.light[0] }}>
-					Take a photo of a leaf
-				</HeadText>
+				<View style={{ flex: 1, justifyContent: "flex-end" }}>
+					<HeadText style={{ fontFamily: "Bold", color: colors.light[0] }}>
+						Take a photo of a
+					</HeadText>
+					<HeadText style={{ fontSize: 20, fontFamily: "Title", color: colors.light[0] }}>
+						leaf
+					</HeadText>
+				</View>
 			</Card>
 			<Card style={{ flex: 1 }} onPress={() => router.navigate("/sheets/details")}>
 				<LinearGradient
@@ -120,9 +193,14 @@ export const Actions = () => {
 					start={{ x: 1, y: 0 }}
 					colors={[colors.tint[500], colors.tint[700], colors.tint[900]]}
 				/>
-				<HeadText style={{ fontFamily: "Bold", color: colors.light[0] }}>
-					Enter details manually
-				</HeadText>
+				<View style={{ flex: 1, justifyContent: "flex-end" }}>
+					<HeadText style={{ fontFamily: "Bold", color: colors.light[0] }}>
+						Enter details
+					</HeadText>
+					<HeadText style={{ fontSize: 20, fontFamily: "Title", color: colors.light[0] }}>
+						manually
+					</HeadText>
+				</View>
 			</Card>
 		</View>
 	);
@@ -165,7 +243,7 @@ export const StatsCard = () => {
 				<Card style={{ alignItems: "center", width: widthToDp("40%"), marginVertical: 0 }}>
 					<IncrementText
 						style={{ fontFamily: "Bold", fontSize: 24, color: colors.primary }}
-						value={100}
+						value={0}
 					/>
 					<Text>Trees in your region</Text>
 				</Card>

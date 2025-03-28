@@ -1,5 +1,5 @@
 import React from "react";
-import { ActivityIndicator, StyleProp, TextStyle, View, ViewStyle } from "react-native";
+import { ActivityIndicator, TextStyle, View, ViewStyle } from "react-native";
 import { Pressable } from "react-native-gesture-handler";
 
 import colors from "../core/colors";
@@ -10,8 +10,8 @@ interface Props {
 	text?: string;
 	textComponent?: React.ReactNode;
 	color?: string;
-	style?: StyleProp<ViewStyle>;
-	textStyle?: StyleProp<TextStyle>;
+	style?: ViewStyle;
+	textStyle?: TextStyle;
 	loading?: boolean;
 	disabled?: boolean;
 }

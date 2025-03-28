@@ -4,7 +4,7 @@ import { RefreshControl, ScrollView } from "react-native-gesture-handler";
 
 import { FlashList } from "@shopify/flash-list";
 import * as Haptics from "expo-haptics";
-import { useFocusEffect, useRouter } from "expo-router";
+import { useFocusEffect } from "expo-router";
 import { RefreshDouble } from "iconoir-react-native";
 
 import Card from "../../components/card";
@@ -16,7 +16,6 @@ import colors from "../../core/colors";
 import { useGeoState } from "../../core/state";
 
 export default () => {
-	const router = useRouter();
 	const [data, setData] = React.useState<DataEntry[]>([]);
 	const { latitude, longitude, radius, setRadius, listNearby } = useGeoState();
 
