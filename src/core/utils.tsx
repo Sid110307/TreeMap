@@ -5,6 +5,7 @@ import { BaseToast, ToastConfig } from "react-native-toast-message";
 import * as Font from "expo-font";
 
 import colors from "./colors";
+import { databaseManager } from "./database";
 
 const { width, height } = Dimensions.get("window");
 
@@ -31,6 +32,7 @@ export const onStartup = async () => {
 		Title: require("../../assets/fonts/PlayfairDisplay-BlackItalic.ttf"),
 		Caption: require("../../assets/fonts/IBMPlexMono-Regular.ttf"),
 	});
+	await databaseManager.init();
 };
 
 export const toastConfig: ToastConfig = {

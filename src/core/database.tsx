@@ -3,11 +3,24 @@ import * as SQLite from "expo-sqlite";
 class DatabaseManager {
 	private db: SQLite.SQLiteDatabase | null = null;
 
-	constructor() {
-		this.init().catch(error => {
-			throw new Error(`Database Error: ${error}`);
-		});
-	}
+	init = async () => {
+		this.db = await SQLite.openDatabaseAsync("TreeMap.db");
+		await this.db.execAsync(`
+            CREATE TABLE IF NOT EXISTS TreeMap
+            (
+                id              TEXT NOT NULL PRIMARY KEY,
+                title           TEXT NOT NULL,
+                description     TEXT NOT NULL,
+                scientific_name TEXT NOT NULL,
+                latitude        REAL NOT NULL,
+                longitude       REAL NOT NULL,
+                created_at      DATETIME DEFAULT CURRENT_TIMESTAMP,
+                updated_at      DATETIME DEFAULT CURRENT_TIMESTAMP,
+                metadata        TEXT,
+                image           TEXT
+            );
+		`);
+	};
 
 	get = async (id: string) =>
 		this.runStatement(
@@ -79,25 +92,6 @@ class DatabaseManager {
 		} finally {
 			await statement.finalizeAsync();
 		}
-	};
-
-	private init = async () => {
-		this.db = await SQLite.openDatabaseAsync("TreeMap.db");
-		await this.db.execAsync(`
-            CREATE TABLE IF NOT EXISTS TreeMap
-            (
-                id              TEXT NOT NULL PRIMARY KEY,
-                title           TEXT NOT NULL,
-                description     TEXT NOT NULL,
-                scientific_name TEXT NOT NULL,
-                latitude        REAL NOT NULL,
-                longitude       REAL NOT NULL,
-                created_at      DATETIME DEFAULT CURRENT_TIMESTAMP,
-                updated_at      DATETIME DEFAULT CURRENT_TIMESTAMP,
-                metadata        TEXT,
-                image           TEXT
-            );
-		`);
 	};
 
 	private runStatement(sql: string, mode: "first", params?: any[]): Promise<DataEntry | null>;
