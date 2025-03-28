@@ -44,10 +44,10 @@ export default () => {
 						gap: 8,
 					}}
 				>
-					<Text style={{ flex: 2 }}>Search Radius (m):</Text>
+					<Text style={{ flex: 3 }}>Search Radius (m):</Text>
 					<InputField
 						value={radius.toString()}
-						style={{ flex: 3 }}
+						style={{ flex: 2 }}
 						onChangeText={text => setRadius(parseInt(text, 10))}
 						keyboardType="number-pad"
 					/>

@@ -3,7 +3,7 @@ import { KeyboardTypeOptions, TextInputProps } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 
 import colors from "../core/colors";
-import { heightToDp, widthToDp } from "../core/utils";
+import { heightToDp } from "../core/utils";
 
 interface InputProps {
 	keyboardType?: KeyboardTypeOptions;
@@ -32,7 +32,8 @@ export default (props: TextInputProps & InputProps) => {
 					borderRadius: 8,
 					borderWidth: 1,
 					borderColor: focused ? colors.tint[0] : colors.light[500],
-					paddingLeft: widthToDp("5%"),
+					paddingLeft: 12,
+					paddingRight: 8,
 				},
 				props.style,
 			]}

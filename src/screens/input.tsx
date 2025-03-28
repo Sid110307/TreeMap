@@ -9,7 +9,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import * as Location from "expo-location";
 import { useRouter } from "expo-router";
 import * as Updates from "expo-updates";
-import { Refresh, RefreshDouble } from "iconoir-react-native";
+import { NavigatorAlt, Refresh, RefreshDouble } from "iconoir-react-native";
 
 import Card from "../components/card";
 import DataEntryItem from "../components/dataEntryItem";
@@ -190,8 +190,8 @@ export const Actions = () => {
 						bottom: 0,
 						borderRadius: 8,
 					}}
-					start={{ x: 1, y: 0 }}
-					colors={[colors.tint[500], colors.tint[700], colors.tint[900]]}
+					start={{ x: 0, y: 0 }}
+					colors={[colors.tint[900], colors.tint[700], colors.tint[500]]}
 				/>
 				<View style={{ flex: 1, justifyContent: "flex-end" }}>
 					<HeadText style={{ fontFamily: "Bold", color: colors.light[0] }}>
@@ -208,6 +208,9 @@ export const Actions = () => {
 
 export const StatsCard = () => {
 	const [identifiedTrees, setIdentifiedTrees] = React.useState<number>(0);
+	const [nearbyTrees, setNearbyTrees] = React.useState<number>(0);
+
+	const { listNearby } = useGeoState();
 
 	React.useEffect(() => {
 		databaseManager
@@ -221,6 +224,9 @@ export const StatsCard = () => {
 					text2: "An error occurred while fetching your data.",
 				});
 			});
+		listNearby()
+			.then(data => setNearbyTrees(data.length))
+			.catch(console.error);
 	}, []);
 
 	return (
@@ -238,28 +244,14 @@ export const StatsCard = () => {
 						style={{ fontFamily: "Bold", fontSize: 24, color: colors.primary }}
 						value={identifiedTrees}
 					/>
-					<Text>Identified Trees</Text>
+					<Text>Identified Tree{identifiedTrees === 1 ? "" : "s"}</Text>
 				</Card>
 				<Card style={{ alignItems: "center", width: widthToDp("40%"), marginVertical: 0 }}>
 					<IncrementText
 						style={{ fontFamily: "Bold", fontSize: 24, color: colors.primary }}
-						value={0}
+						value={nearbyTrees}
 					/>
-					<Text>Trees in your region</Text>
-				</Card>
-				<Card style={{ alignItems: "center", width: widthToDp("40%"), marginVertical: 0 }}>
-					<IncrementText
-						style={{ fontFamily: "Bold", fontSize: 24, color: colors.primary }}
-						value={0}
-					/>
-					<Text>Dummy Text</Text>
-				</Card>
-				<Card style={{ alignItems: "center", width: widthToDp("40%"), marginVertical: 0 }}>
-					<IncrementText
-						style={{ fontFamily: "Bold", fontSize: 24, color: colors.primary }}
-						value={0}
-					/>
-					<Text>Dummy Text</Text>
+					<Text>Tree{nearbyTrees === 1 ? "" : "s"} near you</Text>
 				</Card>
 			</View>
 		</Card>
@@ -288,7 +280,11 @@ export const RecentEntries = () => {
 		<Card
 			title="Recently Added"
 			cta={
-				<Pressable onPress={() => router.navigate("/nearby")}>
+				<Pressable
+					onPress={() => router.navigate("/nearby")}
+					style={{ flexDirection: "row", alignItems: "center", gap: 4 }}
+				>
+					<NavigatorAlt width={16} height={16} color={colors.primary} />
 					<Text
 						style={{
 							fontFamily: "Bold",
@@ -297,7 +293,7 @@ export const RecentEntries = () => {
 							color: colors.primary,
 						}}
 					>
-						View Nearby Trees
+						Nearby Trees
 					</Text>
 				</Pressable>
 			}

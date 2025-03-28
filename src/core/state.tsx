@@ -91,3 +91,10 @@ export const useEntryState = create<EntryState>(set => ({
 	setHasImageUrl: (hasImageUrl: boolean) => set({ hasImageUrl }),
 	setMetadata: (metadata: Record<string, string>) => set({ metadata }),
 }));
+
+export const useMapState = create<MapState>((set, get) => ({
+	latitude: 0,
+	longitude: 0,
+	setLatitude: (latitude: number) => set({ latitude }),
+	setLongitude: (longitude: number) => set({ longitude }),
+}));

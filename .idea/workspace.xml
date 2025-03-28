@@ -4,15 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0f2f6cc9-dd77-41d9-ba42-74e6a37b6fc3" name="Changes" comment="Added workflow">
-      <change afterPath="$PROJECT_DIR$/.eas/workflows/update.yml" afterDir="false" />
+    <list default="true" id="0f2f6cc9-dd77-41d9-ba42-74e6a37b6fc3" name="Changes" comment="Finished incrementing text">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(tabs)/input.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(tabs)/input.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(tabs)/_layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(tabs)/_layout.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/(tabs)/nearby.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(tabs)/nearby.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/button.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/button.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/card.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/card.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/text.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/text.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/dataEntryItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dataEntryItem.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/inputField.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/inputField.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/state.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/state.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/screens/input.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/input.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/types.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -114,7 +114,7 @@
       <workItem from="1743057959807" duration="1682000" />
       <workItem from="1743059682221" duration="12434000" />
       <workItem from="1743072802454" duration="7897000" />
-      <workItem from="1743141043134" duration="20513000" />
+      <workItem from="1743141043134" duration="21848000" />
     </task>
     <task id="LOCAL-00001" summary="v2 init">
       <option name="closed" value="true" />
@@ -172,7 +172,23 @@
       <option name="project" value="LOCAL" />
       <updated>1743160234020</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Added workflow">
+      <option name="closed" value="true" />
+      <created>1743162083030</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1743162083030</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Finished incrementing text">
+      <option name="closed" value="true" />
+      <created>1743162103572</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1743162103572</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -187,6 +203,8 @@
     <MESSAGE value="Minor update" />
     <MESSAGE value="Fixed camera bugs, added stats, added custom metadata option, and refactored code" />
     <MESSAGE value="Refactor camera component, enhance database queries, and add recent entries display" />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactor camera component, enhance database queries, and add recent entries display" />
+    <MESSAGE value="Added workflow" />
+    <MESSAGE value="Finished incrementing text" />
+    <option name="LAST_COMMIT_MESSAGE" value="Finished incrementing text" />
   </component>
 </project>

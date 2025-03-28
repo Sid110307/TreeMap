@@ -37,3 +37,10 @@ interface EntryState {
 	setHasImageUrl: (hasImageUrl: boolean) => void;
 	setMetadata: (metadata: Record<string, string>) => void;
 }
+
+interface MapState {
+	latitude: number;
+	longitude: number;
+	setLatitude: (latitude: number) => void;
+	setLongitude: (longitude: number) => void;
+}

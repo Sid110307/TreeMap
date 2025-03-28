@@ -1,3 +1,4 @@
+import * as Haptics from "expo-haptics";
 import { Tabs } from "expo-router";
 import { GridPlus, InputField, Map, NavigatorAlt } from "iconoir-react-native";
 
@@ -7,6 +8,9 @@ export default () => (
 	<Tabs
 		initialRouteName="input"
 		screenOptions={{ tabBarActiveTintColor: colors.primary, headerShown: false }}
+		screenListeners={{
+			tabPress: async () => await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Rigid),
+		}}
 	>
 		<Tabs.Screen
 			name="input"
