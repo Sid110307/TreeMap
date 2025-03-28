@@ -14,8 +14,12 @@ interface DataEntry {
 interface GeoState {
 	latitude: number;
 	longitude: number;
+	radius: number;
 	setLatitude: (latitude: number) => void;
 	setLongitude: (longitude: number) => void;
+	setRadius: (radius: number) => void;
+	listNearby: () => Promise<DataEntry[]>;
+	refetchGeoState: (current?: boolean) => Promise<void>;
 }
 
 interface EntryState {

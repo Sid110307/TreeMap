@@ -4,6 +4,8 @@ class DatabaseManager {
 	private db: SQLite.SQLiteDatabase | null = null;
 
 	init = async () => {
+		if (this.db) return;
+
 		this.db = await SQLite.openDatabaseAsync("TreeMap.db");
 		await this.db.execAsync(`
             CREATE TABLE IF NOT EXISTS TreeMap
@@ -22,24 +24,19 @@ class DatabaseManager {
 		`);
 	};
 
-	get = async (id: string) =>
-		this.runStatement(
-			`SELECT *
-             FROM TreeMap
-             WHERE id = ?`,
-			"first",
-			[id],
-		);
+	query = async <T extends DataEntry[] = any>(query: string, params?: any[]) => {
+		let result = await this.runStatement<T>(query, "all", params);
 
-	getAll = async () =>
-		this.runStatement(
-			`SELECT *
-             FROM TreeMap`,
-			"all",
-		);
+		if (typeof result === "object" && "id" in result) result = this.parseMetadata(result);
+		else if (Array.isArray(result) && result.length > 0 && "id" in result[0])
+			result.forEach(entry => this.parseMetadata(entry));
+
+		return result;
+	};
 
 	upsert = async (data: Omit<DataEntry, "created_at" | "updated_at">) => {
-		if (!this.db) throw new Error(`Database Error: Database not initialized`);
+		await this.init();
+		if (!this.db) throw new Error("Database Error: Database not initialized");
 
 		const statement = await this.db.prepareAsync(`
             INSERT INTO TreeMap (id, title, description, scientific_name, latitude, longitude, metadata, image)
@@ -53,20 +50,19 @@ class DatabaseManager {
                                           metadata        = EXCLUDED.metadata,
                                           image           = EXCLUDED.image;
 		`);
-		const values = [
-			data.id,
-			data.title,
-			data.description,
-			data.scientific_name,
-			data.latitude,
-			data.longitude,
-			JSON.stringify(data.metadata ?? null),
-			data.image ?? null,
-		];
 
 		try {
 			await this.db.withTransactionAsync(async () => {
-				await statement.executeAsync<DataEntry>(values);
+				await statement.executeAsync<DataEntry>([
+					data.id,
+					data.title,
+					data.description,
+					data.scientific_name,
+					data.latitude,
+					data.longitude,
+					JSON.stringify(data.metadata ?? null),
+					data.image ?? null,
+				]);
 			});
 			return true;
 		} catch (error) {
@@ -77,10 +73,14 @@ class DatabaseManager {
 	};
 
 	delete = async (id: string) => {
-		if (!this.db) throw new Error(`Database Error: Database not initialized`);
-		const statement = await this.db.prepareAsync(`DELETE
-                                                      FROM TreeMap
-                                                      WHERE id = ?`);
+		await this.init();
+		if (!this.db) throw new Error("Database Error: Database not initialized");
+
+		const statement = await this.db.prepareAsync(
+			`DELETE
+             FROM TreeMap
+             WHERE id = ?`,
+		);
 
 		try {
 			await this.db.withTransactionAsync(async () => {
@@ -94,41 +94,38 @@ class DatabaseManager {
 		}
 	};
 
-	private runStatement(sql: string, mode: "first", params?: any[]): Promise<DataEntry | null>;
-	private runStatement(sql: string, mode: "all", params?: any[]): Promise<DataEntry[]>;
-	private runStatement(
+	private async runStatement<T>(sql: string, mode: "first", params?: any[]): Promise<T | null>;
+	private async runStatement<T>(sql: string, mode: "all", params?: any[]): Promise<T[]>;
+	private async runStatement<T>(
 		sql: string,
 		mode: "first" | "all",
 		params?: any[],
-	): Promise<DataEntry | DataEntry[] | null> {
-		if (!this.db) throw new Error(`Database Error: Database not initialized`);
+	): Promise<T | T[] | null> {
+		await this.init();
+		if (!this.db) throw new Error("Database Error: Database not initialized");
+
 		return (async () => {
 			const statement = await this.db!.prepareAsync(sql);
 
 			try {
-				const query = await statement.executeAsync<DataEntry>(params ?? []);
-
-				if (mode === "first") {
-					const result = await query.getFirstAsync();
-					if (!result) return null;
-
-					result.metadata = JSON.parse(result.metadata as unknown as string);
-					return result;
-				} else if (mode === "all") {
-					const result = await query.getAllAsync();
-					if (!result) return [];
-
-					result.forEach(
-						entry => (entry.metadata = JSON.parse(entry.metadata as unknown as string)),
-					);
-					return result;
-				} else return null;
+				const query = await statement.executeAsync<T>(params ?? []);
+				return mode === "first" ? await query.getFirstAsync() : await query.getAllAsync();
 			} catch (error) {
 				throw new Error(`Database Error: ${error}`);
 			} finally {
 				await statement.finalizeAsync();
 			}
 		})();
+	}
+
+	private parseMetadata(entry: any) {
+		if (entry && entry.metadata)
+			try {
+				entry.metadata = JSON.parse(entry.metadata as unknown as string);
+			} catch {
+				entry.metadata = {};
+			}
+		return entry;
 	}
 }
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { Text as NativeText, TextProps } from "react-native";
+import { Text as NativeText, TextProps, View } from "react-native";
 import Animated, {
 	useAnimatedProps,
 	useDerivedValue,
@@ -14,21 +14,30 @@ interface IncrementTextProps extends TextProps {
 	duration?: number;
 }
 
-export const HeadText = (props: TextProps) => (
-	<Text
-		{...props}
-		style={[
-			{
-				fontFamily: "Medium",
-				fontSize: 14,
-				letterSpacing: 2,
-				textTransform: "uppercase",
-			},
-			props.style,
-		]}
+export const HeadText = (props: TextProps & { cta?: React.ReactNode }) => (
+	<View
+		style={{
+			flexDirection: "row",
+			justifyContent: "space-between",
+			alignItems: "center",
+		}}
 	>
-		{props.children}
-	</Text>
+		<Text
+			{...props}
+			style={[
+				{
+					fontFamily: "Medium",
+					fontSize: 14,
+					letterSpacing: 2,
+					textTransform: "uppercase",
+				},
+				props.style,
+			]}
+		>
+			{props.children}
+		</Text>
+		{props.cta}
+	</View>
 );
 
 export const IncrementText = (props: IncrementTextProps) => {

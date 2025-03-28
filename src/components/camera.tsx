@@ -31,7 +31,7 @@ interface CameraProps {
 export default (props: CameraProps) => {
 	const router = useRouter();
 
-	const [permissionGranted, setPermissionGranted] = React.useState<boolean | null>(null);
+	const [permissionGranted, setPermissionGranted] = React.useState<boolean>(false);
 	const [image, setImage] = React.useState<string | null>(null);
 	const [type, setType] = React.useState<"camera" | "preview">("camera");
 	const [face, setFace] = React.useState<CameraType>("back");

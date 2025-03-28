@@ -1,5 +1,6 @@
 import React from "react";
-import { Pressable, StyleProp, TextStyle, ViewStyle } from "react-native";
+import { StyleProp, TextStyle, ViewStyle } from "react-native";
+import { Pressable } from "react-native-gesture-handler";
 
 import * as Haptics from "expo-haptics";
 
@@ -7,6 +8,7 @@ import colors from "../core/colors";
 import { HeadText } from "./text";
 
 interface CardProps {
+	cta?: React.ReactNode;
 	children?: React.ReactNode;
 	title?: string;
 	titleStyle?: StyleProp<TextStyle>;
@@ -35,7 +37,11 @@ export default (props: CardProps) => (
 			props.onPress();
 		}}
 	>
-		{props.title && <HeadText style={props.titleStyle}>{props.title}</HeadText>}
+		{props.title && (
+			<HeadText style={props.titleStyle} cta={props.cta}>
+				{props.title}
+			</HeadText>
+		)}
 		{props.children}
 	</Pressable>
 );

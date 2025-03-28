@@ -1,12 +1,13 @@
 import React from "react";
-import { View } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
 
-import { Actions, CoordinatesCard, StatsCard } from "../../screens/input";
+import { Actions, CoordinatesCard, RecentEntries, StatsCard } from "../../screens/input";
 
 export default () => (
-	<View style={{ padding: 8, paddingHorizontal: 16 }}>
+	<ScrollView contentContainerStyle={{ padding: 8, paddingHorizontal: 16 }}>
 		<CoordinatesCard />
 		<Actions />
 		<StatsCard />
-	</View>
+		<RecentEntries />
+	</ScrollView>
 );

@@ -23,6 +23,15 @@ export const heightToDp = (num: string) => {
 	return PixelRatio.roundToNearestPixel((height * parsed) / 100);
 };
 
+export const haversineDistance = (lat1: number, lng1: number, lat2: number, lng2: number) => {
+	const toRad = (deg: number) => (deg * Math.PI) / 180;
+	const a =
+		Math.sin(toRad(lat2 - lat1) / 2) ** 2 +
+		Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(toRad(lng2 - lng1) / 2) ** 2;
+
+	return 6371000 * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+};
+
 export const onStartup = async () => {
 	await Font.loadAsync({
 		Bold: require("../../assets/fonts/Outfit-Bold.ttf"),

@@ -61,6 +61,7 @@ export default () => {
 			return;
 		}
 
+		setMetadata(metadata);
 		const fullMetadata = { ...metadata };
 		customFields.forEach(({ key, value }) => {
 			if (key) fullMetadata[key] = value;
@@ -118,25 +119,22 @@ export default () => {
 					value={scientificName}
 					onChangeText={setScientificName}
 				/>
-				<View
-					style={{
-						flexDirection: "row",
-						justifyContent: "space-between",
-						alignItems: "center",
-					}}
+				<HeadText
+					cta={
+						image && (
+							<Pressable
+								onPress={() => {
+									setImage("");
+									setHasImageUrl(false);
+								}}
+							>
+								<BinMinusIn color={colors.error} />
+							</Pressable>
+						)
+					}
 				>
-					<HeadText>Upload image</HeadText>
-					{image && (
-						<Pressable
-							onPress={() => {
-								setImage("");
-								setHasImageUrl(false);
-							}}
-						>
-							<BinMinusIn color={colors.error} />
-						</Pressable>
-					)}
-				</View>
+					Upload image
+				</HeadText>
 				<View style={{ flexDirection: "row", gap: 8 }}>
 					<Button
 						textComponent={<Camera color={colors.dark[100]} />}
@@ -196,7 +194,7 @@ export default () => {
 
 								setCustomFields(copy);
 							}}
-							customStyle={{ flex: 6 }}
+							style={{ flex: 6 }}
 						/>
 						<InputField
 							placeholder="Value"
@@ -208,7 +206,7 @@ export default () => {
 								setCustomFields(copy);
 							}}
 							keyboardType={field.isNumeric ? "numeric" : "default"}
-							customStyle={{ flex: 5 }}
+							style={{ flex: 5 }}
 						/>
 						<Button
 							textComponent={
