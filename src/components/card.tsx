@@ -8,12 +8,13 @@ import colors from "../core/colors";
 import { HeadText } from "./text";
 
 interface CardProps {
-	cta?: React.ReactNode;
 	children?: React.ReactNode;
 	title?: string;
 	titleStyle?: TextStyle;
 	style?: ViewStyle;
 	onPress?: () => void;
+	cta?: React.ReactNode;
+	ctaPress?: () => void;
 }
 
 export default (props: CardProps) => (
@@ -38,7 +39,7 @@ export default (props: CardProps) => (
 		}}
 	>
 		{props.title && (
-			<HeadText style={props.titleStyle} cta={props.cta}>
+			<HeadText style={props.titleStyle} cta={props.cta} ctaPress={props.ctaPress}>
 				{props.title}
 			</HeadText>
 		)}

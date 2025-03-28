@@ -4,7 +4,6 @@ import { Pressable } from "react-native-gesture-handler";
 import Toast from "react-native-toast-message";
 
 import { FlashList } from "@shopify/flash-list";
-import * as Haptics from "expo-haptics";
 import { LinearGradient } from "expo-linear-gradient";
 import * as Location from "expo-location";
 import { useRouter } from "expo-router";
@@ -101,17 +100,8 @@ export const CoordinatesCard = () => {
 	return (
 		<Card
 			title="Coordinates"
-			cta={
-				<RefreshDouble
-					onPress={async () => {
-						await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-						await refetchGeoState();
-					}}
-					color={colors.primary}
-					width={16}
-					height={16}
-				/>
-			}
+			cta={<RefreshDouble color={colors.primary} width={16} height={16} />}
+			ctaPress={async () => await refetchGeoState()}
 		>
 			<View style={{ flexDirection: "row", justifyContent: "space-between" }}>
 				<View style={{ flexDirection: "row" }}>
@@ -283,10 +273,7 @@ export const RecentEntries = () => {
 		<Card
 			title="Recently Added"
 			cta={
-				<Pressable
-					onPress={() => router.navigate("/nearby")}
-					style={{ flexDirection: "row", alignItems: "center", gap: 4 }}
-				>
+				<View style={{ flexDirection: "row", alignItems: "center", gap: 4 }}>
 					<NavigatorAlt width={16} height={16} color={colors.primary} />
 					<Text
 						style={{
@@ -298,8 +285,9 @@ export const RecentEntries = () => {
 					>
 						Nearby Trees
 					</Text>
-				</Pressable>
+				</View>
 			}
+			ctaPress={() => router.navigate("/nearby")}
 		>
 			<FlashList
 				data={data}

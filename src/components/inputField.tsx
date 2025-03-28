@@ -5,13 +5,13 @@ import { TextInput } from "react-native-gesture-handler";
 import colors from "../core/colors";
 import { heightToDp } from "../core/utils";
 
-interface InputProps {
+interface InputProps extends TextInputProps {
 	keyboardType?: KeyboardTypeOptions;
 	backgroundColor?: string;
 	textColor?: string;
 }
 
-export default (props: TextInputProps & InputProps) => {
+export default (props: InputProps) => {
 	const [focused, setFocused] = React.useState(false);
 	return (
 		<TextInput

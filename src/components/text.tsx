@@ -1,6 +1,9 @@
 import React from "react";
 import { Text as NativeText, TextProps, TextStyle, View } from "react-native";
+import { Pressable } from "react-native-gesture-handler";
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
+
+import * as Haptics from "expo-haptics";
 
 interface IncrementTextProps extends TextProps {
 	value: number;
@@ -13,6 +16,11 @@ interface IncrementDigitProps extends TextProps {
 	height?: number;
 	duration?: number;
 	style?: any;
+}
+
+interface HeadTextProps extends TextProps {
+	cta?: React.ReactNode;
+	ctaPress?: () => void;
 }
 
 export const IncrementDigit = (props: IncrementDigitProps) => {
@@ -72,7 +80,7 @@ export const IncrementText = (props: IncrementTextProps) => {
 	);
 };
 
-export const HeadText = (props: TextProps & { cta?: React.ReactNode }) => (
+export const HeadText = (props: HeadTextProps) => (
 	<View
 		style={{
 			flexDirection: "row",
@@ -94,7 +102,24 @@ export const HeadText = (props: TextProps & { cta?: React.ReactNode }) => (
 		>
 			{props.children}
 		</Text>
-		{props.cta}
+		{props.cta && (
+			<Pressable
+				style={{
+					backgroundColor: "transparent",
+					padding: 8,
+					borderRadius: 8,
+					marginLeft: 8,
+				}}
+				onPress={async () => {
+					if (!props.ctaPress) return;
+
+					await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+					props.ctaPress();
+				}}
+			>
+				<Text style={{ fontFamily: "Medium", fontSize: 12 }}>{props.cta}</Text>
+			</Pressable>
+		)}
 	</View>
 );
 

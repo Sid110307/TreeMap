@@ -3,7 +3,6 @@ import { View } from "react-native";
 import { RefreshControl, ScrollView } from "react-native-gesture-handler";
 
 import { FlashList } from "@shopify/flash-list";
-import * as Haptics from "expo-haptics";
 import { useFocusEffect } from "expo-router";
 import { RefreshDouble } from "iconoir-react-native";
 
@@ -47,7 +46,7 @@ export default () => {
 					<Text style={{ flex: 3 }}>Search Radius (m):</Text>
 					<InputField
 						value={radius.toString()}
-						style={{ flex: 2 }}
+						style={{ flex: 1 }}
 						onChangeText={text => setRadius(parseInt(text))}
 						keyboardType="number-pad"
 					/>
@@ -55,17 +54,8 @@ export default () => {
 			</Card>
 			<Card
 				title="Nearby Trees"
-				cta={
-					<RefreshDouble
-						onPress={async () => {
-							await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-							setData(await listNearby());
-						}}
-						color={colors.primary}
-						width={16}
-						height={16}
-					/>
-				}
+				cta={<RefreshDouble color={colors.primary} width={16} height={16} />}
+				ctaPress={async () => setData(await listNearby())}
 			>
 				<FlashList
 					data={data}

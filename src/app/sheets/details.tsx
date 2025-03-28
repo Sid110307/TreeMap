@@ -1,6 +1,5 @@
 import React from "react";
 import { View } from "react-native";
-import { Pressable } from "react-native-gesture-handler";
 import Toast from "react-native-toast-message";
 
 import { BottomSheetScrollView } from "@gorhom/bottom-sheet";
@@ -120,18 +119,11 @@ export default () => {
 					onChangeText={setScientificName}
 				/>
 				<HeadText
-					cta={
-						image && (
-							<Pressable
-								onPress={() => {
-									setImage("");
-									setHasImageUrl(false);
-								}}
-							>
-								<BinMinusIn color={colors.error} />
-							</Pressable>
-						)
-					}
+					cta={<BinMinusIn color={colors.error} />}
+					ctaPress={() => {
+						setImage("");
+						setHasImageUrl(false);
+					}}
 				>
 					Upload image
 				</HeadText>
