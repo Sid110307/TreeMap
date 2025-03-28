@@ -48,7 +48,7 @@ export default () => {
 					<InputField
 						value={radius.toString()}
 						style={{ flex: 2 }}
-						onChangeText={text => setRadius(parseInt(text, 10))}
+						onChangeText={text => setRadius(parseInt(text))}
 						keyboardType="number-pad"
 					/>
 				</View>

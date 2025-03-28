@@ -4,12 +4,23 @@ import { Pressable } from "react-native-gesture-handler";
 
 import { useRouter } from "expo-router";
 import { Calendar, MapPin, PageEdit } from "iconoir-react-native";
+import { DateTime } from "luxon";
 
 import colors from "../core/colors";
+import { useMapState } from "../core/state";
 import Text from "./text";
 
-export default (props: { item: DataEntry; hasMore?: boolean }) => {
+interface DataEntryItemProps {
+	item: DataEntry;
+	hasMore?: boolean;
+	absoluteDate?: boolean;
+}
+
+export default (props: DataEntryItemProps) => {
 	const router = useRouter();
+	const { setLatitude, setLongitude } = useMapState();
+	const [pressed, setPressed] = React.useState(false);
+
 	return (
 		<View
 			style={{
@@ -79,7 +90,12 @@ export default (props: { item: DataEntry; hasMore?: boolean }) => {
 			</View>
 			<View style={{ alignSelf: "flex-start", gap: 4 }}>
 				<Pressable
-					onPress={() => router.navigate("/map")}
+					onPress={() => {
+						setLatitude(props.item.latitude);
+						setLongitude(props.item.longitude);
+
+						router.navigate("/map");
+					}}
 					style={{
 						flexDirection: "row",
 						alignItems: "center",
@@ -98,12 +114,13 @@ export default (props: { item: DataEntry; hasMore?: boolean }) => {
 						{props.item.longitude}°{props.item.longitude < 0 ? "W" : "E"}
 					</Text>
 				</Pressable>
-				<View
+				<Pressable
 					style={{
 						flexDirection: "row",
 						alignItems: "center",
 						gap: 8,
 					}}
+					onPress={() => setPressed(!pressed)}
 				>
 					<Calendar color={colors.dark[500]} width={16} height={16} />
 					<Text
@@ -113,27 +130,29 @@ export default (props: { item: DataEntry; hasMore?: boolean }) => {
 							color: colors.dark[500],
 						}}
 					>
-						Added on{" "}
-						{new Date(props.item.created_at).toLocaleDateString("en-US", {
-							year: "numeric",
-							month: "long",
-							day: "2-digit",
-						})}{" "}
-						at{" "}
-						{new Date(props.item.created_at).toLocaleTimeString("en-US", {
-							hour: "2-digit",
-							minute: "2-digit",
-						})}
+						Added{" "}
+						{props.absoluteDate || pressed
+							? DateTime.fromISO(props.item.created_at.replace(" ", "T"), {
+									zone: "utc",
+								})
+									.toLocal()
+									.toFormat("'on' MMMM dd, yyyy 'at' hh:mm a")
+							: DateTime.fromISO(props.item.created_at.replace(" ", "T"), {
+									zone: "utc",
+								})
+									.toLocal()
+									.toRelative()}
 					</Text>
-				</View>
+				</Pressable>
 				{new Date(props.item.updated_at).getTime() !==
 					new Date(props.item.created_at).getTime() && (
-					<View
+					<Pressable
 						style={{
 							flexDirection: "row",
 							alignItems: "center",
 							gap: 8,
 						}}
+						onPress={() => setPressed(!pressed)}
 					>
 						<PageEdit color={colors.dark[500]} width={16} height={16} />
 						<Text
@@ -143,19 +162,20 @@ export default (props: { item: DataEntry; hasMore?: boolean }) => {
 								color: colors.dark[500],
 							}}
 						>
-							Updated on{" "}
-							{new Date(props.item.updated_at).toLocaleDateString("en-US", {
-								year: "numeric",
-								month: "long",
-								day: "2-digit",
-							})}{" "}
-							at{" "}
-							{new Date(props.item.updated_at).toLocaleTimeString("en-US", {
-								hour: "2-digit",
-								minute: "2-digit",
-							})}
+							Edited{" "}
+							{props.absoluteDate || pressed
+								? DateTime.fromISO(props.item.updated_at.replace(" ", "T"), {
+										zone: "utc",
+									})
+										.toLocal()
+										.toFormat("'on' MMMM dd, yyyy 'at' hh:mm a")
+								: DateTime.fromISO(props.item.updated_at.replace(" ", "T"), {
+										zone: "utc",
+									})
+										.toLocal()
+										.toRelative()}
 						</Text>
-					</View>
+					</Pressable>
 				)}
 			</View>
 		</View>
