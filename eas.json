@@ -12,6 +12,11 @@
                 "resourceClass": "m-medium"
             }
         },
+        "preview": {
+            "channel": "preview",
+            "distribution": "internal",
+            "environment": "preview"
+        },
         "production": {
             "android": {
                 "credentialsSource": "local",
