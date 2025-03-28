@@ -1,10 +1,10 @@
 import React from "react";
 
+import BottomSheet from "../../components/bottomSheet";
 import Camera from "../../components/camera";
 import { HeadText } from "../../components/text";
 
-import { useEntryState } from "../../state";
-import { BottomSheet } from "../../utils";
+import { useEntryState } from "../../core/state";
 
 export default () => {
 	const cameraRef = React.useRef(null);

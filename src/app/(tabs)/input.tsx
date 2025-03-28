@@ -1,21 +1,12 @@
 import React from "react";
 import { View } from "react-native";
 
-import { useRouter } from "expo-router";
+import { Actions, CoordinatesCard, StatsCard } from "../../screens/input";
 
-import Card from "../../components/card";
-
-import { Actions, CoordinatesCard } from "../../screens/input";
-
-export default () => {
-	const router = useRouter();
-	return (
-		<View style={{ padding: 8, paddingHorizontal: 16 }}>
-			{__DEV__ && (
-				<Card title="Access sitemap" onPress={() => router.navigate("/_sitemap")} />
-			)}
-			<CoordinatesCard />
-			<Actions />
-		</View>
-	);
-};
+export default () => (
+	<View style={{ padding: 8, paddingHorizontal: 16 }}>
+		<CoordinatesCard />
+		<Actions />
+		<StatsCard />
+	</View>
+);

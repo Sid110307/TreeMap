@@ -5,7 +5,7 @@ import Toast from "react-native-toast-message";
 import { Stack } from "expo-router";
 import { IconoirProvider } from "iconoir-react-native";
 
-import { toastConfig } from "../utils";
+import { toastConfig } from "../core/utils";
 
 export default () => (
 	<GestureHandlerRootView>

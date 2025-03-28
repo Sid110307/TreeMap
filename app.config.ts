@@ -20,7 +20,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
 	android: {
 		package: "com.sid.treemap",
 		adaptiveIcon: {
-			foregroundImage: "./assets/images/adaptive-icon.png",
+			foregroundImage: "./assets/images/icon.png",
 			backgroundColor: "#3D89DA",
 		},
 	},
@@ -29,7 +29,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
 		[
 			"expo-splash-screen",
 			{
-				image: "./assets/images/splash-icon.png",
+				image: "./assets/images/icon.png",
 				imageWidth: 200,
 				resizeMode: "contain",
 				backgroundColor: "#3D89DA",

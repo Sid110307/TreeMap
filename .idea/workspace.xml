@@ -4,7 +4,35 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0f2f6cc9-dd77-41d9-ba42-74e6a37b6fc3" name="Changes" comment="Added SQLite starter class" />
+    <list default="true" id="0f2f6cc9-dd77-41d9-ba42-74e6a37b6fc3" name="Changes" comment="Added SQLite starter class">
+      <change afterPath="$PROJECT_DIR$/src/components/bottomSheet.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/core/database.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/core/utils.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.yarn/install-state.gz" beforeDir="false" afterPath="$PROJECT_DIR$/.yarn/install-state.gz" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app.config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/colors.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/colors.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/adaptive-icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/splash-icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(tabs)/_layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(tabs)/_layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(tabs)/input.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(tabs)/input.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(tabs)/manage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(tabs)/manage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(tabs)/map.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(tabs)/map.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(tabs)/nearby.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(tabs)/nearby.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/_layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/_layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/sheets/camera.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/sheets/camera.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/sheets/details.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/sheets/details.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/camera.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/camera.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/inputField.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/inputField.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/text.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/text.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/input.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/input.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/state.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/state.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/types.ts" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -43,33 +71,33 @@
     <option name="showExcludedFiles" value="false" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "master",
-    "ignore.virus.scanning.warn.message": "true",
-    "javascript.nodejs.core.library.configured.version": "20.18.0",
-    "javascript.nodejs.core.library.typings.version": "20.17.28",
-    "last_opened_file_path": "C:/Users/srsfo/Downloads/TreeMap/assets/fonts",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_interpreter_path": "C:/Users/srsfo/AppData/Roaming/fnm/aliases/default/node",
-    "nodejs_package_manager_path": "yarn",
-    "prettierjs.PrettierConfiguration.Package": "C:\\Users\\srsfo\\Downloads\\TreeMap\\node_modules\\prettier",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "ts.external.directory.path": "C:\\Users\\srsfo\\Downloads\\TreeMap\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;20.18.0&quot;,
+    &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;20.17.28&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/srsfo/Downloads/TreeMap/assets/fonts&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_interpreter_path&quot;: &quot;C:/Users/srsfo/AppData/Roaming/fnm/aliases/default/node&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;yarn&quot;,
+    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;C:\\Users\\srsfo\\Downloads\\TreeMap\\node_modules\\prettier&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\srsfo\\Downloads\\TreeMap\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "sqlite"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;sqlite&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\srsfo\Downloads\TreeMap\assets\fonts" />
@@ -79,11 +107,11 @@
       <recent name="C:\Users\srsfo\Downloads\TreeMap\src\nearby" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\srsfo\Downloads\TreeMap\src\core" />
+      <recent name="C:\Users\srsfo\Downloads\TreeMap\src\utils" />
       <recent name="C:\Users\srsfo\Downloads\TreeMap\src" />
       <recent name="C:\Users\srsfo\Downloads\TreeMap\src\app\(tabs)" />
       <recent name="C:\Users\srsfo\Downloads\TreeMap\src\app\input" />
-      <recent name="C:\Users\srsfo\Downloads\TreeMap\src\app\(tabs)\input" />
-      <recent name="C:\Users\srsfo\Downloads\TreeMap\src\app" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -105,6 +133,7 @@
       <workItem from="1743057959807" duration="1682000" />
       <workItem from="1743059682221" duration="12434000" />
       <workItem from="1743072802454" duration="7897000" />
+      <workItem from="1743141043134" duration="4303000" />
     </task>
     <task id="LOCAL-00001" summary="v2 init">
       <option name="closed" value="true" />

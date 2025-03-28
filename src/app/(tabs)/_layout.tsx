@@ -1,7 +1,7 @@
 import { Tabs } from "expo-router";
 import { GridPlus, InputField, Map, NavigatorAlt } from "iconoir-react-native";
 
-import colors from "../../../assets/colors";
+import colors from "../../core/colors";
 
 export default () => (
 	<Tabs

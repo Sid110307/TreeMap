@@ -17,7 +17,7 @@ import {
 
 import colors from "../../assets/colors";
 
-import { heightToDp, widthToDp } from "../utils";
+import { heightToDp, widthToDp } from "../core/utils";
 
 interface CameraProps {
 	image: string;

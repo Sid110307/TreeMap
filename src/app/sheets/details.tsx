@@ -1,7 +1,9 @@
 import React from "react";
 import { View } from "react-native";
 import { Pressable } from "react-native-gesture-handler";
+import Toast from "react-native-toast-message";
 
+import * as Crypto from "expo-crypto";
 import { ImageManipulator, SaveFormat } from "expo-image-manipulator";
 import * as ImagePicker from "expo-image-picker";
 import { useRouter } from "expo-router";
@@ -9,12 +11,13 @@ import { BinMinusIn, Camera, Link, MediaImageFolder } from "iconoir-react-native
 
 import colors from "../../../assets/colors";
 
+import BottomSheet from "../../components/bottomSheet";
 import Button from "../../components/button";
 import InputField from "../../components/inputField";
 import { HeadText } from "../../components/text";
 
-import { useEntryState, useGeoState } from "../../state";
-import { BottomSheet } from "../../utils";
+import { databaseManager } from "../../core/database";
+import { useEntryState, useGeoState } from "../../core/state";
 
 export default () => {
 	const router = useRouter();
@@ -34,6 +37,32 @@ export default () => {
 		metadata,
 		setMetadata,
 	} = useEntryState();
+
+	const save = async () => {
+		const result = await databaseManager.upsert({
+			id: Crypto.randomUUID(),
+			title,
+			description,
+			scientific_name: scientificName,
+			latitude,
+			longitude,
+			metadata,
+			image,
+		});
+
+		if (result)
+			Toast.show({
+				type: "success",
+				text1: "Entry Saved!",
+				text2: "Your entry has been saved successfully.",
+			});
+		else
+			Toast.show({
+				type: "error",
+				text1: "Error Saving Entry",
+				text2: "An error occurred while saving your entry. Please try again.",
+			});
+	};
 
 	return (
 		<BottomSheet>
@@ -128,7 +157,7 @@ export default () => {
 				text={(latitude && longitude && "Save") || "Determining geolocation..."}
 				style={{ marginBottom: 64 }}
 				textStyle={{ fontFamily: "Medium" }}
-				onPress={() => console.log("Save")}
+				onPress={async () => await save()}
 				disabled={!title || !latitude || !longitude}
 			/>
 		</BottomSheet>

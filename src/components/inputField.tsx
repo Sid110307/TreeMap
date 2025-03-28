@@ -5,7 +5,7 @@ import { BottomSheetTextInput } from "@gorhom/bottom-sheet";
 
 import colors from "../../assets/colors";
 
-import { heightToDp, widthToDp } from "../utils";
+import { heightToDp, widthToDp } from "../core/utils";
 
 interface InputProps {
 	value?: string;

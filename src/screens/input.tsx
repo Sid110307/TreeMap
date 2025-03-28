@@ -2,17 +2,18 @@ import React from "react";
 import { View } from "react-native";
 import Toast from "react-native-toast-message";
 
+import { FlashList } from "@shopify/flash-list";
 import { LinearGradient } from "expo-linear-gradient";
 import * as Location from "expo-location";
 import { useRouter } from "expo-router";
 
-import colors from "../../assets/colors";
-
 import Card from "../components/card";
-import Text from "../components/text";
+import Text, { IncrementText } from "../components/text";
 
-import { useGeoState } from "../state";
-import { heightToDp } from "../utils";
+import colors from "../core/colors";
+import { databaseManager } from "../core/database";
+import { useGeoState } from "../core/state";
+import { heightToDp, widthToDp } from "../core/utils";
 
 export const CoordinatesCard = () => {
 	const [hasLocation, setHasLocation] = React.useState(false);
@@ -56,7 +57,7 @@ export const CoordinatesCard = () => {
 				<View style={{ flexDirection: "row" }}>
 					<Text>Latitude: </Text>
 					<Text style={{ fontFamily: "Medium" }}>
-						{!Location.hasServicesEnabledAsync()
+						{!hasLocation
 							? "Unknown"
 							: latitude
 								? `${latitude}°${latitude < 0 ? "S" : "N"}`
@@ -117,7 +118,7 @@ export const Actions = () => {
 				/>
 			</Card>
 			<Card
-				title="Enter details"
+				title="Enter details manually"
 				titleStyle={{ fontFamily: "Bold", color: colors.light[0] }}
 				style={{ flex: 1 }}
 				onPress={() => router.navigate("/sheets/details")}
@@ -137,5 +138,72 @@ export const Actions = () => {
 				/>
 			</Card>
 		</View>
+	);
+};
+
+export const StatsCard = () => {
+	const [data, setData] = React.useState<DataEntry[] | null>(null);
+
+	React.useEffect(() => {
+		databaseManager
+			.getAll()
+			.then(setData)
+			.catch(err => {
+				console.error(err);
+				Toast.show({
+					type: "error",
+					text1: "Error Fetching Data",
+					text2: "An error occurred while fetching your data.",
+				});
+			});
+	}, []);
+
+	return (
+		<Card title="Statistics">
+			<View
+				style={{
+					flexDirection: "row",
+					justifyContent: "space-between",
+					flexWrap: "wrap",
+					gap: 16,
+				}}
+			>
+				<Card style={{ alignItems: "center", width: widthToDp("40%"), marginVertical: 0 }}>
+					<IncrementText
+						style={{ fontFamily: "Bold", fontSize: 24 }}
+						value={data?.length ?? 0}
+					/>
+					<Text>Identified Trees</Text>
+				</Card>
+				<Card style={{ alignItems: "center", width: widthToDp("40%"), marginVertical: 0 }}>
+					<IncrementText style={{ fontFamily: "Bold", fontSize: 24 }} value={100} />
+					<Text>Trees in your region</Text>
+				</Card>
+				<Card style={{ alignItems: "center", width: widthToDp("40%"), marginVertical: 0 }}>
+					<IncrementText style={{ fontFamily: "Bold", fontSize: 24 }} value={0} />
+					<Text>Leaves in your region</Text>
+				</Card>
+			</View>
+			<FlashList
+				style={{ marginTop: 16 }}
+				data={data}
+				renderItem={({ item }) => (
+					<View
+						style={{
+							marginVertical: 8,
+							padding: 8,
+							backgroundColor: colors.light[200],
+							gap: 4,
+						}}
+					>
+						<Text key={item.id}>
+							{item.title} - {item.scientific_name}
+						</Text>
+						<Text>{item.description}</Text>
+					</View>
+				)}
+				keyExtractor={item => item.id}
+			/>
+		</Card>
 	);
 };
