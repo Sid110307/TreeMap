@@ -35,6 +35,7 @@ export default () => {
 		setHasImageUrl,
 		metadata,
 		setMetadata,
+		resetState,
 	} = useEntryState();
 
 	const [customFields, setCustomFields] = React.useState<
@@ -63,7 +64,7 @@ export default () => {
 		setMetadata(metadata);
 		const fullMetadata = { ...metadata };
 		customFields.forEach(({ key, value }) => {
-			if (key) fullMetadata[key] = value;
+			if (key.trim()) fullMetadata[key] = value;
 		});
 
 		const result = await databaseManager.upsert({
@@ -83,6 +84,8 @@ export default () => {
 				text1: "Entry Saved!",
 				text2: "Your entry has been saved successfully.",
 			});
+
+			resetState();
 			router.back();
 		} else
 			Toast.show({
@@ -119,7 +122,7 @@ export default () => {
 					onChangeText={setScientificName}
 				/>
 				<HeadText
-					cta={<BinMinusIn color={colors.error} />}
+					cta={image && <BinMinusIn color={colors.error} />}
 					ctaPress={() => {
 						setImage("");
 						setHasImageUrl(false);
@@ -282,6 +285,7 @@ export default () => {
 					textStyle={{ fontFamily: "Medium" }}
 					onPress={async () => await save()}
 					disabled={!title || !image || !latitude || !longitude}
+					color={colors.primary}
 				/>
 			</BottomSheetScrollView>
 		</BottomSheet>

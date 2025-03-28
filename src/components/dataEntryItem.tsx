@@ -9,6 +9,7 @@ import { DateTime } from "luxon";
 
 import colors from "../core/colors";
 import { useMapState } from "../core/state";
+import { DataEntry } from "../core/types";
 import { heightToDp } from "../core/utils";
 import Text from "./text";
 

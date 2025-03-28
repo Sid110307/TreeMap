@@ -13,6 +13,7 @@ import Text from "../../components/text";
 
 import colors from "../../core/colors";
 import { useGeoState } from "../../core/state";
+import { DataEntry } from "../../core/types";
 
 export default () => {
 	const [data, setData] = React.useState<DataEntry[]>([]);

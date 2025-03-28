@@ -4,15 +4,16 @@ import * as Location from "expo-location";
 import { create } from "zustand";
 
 import { databaseManager } from "./database";
+import { EntryState, GeoState, MapState, UserState } from "./types";
 import { haversineDistance } from "./utils";
 
 export const useGeoState = create<GeoState>((set, get) => ({
 	latitude: 0,
 	longitude: 0,
 	radius: 10,
-	setLatitude: (latitude: number) => set({ latitude }),
-	setLongitude: (longitude: number) => set({ longitude }),
-	setRadius: (radius: number) => set({ radius }),
+	setLatitude: latitude => set({ latitude }),
+	setLongitude: longitude => set({ longitude }),
+	setRadius: radius => set({ radius }),
 	listNearby: async () => {
 		const lat = get().latitude;
 		const lng = get().longitude;
@@ -76,25 +77,42 @@ export const useGeoState = create<GeoState>((set, get) => ({
 	},
 }));
 
-export const useEntryState = create<EntryState>(set => ({
+const initialState = {
 	title: "",
 	description: "",
 	scientificName: "",
 	image: "",
 	hasImageUrl: false,
 	metadata: { "Trunk Diameter (cm)": "", "Height (m)": "", "Age (years)": "" },
+};
 
-	setTitle: (title: string) => set({ title }),
-	setDescription: (description: string) => set({ description }),
-	setScientificName: (scientificName: string) => set({ scientificName }),
-	setImage: (image: string) => set({ image }),
-	setHasImageUrl: (hasImageUrl: boolean) => set({ hasImageUrl }),
-	setMetadata: (metadata: Record<string, string>) => set({ metadata }),
+export const useEntryState = create<EntryState>(set => ({
+	...initialState,
+	setTitle: title => set({ title }),
+	setDescription: description => set({ description }),
+	setScientificName: scientificName => set({ scientificName }),
+	setImage: image => set({ image }),
+	setHasImageUrl: hasImageUrl => set({ hasImageUrl }),
+	setMetadata: metadata => set({ metadata }),
+	resetState: () => set(initialState),
 }));
 
 export const useMapState = create<MapState>((set, get) => ({
 	latitude: 0,
 	longitude: 0,
-	setLatitude: (latitude: number) => set({ latitude }),
-	setLongitude: (longitude: number) => set({ longitude }),
+	setLatitude: latitude => set({ latitude }),
+	setLongitude: longitude => set({ longitude }),
+}));
+
+export const useUserState = create<UserState>(set => ({
+	isLoggedIn: false,
+	user: {
+		id: "",
+		username: "",
+		email: "",
+		photo: "",
+		totalIdentified: 0,
+	},
+	updateUser: user => set(state => ({ user: { ...state.user, ...user } })),
+	updateIsLoggedIn: isLoggedIn => set({ isLoggedIn }),
 }));

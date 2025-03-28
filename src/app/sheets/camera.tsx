@@ -10,7 +10,7 @@ import { useEntryState } from "../../core/state";
 
 export default () => {
 	const cameraRef = React.useRef(null);
-	const { image, setImage } = useEntryState();
+	const { setImage } = useEntryState();
 
 	return (
 		<BottomSheet>

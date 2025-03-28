@@ -31,8 +31,16 @@ export default (props: Props) => {
 					marginVertical: 20,
 					paddingVertical: 12,
 					opacity: props.disabled ? 0.2 : 1,
-					backgroundColor: focused ? colors.dark[500] : (props.color ?? colors.light[0]),
-					borderColor: focused ? colors.light[0] : (props.color ?? colors.dark[500]),
+					backgroundColor: focused
+						? colors.dark[500]
+						: props.disabled
+							? colors.light[0]
+							: (props.color ?? colors.light[0]),
+					borderColor: focused
+						? colors.light[0]
+						: props.disabled
+							? colors.dark[500]
+							: (props.color ?? colors.dark[500]),
 					borderWidth: 1,
 				},
 				props.style,
@@ -48,7 +56,12 @@ export default (props: Props) => {
 					{props.text && (
 						<Text
 							style={[
-								{ color: focused ? colors.light[0] : colors.dark[100] },
+								{
+									color:
+										focused || !props.disabled
+											? colors.light[0]
+											: colors.dark[100],
+								},
 								props.textStyle,
 							]}
 						>

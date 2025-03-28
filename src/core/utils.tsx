@@ -2,6 +2,7 @@ import React from "react";
 import { Dimensions, PixelRatio } from "react-native";
 import { BaseToast, ToastConfig } from "react-native-toast-message";
 
+import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import * as Font from "expo-font";
 
 import colors from "./colors";
@@ -41,7 +42,13 @@ export const onStartup = async () => {
 		Title: require("../../assets/fonts/PlayfairDisplay-BlackItalic.ttf"),
 		Caption: require("../../assets/fonts/IBMPlexMono-Regular.ttf"),
 	});
+
 	await databaseManager.init();
+	GoogleSignin.configure({
+		webClientId: "1099367355723-i1d94650ru7jp9iqkgi244vt439okrmq.apps.googleusercontent.com",
+		iosClientId: "1099367355723-vj98fh5unekmrn1s0dm0vhe62nd8na3h.apps.googleusercontent.com",
+		offlineAccess: true,
+	});
 };
 
 export const toastConfig: ToastConfig = {

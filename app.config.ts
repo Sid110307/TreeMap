@@ -8,6 +8,8 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
 	...config,
 	name: "TreeMap",
 	slug: "treemap",
+	owner: "sid110307",
+	description: "A Geospatial Tree Mapping Tool for Environmental Research",
 	version: "2.0.0",
 	orientation: "portrait",
 	icon: "./assets/images/icon.png",
@@ -42,6 +44,13 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
 					enableProguardInReleaseBuilds: true,
 					enableShrinkResourcesInReleaseBuilds: true,
 				},
+			},
+		],
+		[
+			"@react-native-google-signin/google-signin",
+			{
+				iosUrlScheme:
+					"com.googleusercontent.apps.1099367355723-vj98fh5unekmrn1s0dm0vhe62nd8na3h",
 			},
 		],
 	],

@@ -17,6 +17,7 @@ import Text, { HeadText, IncrementText } from "../components/text";
 import colors from "../core/colors";
 import { databaseManager } from "../core/database";
 import { useGeoState } from "../core/state";
+import { DataEntry } from "../core/types";
 import { heightToDp, widthToDp } from "../core/utils";
 
 export const UpdateButton = () => {

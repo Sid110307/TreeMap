@@ -1,4 +1,4 @@
-interface DataEntry {
+export interface DataEntry {
 	id: string;
 	title: string;
 	description: string;
@@ -11,7 +11,7 @@ interface DataEntry {
 	image: string;
 }
 
-interface GeoState {
+export interface GeoState {
 	latitude: number;
 	longitude: number;
 	radius: number;
@@ -22,7 +22,7 @@ interface GeoState {
 	refetchGeoState: (current?: boolean) => Promise<void>;
 }
 
-interface EntryState {
+export interface EntryState {
 	title: string;
 	description: string;
 	scientificName: string;
@@ -36,11 +36,28 @@ interface EntryState {
 	setImage: (image: string) => void;
 	setHasImageUrl: (hasImageUrl: boolean) => void;
 	setMetadata: (metadata: Record<string, string>) => void;
+
+	resetState: () => void;
 }
 
-interface MapState {
+export interface MapState {
 	latitude: number;
 	longitude: number;
 	setLatitude: (latitude: number) => void;
 	setLongitude: (longitude: number) => void;
+}
+
+export interface User {
+	id: string;
+	username: string;
+	email: string;
+	photo: string;
+	totalIdentified: number;
+}
+
+export interface UserState {
+	isLoggedIn: boolean;
+	user: User;
+	updateUser: (u: Partial<User>) => void;
+	updateIsLoggedIn: (isLoggedIn: boolean) => void;
 }
