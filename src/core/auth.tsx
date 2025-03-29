@@ -40,17 +40,29 @@ export const useAuth = () => {
 				return;
 			}
 
-			await databaseManager.supabaseDB?.auth.signInWithIdToken({
+			const supabaseAuthData = await databaseManager.supabaseDB?.auth.signInWithIdToken({
 				provider: "google",
 				token: user.idToken,
 			});
+			if (!supabaseAuthData?.data) {
+				Toast.show({
+					type: "error",
+					text1: `Error logging in (${supabaseAuthData?.error?.code})`,
+					text2: "An error occurred while logging in. Please try again later.",
+				});
+
+				setLoading(false);
+				return;
+			}
+
 			Toast.show({ type: "success", text1: "Successfully logged in!" });
 			updateUser({
 				...currentUser,
-				id: user.user.id,
+				id: supabaseAuthData.data.user?.id ?? "",
 				username: user.user.name ?? "",
 				email: user.user.email,
 				photo: user.user.photo ?? "",
+				memberSince: supabaseAuthData.data.user?.created_at ?? new Date().toISOString(),
 			});
 
 			updateIsLoggedIn(true);

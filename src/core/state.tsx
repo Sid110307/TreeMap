@@ -1,7 +1,9 @@
 import Toast from "react-native-toast-message";
 
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Location from "expo-location";
 import { create } from "zustand";
+import { createJSONStorage, persist } from "zustand/middleware";
 
 import { databaseManager } from "./database";
 import { EntryState, GeoState, MapState, UserState } from "./types";
@@ -104,15 +106,24 @@ export const useMapState = create<MapState>((set, get) => ({
 	setLongitude: longitude => set({ longitude }),
 }));
 
-export const useUserState = create<UserState>(set => ({
-	isLoggedIn: false,
-	user: {
-		id: "",
-		username: "",
-		email: "",
-		photo: "",
-		totalIdentified: 0,
-	},
-	updateUser: user => set(state => ({ user: { ...state.user, ...user } })),
-	updateIsLoggedIn: isLoggedIn => set({ isLoggedIn }),
-}));
+export const useUserState = create<UserState>()(
+	persist(
+		set => ({
+			isLoggedIn: false,
+			user: {
+				id: "",
+				username: "",
+				email: "",
+				photo: "",
+				totalIdentified: 0,
+				memberSince: "",
+			},
+			updateUser: user => set(state => ({ user: { ...state.user, ...user } })),
+			updateIsLoggedIn: isLoggedIn => set({ isLoggedIn }),
+		}),
+		{
+			name: "user",
+			storage: createJSONStorage(() => AsyncStorage),
+		},
+	),
+);

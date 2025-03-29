@@ -24,7 +24,7 @@ interface HeadTextProps extends TextProps {
 }
 
 export const IncrementDigit = (props: IncrementDigitProps) => {
-	const { digit, height = 40, duration = 1000, style, ...rest } = props;
+	const { digit, height = 14, duration = 1000, style, ...rest } = props;
 	const DIGITS = [...Array(10).keys()].map(i => i.toString());
 	const translateY = useSharedValue(0);
 
@@ -63,14 +63,14 @@ export const IncrementText = (props: IncrementTextProps) => {
 						key={index}
 						digit={char}
 						duration={duration}
-						height={style?.fontSize || 40}
+						height={style?.fontSize || 14}
 						style={style}
 					/>
 				) : (
 					<Text
 						{...rest}
 						key={index}
-						style={[{ height: style?.fontSize || 40, textAlign: "center" }, style]}
+						style={[{ height: style?.fontSize || 14, textAlign: "center" }, style]}
 					>
 						{char}
 					</Text>

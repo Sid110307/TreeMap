@@ -4,7 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0f2f6cc9-dd77-41d9-ba42-74e6a37b6fc3" name="Changes" comment="Added supabase + authentication" />
+    <list default="true" id="0f2f6cc9-dd77-41d9-ba42-74e6a37b6fc3" name="Changes" comment="Added profile screen + logout">
+      <change afterPath="$PROJECT_DIR$/src/app/(tabs)/profile.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/auth.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/screens/profile.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(tabs)/_layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(tabs)/_layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(tabs)/manage.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(tabs)/map.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(tabs)/map.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/_layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/_layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/auth/login.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/button.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/button.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/text.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/text.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/auth.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/auth.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/state.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/state.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/types.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/types.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/utils.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/utils.tsx" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -43,33 +61,33 @@
     <option name="showExcludedFiles" value="false" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "master",
-    "ignore.virus.scanning.warn.message": "true",
-    "javascript.nodejs.core.library.configured.version": "20.18.0",
-    "javascript.nodejs.core.library.typings.version": "20.17.28",
-    "last_opened_file_path": "C:/Users/srsfo/Downloads/TreeMap/.eas/workflows",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_interpreter_path": "C:/Users/srsfo/AppData/Roaming/fnm/aliases/default/node",
-    "nodejs_package_manager_path": "yarn",
-    "prettierjs.PrettierConfiguration.Package": "C:\\Users\\srsfo\\Downloads\\TreeMap\\node_modules\\prettier",
-    "settings.editor.selected.configurable": "preferences.keymap",
-    "ts.external.directory.path": "C:\\Users\\srsfo\\Downloads\\TreeMap\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;20.18.0&quot;,
+    &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;20.17.28&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/srsfo/Downloads/TreeMap/.eas/workflows&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_interpreter_path&quot;: &quot;C:/Users/srsfo/AppData/Roaming/fnm/aliases/default/node&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;yarn&quot;,
+    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;C:\\Users\\srsfo\\Downloads\\TreeMap\\node_modules\\prettier&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\srsfo\\Downloads\\TreeMap\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "sqlite"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;sqlite&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\srsfo\Downloads\TreeMap\.eas\workflows" />
@@ -79,11 +97,11 @@
       <recent name="C:\Users\srsfo\Downloads\TreeMap\" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\srsfo\Downloads\TreeMap\src\app" />
       <recent name="C:\Users\srsfo\Downloads\TreeMap\src\core" />
       <recent name="C:\Users\srsfo\Downloads\TreeMap\src\utils" />
       <recent name="C:\Users\srsfo\Downloads\TreeMap\src" />
       <recent name="C:\Users\srsfo\Downloads\TreeMap\src\app\(tabs)" />
-      <recent name="C:\Users\srsfo\Downloads\TreeMap\src\app\input" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -107,6 +125,8 @@
       <workItem from="1743072802454" duration="7897000" />
       <workItem from="1743141043134" duration="31279000" />
       <workItem from="1743173709092" duration="1710000" />
+      <workItem from="1743176019975" duration="98000" />
+      <workItem from="1743241031079" duration="5112000" />
     </task>
     <task id="LOCAL-00001" summary="v2 init">
       <option name="closed" value="true" />
@@ -251,6 +271,7 @@
     <MESSAGE value="UI haptics refactor" />
     <MESSAGE value="Update details" />
     <MESSAGE value="Added supabase + authentication" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added supabase + authentication" />
+    <MESSAGE value="Added profile screen + logout" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added profile screen + logout" />
   </component>
 </project>

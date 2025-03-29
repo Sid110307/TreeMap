@@ -4,6 +4,6 @@ import Text from "../../components/text";
 
 export default () => (
 	<View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-		<Text>Map</Text>
+		<Text>Coming soon!</Text>
 	</View>
 );

@@ -53,6 +53,7 @@ export interface User {
 	email: string;
 	photo: string;
 	totalIdentified: number;
+	memberSince: string;
 }
 
 export interface UserState {

@@ -2,11 +2,7 @@ import React from "react";
 import { Dimensions, PixelRatio } from "react-native";
 import { BaseToast, ToastConfig } from "react-native-toast-message";
 
-import { GoogleSignin } from "@react-native-google-signin/google-signin";
-import * as Font from "expo-font";
-
 import colors from "./colors";
-import { databaseManager } from "./database";
 
 const { width, height } = Dimensions.get("window");
 
@@ -33,24 +29,6 @@ export const haversineDistance = (lat1: number, lng1: number, lat2: number, lng2
 	return 6371000 * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 };
 
-export const onStartup = async () => {
-	await Font.loadAsync({
-		Bold: require("../../assets/fonts/Outfit-Bold.ttf"),
-		Light: require("../../assets/fonts/Outfit-Light.ttf"),
-		Medium: require("../../assets/fonts/Outfit-Medium.ttf"),
-		Regular: require("../../assets/fonts/Outfit-Regular.ttf"),
-		Title: require("../../assets/fonts/PlayfairDisplay-BlackItalic.ttf"),
-		Caption: require("../../assets/fonts/IBMPlexMono-Regular.ttf"),
-	});
-
-	await databaseManager.init();
-	GoogleSignin.configure({
-		webClientId: "1099367355723-i1d94650ru7jp9iqkgi244vt439okrmq.apps.googleusercontent.com",
-		iosClientId: "1099367355723-vj98fh5unekmrn1s0dm0vhe62nd8na3h.apps.googleusercontent.com",
-		offlineAccess: true,
-	});
-};
-
 export const toastConfig: ToastConfig = {
 	success: props => (
 		<BaseToast
@@ -61,7 +39,7 @@ export const toastConfig: ToastConfig = {
 				borderWidth: 2,
 				borderColor: colors.primary,
 			}}
-			contentContainerStyle={{ flexDirection: "column", alignItems: "center" }}
+			contentContainerStyle={{ alignItems: "center" }}
 			text1Style={{ color: colors.primary }}
 		/>
 	),
@@ -74,7 +52,7 @@ export const toastConfig: ToastConfig = {
 				borderWidth: 2,
 				borderColor: colors.error,
 			}}
-			contentContainerStyle={{ flexDirection: "column", alignItems: "center" }}
+			contentContainerStyle={{ alignItems: "center" }}
 			text1Style={{ color: colors.error }}
 		/>
 	),
@@ -87,7 +65,7 @@ export const toastConfig: ToastConfig = {
 				borderWidth: 2,
 				borderColor: colors.secondary,
 			}}
-			contentContainerStyle={{ flexDirection: "column", alignItems: "center" }}
+			contentContainerStyle={{ alignItems: "center" }}
 			text1Style={{ color: colors.secondary }}
 		/>
 	),

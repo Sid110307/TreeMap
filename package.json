@@ -67,7 +67,8 @@
             "reactNativeDirectoryCheck": {
                 "exclude": [
                     "iconoir-react-native",
-                    "react-native-leaflet-view"
+                    "react-native-leaflet-view",
+                    "luxon"
                 ]
             }
         }

@@ -3,6 +3,7 @@ import { ActivityIndicator, TextStyle, View, ViewStyle } from "react-native";
 import { Pressable } from "react-native-gesture-handler";
 
 import colors from "../core/colors";
+
 import Text from "./text";
 
 interface Props {
@@ -49,7 +50,10 @@ export default (props: Props) => {
 			onPress={props.onPress}
 		>
 			{props.loading ? (
-				<ActivityIndicator size="small" color={colors.dark[100]} />
+				<ActivityIndicator
+					size="small"
+					color={focused || !props.disabled ? colors.light[0] : colors.dark[100]}
+				/>
 			) : (
 				<View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
 					{props.textComponent && props.textComponent}
