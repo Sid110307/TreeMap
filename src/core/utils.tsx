@@ -21,6 +21,8 @@ export const heightToDp = (num: string) => {
 };
 
 export const haversineDistance = (lat1: number, lng1: number, lat2: number, lng2: number) => {
+	if (!lat1 || !lng1 || !lat2 || !lng2) return 0;
+
 	const toRad = (deg: number) => (deg * Math.PI) / 180;
 	const a =
 		Math.sin(toRad(lat2 - lat1) / 2) ** 2 +

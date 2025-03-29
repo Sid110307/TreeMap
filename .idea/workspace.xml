@@ -6,8 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="0f2f6cc9-dd77-41d9-ba42-74e6a37b6fc3" name="Changes" comment="Refactored account deletion option">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/state.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/state.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/dataEntryItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dataEntryItem.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/utils.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/utils.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -114,7 +114,8 @@
       <workItem from="1743176019975" duration="98000" />
       <workItem from="1743241031079" duration="5138000" />
       <workItem from="1743250467101" duration="7506000" />
-      <workItem from="1743261323647" duration="8664000" />
+      <workItem from="1743261323647" duration="8677000" />
+      <workItem from="1743270137102" duration="535000" />
     </task>
     <task id="LOCAL-00001" summary="v2 init">
       <option name="closed" value="true" />

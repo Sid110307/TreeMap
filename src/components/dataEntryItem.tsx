@@ -4,14 +4,14 @@ import { Pressable } from "react-native-gesture-handler";
 import Animated, { Easing, LinearTransition } from "react-native-reanimated";
 
 import { useFocusEffect, useRouter } from "expo-router";
-import { Calendar, MapPin, PageEdit, User } from "iconoir-react-native";
+import { Calendar, MapPin, PageEdit, PathArrow, User } from "iconoir-react-native";
 import { DateTime } from "luxon";
 
 import colors from "../core/colors";
 import { databaseManager } from "../core/database";
-import { useMapState, useUserState } from "../core/state";
+import { useGeoState, useMapState, useUserState } from "../core/state";
 import { DataEntry } from "../core/types";
-import { heightToDp } from "../core/utils";
+import { haversineDistance, heightToDp } from "../core/utils";
 
 import Text from "./text";
 
@@ -26,9 +26,11 @@ export default (props: DataEntryItemProps) => {
 	const router = useRouter();
 
 	const { user } = useUserState();
+	const { latitude, longitude } = useGeoState();
 	const { setLatitude, setLongitude } = useMapState();
 
 	const [imageClicked, setImageClicked] = React.useState(false);
+	const [distance, setDistance] = React.useState(0);
 	const [pressed, setPressed] = React.useState(false);
 	const [username, setUsername] = React.useState("");
 
@@ -47,6 +49,14 @@ export default (props: DataEntryItemProps) => {
 						if (data && data.length > 0) setUsername(data[0].username);
 					});
 		}, [props.item.user_id]),
+	);
+
+	useFocusEffect(
+		React.useCallback(() => {
+			setDistance(
+				haversineDistance(props.item.latitude, props.item.longitude, latitude, longitude),
+			);
+		}, [latitude, longitude, props.item.latitude, props.item.longitude]),
 	);
 
 	return (
@@ -142,13 +152,7 @@ export default (props: DataEntryItemProps) => {
 			</Animated.View>
 			<View style={{ alignSelf: "flex-start", gap: 4 }}>
 				{!props.hideAddedBy && (
-					<Pressable
-						style={{
-							flexDirection: "row",
-							alignItems: "center",
-							gap: 8,
-						}}
-					>
+					<View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
 						<User color={colors.dark[500]} width={16} height={16} />
 						<Text
 							style={{
@@ -160,7 +164,7 @@ export default (props: DataEntryItemProps) => {
 							Added by {username || "Anonymous"}{" "}
 							{props.item.user_id === user.id ? "(You)" : ""}
 						</Text>
-					</Pressable>
+					</View>
 				)}
 				<Pressable
 					onPress={() => {
@@ -187,6 +191,20 @@ export default (props: DataEntryItemProps) => {
 						{props.item.longitude}°{props.item.longitude < 0 ? "W" : "E"}
 					</Text>
 				</Pressable>
+				<View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
+					<PathArrow color={colors.dark[500]} width={16} height={16} />
+					<Text
+						style={{
+							fontFamily: "Caption",
+							fontSize: 10,
+							color: colors.dark[500],
+						}}
+					>
+						{distance > 500
+							? `${(distance / 1000).toFixed(2)} km from you`
+							: `${distance.toFixed(2)} m from you`}
+					</Text>
+				</View>
 				<Pressable
 					style={{
 						flexDirection: "row",
