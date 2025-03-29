@@ -4,14 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0f2f6cc9-dd77-41d9-ba42-74e6a37b6fc3" name="Changes" comment="Moved local queries to supabase">
+    <list default="true" id="0f2f6cc9-dd77-41d9-ba42-74e6a37b6fc3" name="Changes" comment="Added local data deletion and updated stats">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.yarn/install-state.gz" beforeDir="false" afterPath="$PROJECT_DIR$/.yarn/install-state.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/(tabs)/profile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(tabs)/profile.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/sheets/details.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/sheets/details.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/camera.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/camera.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/dataEntryItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dataEntryItem.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/auth.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/auth.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/core/database.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/database.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/core/state.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/state.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/types.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/types.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/screens/input.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/input.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -119,7 +122,7 @@
       <workItem from="1743176019975" duration="98000" />
       <workItem from="1743241031079" duration="5138000" />
       <workItem from="1743250467101" duration="7506000" />
-      <workItem from="1743261323647" duration="1637000" />
+      <workItem from="1743261323647" duration="4245000" />
     </task>
     <task id="LOCAL-00001" summary="v2 init">
       <option name="closed" value="true" />
@@ -265,7 +268,15 @@
       <option name="project" value="LOCAL" />
       <updated>1743258588029</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="Added local data deletion and updated stats">
+      <option name="closed" value="true" />
+      <created>1743263075599</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1743263075600</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -291,6 +302,7 @@
     <MESSAGE value="Added profile screen + logout" />
     <MESSAGE value="Finished db communication, added syncing, and added account deletion request button" />
     <MESSAGE value="Moved local queries to supabase" />
-    <option name="LAST_COMMIT_MESSAGE" value="Moved local queries to supabase" />
+    <MESSAGE value="Added local data deletion and updated stats" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added local data deletion and updated stats" />
   </component>
 </project>

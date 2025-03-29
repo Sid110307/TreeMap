@@ -266,25 +266,27 @@ export const RecentEntries = () => {
 	const router = useRouter();
 	const [data, setData] = React.useState<DataEntry[]>([]);
 
-	React.useEffect(() => {
-		databaseManager.supabaseDB
-			?.from("TreeMap")
-			.select("*")
-			.order("updated_at", { ascending: false })
-			.limit(5)
-			.then(({ data, error }) => {
-				if (error) {
-					console.error(error);
-					Toast.show({
-						type: "error",
-						text1: "Error Fetching Data",
-						text2: "An error occurred while fetching your data.",
-					});
-					return;
-				}
-				if (data) setData(data);
-			});
-	}, []);
+	useFocusEffect(
+		React.useCallback(() => {
+			databaseManager.supabaseDB
+				?.from("TreeMap")
+				.select("*")
+				.order("updated_at", { ascending: false })
+				.limit(5)
+				.then(({ data, error }) => {
+					if (error) {
+						console.error(error);
+						Toast.show({
+							type: "error",
+							text1: "Error Fetching Data",
+							text2: "An error occurred while fetching your data.",
+						});
+						return;
+					}
+					if (data) setData(data.map(databaseManager.parseMetadata));
+				});
+		}, []),
+	);
 
 	return data?.length === 0 ? null : (
 		<Card
@@ -304,6 +306,7 @@ export const RecentEntries = () => {
 					</Text>
 				</View>
 			}
+			style={{ minHeight: heightToDp("20%") }}
 			ctaPress={() => router.navigate("/nearby")}
 		>
 			<FlashList

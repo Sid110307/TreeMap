@@ -51,15 +51,24 @@ export default () => {
 					style={{ flex: 1, marginVertical: 0 }}
 					onPress={async () => {
 						setLogoutLoading(true);
-						await AsyncStorage.clear();
-						await databaseManager.supabaseDB?.auth.signOut();
-						await GoogleSignin.signOut();
+						try {
+							await AsyncStorage.clear();
+							await databaseManager.supabaseDB?.auth.signOut();
+							await GoogleSignin.signOut();
 
-						setLogoutLoading(false);
-						updateIsLoggedIn(false);
-
-						Toast.show({ type: "success", text1: "Successfully logged out!" });
-						router.replace("/auth");
+							updateIsLoggedIn(false);
+							Toast.show({ type: "success", text1: "Successfully logged out!" });
+							router.replace("/auth");
+						} catch (error) {
+							console.error(error);
+							Toast.show({
+								type: "error",
+								text1: "Error logging out",
+								text2: "Please try again later.",
+							});
+						} finally {
+							setLogoutLoading(false);
+						}
 					}}
 				/>
 				<Button

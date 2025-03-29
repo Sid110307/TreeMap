@@ -61,7 +61,10 @@ class DatabaseManager {
 		return result;
 	};
 
-	upsert = async (data: Omit<DataEntry, "created_at" | "updated_at" | "is_dirty">) => {
+	upsert = async (
+		data: Omit<DataEntry, "created_at" | "updated_at" | "is_dirty">,
+		user_id: string,
+	) => {
 		await this.init();
 		if (!this.localDB) throw new Error("Database Error: Database not initialized");
 
@@ -99,6 +102,7 @@ class DatabaseManager {
 				await this.supabaseDB!.from("TreeMap")
 					.upsert({
 						id: data.id,
+						user_id,
 						title: data.title,
 						description: data.description,
 						scientific_name: data.scientific_name,
@@ -167,7 +171,7 @@ class DatabaseManager {
 		}
 	};
 
-	syncDirtyRecords = async () => {
+	syncDirtyRecords = async (user_id: string) => {
 		await this.init();
 
 		if (!this.localDB) throw new Error("Database Error: Database not initialized");
@@ -186,6 +190,7 @@ class DatabaseManager {
 					.from("TreeMap")
 					.upsert({
 						id: entry.id,
+						user_id,
 						title: entry.title,
 						description: entry.description,
 						scientific_name: entry.scientific_name,
@@ -202,8 +207,18 @@ class DatabaseManager {
 					[entry.id],
 				);
 			} catch (error) {
-				console.warn(`Retry sync failed for ${entry.id}:`, error);
+				console.warn(`Retry sync failed for ${entry.id}: ${error}`);
 			}
+	};
+
+	parseMetadata = (entry: any) => {
+		if (entry && entry.metadata)
+			try {
+				entry.metadata = JSON.parse(entry.metadata as unknown as string);
+			} catch {
+				entry.metadata = {};
+			}
+		return entry;
 	};
 
 	private async runStatement<T>(sql: string, mode: "first", params?: any[]): Promise<T | null>;
@@ -229,16 +244,6 @@ class DatabaseManager {
 			}
 		})();
 	}
-
-	private parseMetadata = (entry: any) => {
-		if (entry && entry.metadata)
-			try {
-				entry.metadata = JSON.parse(entry.metadata as unknown as string);
-			} catch {
-				entry.metadata = {};
-			}
-		return entry;
-	};
 }
 
 export const databaseManager = new DatabaseManager();

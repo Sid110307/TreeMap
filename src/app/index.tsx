@@ -8,7 +8,7 @@ import * as Location from "expo-location";
 import { SplashScreen, useFocusEffect, useRouter } from "expo-router";
 
 import { databaseManager } from "../core/database";
-import { useGeoState } from "../core/state";
+import { useGeoState, useUserState } from "../core/state";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -17,6 +17,7 @@ export default () => {
 
 	const locationSubscription = React.useRef<Location.LocationSubscription | null>(null);
 	const { setLatitude, setLongitude, refetchGeoState } = useGeoState();
+	const { user } = useUserState();
 
 	React.useEffect(() => {
 		Font.loadAsync({
@@ -38,7 +39,8 @@ export default () => {
 		});
 
 		NetInfo.addEventListener(state => {
-			if (state.isConnected) databaseManager.syncDirtyRecords().catch(console.error);
+			if (state.isConnected && user.id)
+				databaseManager.syncDirtyRecords(user.id).catch(console.error);
 		});
 
 		refetchGeoState()

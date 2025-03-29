@@ -41,7 +41,7 @@ export const useGeoState = create<GeoState>((set, get) => ({
 			return (
 				rows?.data
 					.map(row => ({
-						...row,
+						...databaseManager.parseMetadata(row),
 						distance: haversineDistance(lat, lng, row.latitude, row.longitude),
 					}))
 					.filter(row => row.distance <= get().radius)

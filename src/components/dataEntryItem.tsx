@@ -3,14 +3,16 @@ import { View } from "react-native";
 import { Pressable } from "react-native-gesture-handler";
 import Animated, { Easing, LinearTransition } from "react-native-reanimated";
 
-import { useRouter } from "expo-router";
-import { Calendar, MapPin, PageEdit } from "iconoir-react-native";
+import { useFocusEffect, useRouter } from "expo-router";
+import { Calendar, MapPin, PageEdit, User } from "iconoir-react-native";
 import { DateTime } from "luxon";
 
 import colors from "../core/colors";
-import { useMapState } from "../core/state";
+import { databaseManager } from "../core/database";
+import { useMapState, useUserState } from "../core/state";
 import { DataEntry } from "../core/types";
 import { heightToDp } from "../core/utils";
+
 import Text from "./text";
 
 interface DataEntryItemProps {
@@ -21,10 +23,30 @@ interface DataEntryItemProps {
 
 export default (props: DataEntryItemProps) => {
 	const router = useRouter();
+
+	const { user } = useUserState();
 	const { setLatitude, setLongitude } = useMapState();
 
 	const [imageClicked, setImageClicked] = React.useState(false);
 	const [pressed, setPressed] = React.useState(false);
+	const [username, setUsername] = React.useState("");
+
+	useFocusEffect(
+		React.useCallback(() => {
+			if (props.item.user_id)
+				databaseManager.supabaseDB
+					?.from("Profiles")
+					.select("username")
+					.eq("id", props.item.user_id)
+					.then(({ data, error }) => {
+						if (error) {
+							console.error(error);
+							return;
+						}
+						if (data && data.length > 0) setUsername(data[0].username);
+					});
+		}, [props.item.user_id]),
+	);
 
 	return (
 		<Animated.View
@@ -118,6 +140,28 @@ export default (props: DataEntryItemProps) => {
 				</Animated.View>
 			</Animated.View>
 			<View style={{ alignSelf: "flex-start", gap: 4 }}>
+				<Pressable
+					onPress={() => {
+						router.navigate("/map");
+					}}
+					style={{
+						flexDirection: "row",
+						alignItems: "center",
+						gap: 8,
+					}}
+				>
+					<User color={colors.dark[500]} width={16} height={16} />
+					<Text
+						style={{
+							fontFamily: "Caption",
+							fontSize: 10,
+							color: colors.dark[500],
+						}}
+					>
+						Added by {username || "Anonymous"}{" "}
+						{props.item.user_id === user.id ? "(You)" : ""}
+					</Text>
+				</Pressable>
 				<Pressable
 					onPress={() => {
 						setLatitude(props.item.latitude);

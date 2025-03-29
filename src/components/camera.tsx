@@ -148,7 +148,9 @@ export default (props: CameraProps) => {
 										setImage(`data:image/jpeg;base64,${compressedImage}`);
 										setType("preview");
 									} catch (error) {
-										console.error("Error taking or compressing photo:", error);
+										console.error(
+											`Error taking or compressing photo: ${error}`,
+										);
 										Toast.show({
 											type: "error",
 											text1: "Error",

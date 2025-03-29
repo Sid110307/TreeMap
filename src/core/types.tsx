@@ -1,5 +1,6 @@
 export interface DataEntry {
 	id: string;
+	user_id?: string;
 	title: string;
 	description: string;
 	scientific_name: string;

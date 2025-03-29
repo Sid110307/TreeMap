@@ -46,7 +46,7 @@ export const useAuth = () => {
 			});
 			if (!supabaseAuthData?.data?.user) {
 				await GoogleSignin.signOut();
-				console.error("Supabase sign-in failed!", supabaseAuthData?.error);
+				console.error(`Supabase sign-in failed: ${supabaseAuthData?.error}`);
 				Toast.show({
 					type: "error",
 					text1: `Error logging in (${supabaseAuthData?.error?.code ?? "unknown_error"})`,
@@ -57,7 +57,6 @@ export const useAuth = () => {
 				return;
 			}
 
-			Toast.show({ type: "success", text1: "Successfully logged in!" });
 			updateUser({
 				...currentUser,
 				id: supabaseAuthData.data.user?.id ?? "",
@@ -66,7 +65,17 @@ export const useAuth = () => {
 				photo: user.user.photo ?? "",
 				memberSince: supabaseAuthData.data.user?.created_at ?? new Date().toISOString(),
 			});
+			await databaseManager.supabaseDB
+				?.from("Profiles")
+				.upsert({
+					id: supabaseAuthData.data.user?.id ?? "",
+					updated_at: supabaseAuthData.data.user?.created_at ?? new Date().toISOString(),
+					username: user.user.name ?? "",
+					avatar_url: user.user.photo ?? "",
+				})
+				.throwOnError();
 
+			Toast.show({ type: "success", text1: "Successfully logged in!" });
 			updateIsLoggedIn(true);
 			router.navigate("/input");
 		} catch (error) {

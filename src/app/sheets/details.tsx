@@ -16,11 +16,12 @@ import Text, { HeadText } from "../../components/text";
 
 import colors from "../../core/colors";
 import { databaseManager } from "../../core/database";
-import { useEntryState, useGeoState } from "../../core/state";
+import { useEntryState, useGeoState, useUserState } from "../../core/state";
 
 export default () => {
 	const router = useRouter();
 
+	const { user } = useUserState();
 	const { latitude, longitude } = useGeoState();
 	const {
 		title,
@@ -38,6 +39,7 @@ export default () => {
 		resetState,
 	} = useEntryState();
 
+	const [loading, setLoading] = React.useState(false);
 	const [customFields, setCustomFields] = React.useState<
 		{ key: string; value: string; isNumeric: boolean }[]
 	>([]);
@@ -61,28 +63,39 @@ export default () => {
 			return;
 		}
 
+		setLoading(true);
 		setMetadata(metadata);
+
 		const fullMetadata = { ...metadata };
 		customFields.forEach(({ key, value }) => {
 			if (key.trim()) fullMetadata[key] = value;
 		});
 
-		const result = await databaseManager.upsert({
-			id: Crypto.randomUUID(),
-			title,
-			description,
-			scientific_name: scientificName,
-			latitude,
-			longitude,
-			metadata: fullMetadata,
-			image,
-		});
+		const result = await databaseManager.upsert(
+			{
+				id: Crypto.randomUUID(),
+				title,
+				description,
+				scientific_name: scientificName,
+				latitude,
+				longitude,
+				metadata: fullMetadata,
+				image,
+			},
+			user.id,
+		);
+		setLoading(false);
 
 		if (result) {
 			Toast.show({
 				type: "success",
 				text1: "Entry Saved!",
 				text2: "Your entry has been saved successfully.",
+			});
+
+			await databaseManager.supabaseDB?.from("Profiles").upsert({
+				id: user.id,
+				total_identified: user.totalIdentified + 1,
 			});
 
 			resetState();
@@ -285,6 +298,7 @@ export default () => {
 					textStyle={{ fontFamily: "Medium" }}
 					onPress={async () => await save()}
 					disabled={!title || !image || !latitude || !longitude}
+					loading={loading}
 					color={colors.primary}
 				/>
 			</BottomSheetScrollView>
