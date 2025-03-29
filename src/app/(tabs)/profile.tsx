@@ -7,7 +7,6 @@ import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import { useRouter } from "expo-router";
 
 import Button from "../../components/button";
-import Text from "../../components/text";
 
 import colors from "../../core/colors";
 import { databaseManager } from "../../core/database";
@@ -40,8 +39,6 @@ export default () => {
 					flexDirection: "row",
 					alignItems: "center",
 					gap: 16,
-					marginTop: 16,
-					marginBottom: 8,
 				}}
 			>
 				<Button
@@ -107,58 +104,6 @@ export default () => {
 					}}
 				/>
 			</View>
-			<Text
-				style={{
-					width: widthToDp("85%"),
-					fontFamily: "Light",
-					fontSize: 12,
-					color: colors.primary,
-					textDecorationLine: "underline",
-				}}
-				disabled={!isLoggedIn}
-				onPress={async () => {
-					Alert.alert(
-						"Delete Account",
-						"Are you sure you want to request account deletion?",
-						[
-							{ text: "Cancel", style: "cancel" },
-							{
-								text: "OK",
-								style: "destructive",
-								onPress: async () => {
-									try {
-										await databaseManager.supabaseDB
-											?.from("DeleteRequests")
-											.upsert(
-												{
-													user_id: user?.id,
-													email: user?.email,
-													created_at: new Date().toISOString(),
-												},
-												{ onConflict: "user_id" },
-											)
-											.throwOnError();
-										Toast.show({
-											type: "success",
-											text1: "Account deletion requested!",
-											text2: "We will process your request soon and delete your account.",
-										});
-									} catch (error) {
-										console.error(error);
-										Toast.show({
-											type: "error",
-											text1: "Error requesting account deletion",
-											text2: "Please try again later.",
-										});
-									}
-								},
-							},
-						],
-					);
-				}}
-			>
-				Request to delete account
-			</Text>
 		</View>
 	);
 };

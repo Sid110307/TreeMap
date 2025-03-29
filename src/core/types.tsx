@@ -29,14 +29,12 @@ export interface EntryState {
 	description: string;
 	scientificName: string;
 	image: string;
-	hasImageUrl: boolean;
 	metadata: Record<string, string>;
 
 	setTitle: (title: string) => void;
 	setDescription: (description: string) => void;
 	setScientificName: (scientificName: string) => void;
 	setImage: (image: string) => void;
-	setHasImageUrl: (hasImageUrl: boolean) => void;
 	setMetadata: (metadata: Record<string, string>) => void;
 
 	resetState: () => void;

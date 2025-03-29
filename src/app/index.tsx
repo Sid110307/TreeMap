@@ -53,7 +53,7 @@ export default () => {
 			{
 				distanceInterval: 10,
 				timeInterval: 10000,
-				accuracy: Location.Accuracy.Highest,
+				accuracy: Location.Accuracy.High,
 			},
 			location => {
 				setLatitude(location.coords.latitude);

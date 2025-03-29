@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0f2f6cc9-dd77-41d9-ba42-74e6a37b6fc3" name="Changes" comment="Added user trees page and fixed auth bugs">
+    <list default="true" id="0f2f6cc9-dd77-41d9-ba42-74e6a37b6fc3" name="Changes" comment="Refactored account deletion option">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(tabs)/myTrees.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(tabs)/myTrees.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/state.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/state.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -113,7 +114,7 @@
       <workItem from="1743176019975" duration="98000" />
       <workItem from="1743241031079" duration="5138000" />
       <workItem from="1743250467101" duration="7506000" />
-      <workItem from="1743261323647" duration="7487000" />
+      <workItem from="1743261323647" duration="8664000" />
     </task>
     <task id="LOCAL-00001" summary="v2 init">
       <option name="closed" value="true" />
@@ -291,7 +292,23 @@
       <option name="project" value="LOCAL" />
       <updated>1743268573357</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="UI updates">
+      <option name="closed" value="true" />
+      <created>1743268922507</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1743268922507</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Refactored account deletion option">
+      <option name="closed" value="true" />
+      <created>1743270055944</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1743270055944</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -321,6 +338,8 @@
     <MESSAGE value="Enhanced user auth and data with profile updates, and metadata parsing" />
     <MESSAGE value="Minor UX update" />
     <MESSAGE value="Added user trees page and fixed auth bugs" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added user trees page and fixed auth bugs" />
+    <MESSAGE value="UI updates" />
+    <MESSAGE value="Refactored account deletion option" />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactored account deletion option" />
   </component>
 </project>

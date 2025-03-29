@@ -12,7 +12,7 @@ import { haversineDistance } from "./utils";
 export const useGeoState = create<GeoState>((set, get) => ({
 	latitude: 0,
 	longitude: 0,
-	radius: 10,
+	radius: 1000,
 	setLatitude: latitude => set({ latitude }),
 	setLongitude: longitude => set({ longitude }),
 	setRadius: radius => set({ radius }),
@@ -86,7 +86,6 @@ const initialState = {
 	description: "",
 	scientificName: "",
 	image: "",
-	hasImageUrl: false,
 	metadata: { "Trunk Diameter (cm)": "", "Height (m)": "", "Age (years)": "" },
 };
 
@@ -97,7 +96,6 @@ export const useEntryState = create<EntryState>(set => ({
 	setDescription: description => set({ description }),
 	setScientificName: scientificName => set({ scientificName }),
 	setImage: image => set({ image }),
-	setHasImageUrl: hasImageUrl => set({ hasImageUrl }),
 	setMetadata: metadata => set({ metadata }),
 	resetState: () => set(initialState),
 }));

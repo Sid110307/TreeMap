@@ -7,7 +7,7 @@ import * as Crypto from "expo-crypto";
 import { ImageManipulator, SaveFormat } from "expo-image-manipulator";
 import * as ImagePicker from "expo-image-picker";
 import { useRouter } from "expo-router";
-import { BinMinusIn, Camera, Hashtag, Link, MediaImageFolder, Plus } from "iconoir-react-native";
+import { BinMinusIn, Camera, Hashtag, MediaImageFolder, Plus } from "iconoir-react-native";
 
 import BottomSheet from "../../components/bottomSheet";
 import Button from "../../components/button";
@@ -32,8 +32,6 @@ export default () => {
 		setScientificName,
 		image,
 		setImage,
-		hasImageUrl,
-		setHasImageUrl,
 		metadata,
 		setMetadata,
 		resetState,
@@ -136,17 +134,14 @@ export default () => {
 				/>
 				<HeadText
 					cta={image && <BinMinusIn color={colors.error} />}
-					ctaPress={() => {
-						setImage("");
-						setHasImageUrl(false);
-					}}
+					ctaPress={() => setImage("")}
 				>
 					Upload image
 				</HeadText>
 				<View style={{ flexDirection: "row", gap: 8 }}>
 					<Button
 						textComponent={<Camera color={colors.dark[100]} />}
-						style={{ flex: 2, marginVertical: 0 }}
+						style={{ flex: 3, marginVertical: 0 }}
 						onPress={() => router.navigate("/sheets/camera")}
 					/>
 					<Button
@@ -173,20 +168,7 @@ export default () => {
 							setImage(`data:image/jpeg;base64,${compressedImage}`);
 						}}
 					/>
-					<Button
-						textComponent={<Link color={colors.dark[100]} />}
-						style={{ flex: 1, marginVertical: 0 }}
-						onPress={() => setHasImageUrl(!hasImageUrl)}
-					/>
 				</View>
-				{hasImageUrl && (
-					<InputField
-						placeholder="Image URL"
-						value={image.startsWith("data:image/jpeg;base64") ? "" : image}
-						keyboardType="url"
-						onChangeText={setImage}
-					/>
-				)}
 				<HeadText>Other Details</HeadText>
 				{customFields.map((field, index) => (
 					<View

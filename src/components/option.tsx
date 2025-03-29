@@ -13,6 +13,7 @@ interface OptionProps extends ViewProps {
 	type?: "external" | "edit" | "normal";
 	color?: string;
 	component?: React.ReactNode;
+	disabled?: boolean;
 	onPress?: () => void;
 }
 
@@ -36,12 +37,14 @@ export default (props: OptionProps) => {
 			<Text style={{ fontFamily: "Medium" }}>{props.text}</Text>
 			<Pressable
 				onPress={props.onPress}
+				disabled={props.disabled}
 				style={{
 					backgroundColor: props.color ?? colors.secondary,
+					opacity: props.disabled ? 0.5 : 1,
 					borderWidth: 1,
 					borderColor: colors.light[500],
-					paddingVertical: type === "normal" ? 8 : 4,
-					paddingHorizontal: type === "normal" ? 16 : 4,
+					paddingVertical: type === "normal" && !props.component ? 8 : 6,
+					paddingHorizontal: type === "normal" && !props.component ? 16 : 6,
 					borderRadius: 64,
 					gap: 8,
 					flexDirection: "row",
@@ -49,13 +52,14 @@ export default (props: OptionProps) => {
 					alignItems: "center",
 				}}
 			>
-				{props.component || props.type === "external" ? (
-					<ArrowUpRight color={colors.light[0]} width={16} height={16} />
-				) : props.type === "edit" ? (
-					<EditPencil color={colors.light[0]} width={16} height={16} />
-				) : (
-					<Text style={{ color: colors.light[200], fontSize: 12 }}>{props.text}</Text>
-				)}
+				{props.component ||
+					(props.type === "external" ? (
+						<ArrowUpRight color={colors.light[0]} width={16} height={16} />
+					) : props.type === "edit" ? (
+						<EditPencil color={colors.light[0]} width={16} height={16} />
+					) : (
+						<Text style={{ color: colors.light[200], fontSize: 12 }}>{props.text}</Text>
+					))}
 			</Pressable>
 		</View>
 	);
