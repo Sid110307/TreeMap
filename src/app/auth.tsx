@@ -2,6 +2,7 @@ import React from "react";
 import { Image, StatusBar, View } from "react-native";
 
 import { LinearGradient } from "expo-linear-gradient";
+import { useRouter } from "expo-router";
 import { Google } from "iconoir-react-native";
 
 import Button from "../components/button";
@@ -9,9 +10,19 @@ import Text from "../components/text";
 
 import { useAuth } from "../core/auth";
 import colors from "../core/colors";
+import { useUserState } from "../core/state";
 
 export default () => {
+	const router = useRouter();
+
+	const { isLoggedIn } = useUserState();
 	const { handleGoogleAuth, loading } = useAuth();
+
+	if (isLoggedIn) {
+		router.replace("/input");
+		return null;
+	}
+
 	return (
 		<LinearGradient
 			colors={[colors.tint[0], colors.tint[300], colors.dark[500]]}

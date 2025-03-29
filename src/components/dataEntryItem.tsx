@@ -19,6 +19,7 @@ interface DataEntryItemProps {
 	item: DataEntry;
 	hasMore?: boolean;
 	absoluteDate?: boolean;
+	hideAddedBy?: boolean;
 }
 
 export default (props: DataEntryItemProps) => {
@@ -140,28 +141,27 @@ export default (props: DataEntryItemProps) => {
 				</Animated.View>
 			</Animated.View>
 			<View style={{ alignSelf: "flex-start", gap: 4 }}>
-				<Pressable
-					onPress={() => {
-						router.navigate("/map");
-					}}
-					style={{
-						flexDirection: "row",
-						alignItems: "center",
-						gap: 8,
-					}}
-				>
-					<User color={colors.dark[500]} width={16} height={16} />
-					<Text
+				{!props.hideAddedBy && (
+					<Pressable
 						style={{
-							fontFamily: "Caption",
-							fontSize: 10,
-							color: colors.dark[500],
+							flexDirection: "row",
+							alignItems: "center",
+							gap: 8,
 						}}
 					>
-						Added by {username || "Anonymous"}{" "}
-						{props.item.user_id === user.id ? "(You)" : ""}
-					</Text>
-				</Pressable>
+						<User color={colors.dark[500]} width={16} height={16} />
+						<Text
+							style={{
+								fontFamily: "Caption",
+								fontSize: 10,
+								color: colors.dark[500],
+							}}
+						>
+							Added by {username || "Anonymous"}{" "}
+							{props.item.user_id === user.id ? "(You)" : ""}
+						</Text>
+					</Pressable>
+				)}
 				<Pressable
 					onPress={() => {
 						setLatitude(props.item.latitude);

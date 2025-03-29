@@ -1,9 +1,11 @@
 import React from "react";
 import { Image, View } from "react-native";
 
+import { useRouter } from "expo-router";
 import { DateTime } from "luxon";
 
-import Text, { IncrementText } from "../components/text";
+import Option from "../components/option";
+import Text, { HeadText, IncrementText } from "../components/text";
 
 import colors from "../core/colors";
 import { useUserState } from "../core/state";
@@ -55,6 +57,16 @@ export const ProfileCard = () => {
 					/>
 				</View>
 			</View>
+		</View>
+	);
+};
+
+export const Options = () => {
+	const router = useRouter();
+	return (
+		<View style={{ width: "100%", paddingVertical: 16, gap: 8 }}>
+			<HeadText style={{ marginHorizontal: 8 }}>Options</HeadText>
+			<Option type="external" text="My Trees" onPress={() => router.navigate("/myTrees")} />
 		</View>
 	);
 };

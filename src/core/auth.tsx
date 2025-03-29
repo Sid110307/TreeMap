@@ -1,7 +1,11 @@
 import React from "react";
 import Toast from "react-native-toast-message";
 
-import { GoogleSignin } from "@react-native-google-signin/google-signin";
+import {
+	GoogleSignin,
+	isErrorWithCode,
+	statusCodes,
+} from "@react-native-google-signin/google-signin";
 import { useRouter } from "expo-router";
 
 import { databaseManager } from "./database";
@@ -27,14 +31,16 @@ export const useAuth = () => {
 				return;
 			}
 
-			const { data: user } = await GoogleSignin.signIn();
+			const { data: user, type } = await GoogleSignin.signIn();
 			if (!user?.idToken) {
-				console.error("Google sign-in failed!");
-				Toast.show({
-					type: "error",
-					text1: "Error logging in",
-					text2: "An error occurred while logging in. Please try again later.",
-				});
+				if (type !== "cancelled") {
+					console.error("Google sign-in failed!");
+					Toast.show({
+						type: "error",
+						text1: "Error logging in",
+						text2: "An error occurred while logging in. Please try again later.",
+					});
+				}
 
 				setLoading(false);
 				return;
@@ -76,9 +82,19 @@ export const useAuth = () => {
 				.throwOnError();
 
 			Toast.show({ type: "success", text1: "Successfully logged in!" });
+			setLoading(false);
 			updateIsLoggedIn(true);
-			router.navigate("/input");
+
+			router.replace("/input");
 		} catch (error) {
+			if (
+				isErrorWithCode(error) &&
+				[statusCodes.SIGN_IN_CANCELLED, statusCodes.IN_PROGRESS].includes(error.code)
+			) {
+				setLoading(false);
+				return;
+			}
+
 			console.error(error);
 			Toast.show({
 				type: "error",
@@ -87,9 +103,8 @@ export const useAuth = () => {
 			});
 
 			await GoogleSignin.signOut();
-			updateIsLoggedIn(false);
-		} finally {
 			setLoading(false);
+			updateIsLoggedIn(false);
 		}
 	};
 

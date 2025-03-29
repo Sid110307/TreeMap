@@ -56,6 +56,8 @@ export default () => {
 					),
 				}}
 			/>
+
+			<Tabs.Screen name="myTrees" options={{ href: null }} />
 		</Tabs>
 	);
 };

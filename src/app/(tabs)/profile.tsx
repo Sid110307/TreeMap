@@ -14,7 +14,7 @@ import { databaseManager } from "../../core/database";
 import { useUserState } from "../../core/state";
 import { widthToDp } from "../../core/utils";
 
-import { ProfileCard } from "../../screens/profile";
+import { Options, ProfileCard } from "../../screens/profile";
 
 export default () => {
 	const router = useRouter();
@@ -33,6 +33,7 @@ export default () => {
 			}}
 		>
 			<ProfileCard />
+			<Options />
 			<View
 				style={{
 					width: widthToDp("85%"),
@@ -57,7 +58,9 @@ export default () => {
 							await GoogleSignin.signOut();
 
 							updateIsLoggedIn(false);
+							setLogoutLoading(false);
 							Toast.show({ type: "success", text1: "Successfully logged out!" });
+
 							router.replace("/auth");
 						} catch (error) {
 							console.error(error);
@@ -66,8 +69,9 @@ export default () => {
 								text1: "Error logging out",
 								text2: "Please try again later.",
 							});
-						} finally {
+
 							setLogoutLoading(false);
+							return;
 						}
 					}}
 				/>
