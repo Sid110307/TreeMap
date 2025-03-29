@@ -268,21 +268,24 @@ export const RecentEntries = () => {
 
 	useFocusEffect(
 		React.useCallback(() => {
+			databaseManager
+				.query("SELECT * FROM TreeMap ORDER BY updated_at DESC LIMIT 5")
+				.then(setData)
+				.catch(error => {
+					console.error(error);
+					Toast.show({
+						type: "error",
+						text1: "Error Fetching Data",
+						text2: "An error occurred while fetching your data.",
+					});
+				});
+
 			databaseManager.supabaseDB
 				?.from("TreeMap")
 				.select("*")
 				.order("updated_at", { ascending: false })
 				.limit(5)
-				.then(({ data, error }) => {
-					if (error) {
-						console.error(error);
-						Toast.show({
-							type: "error",
-							text1: "Error Fetching Data",
-							text2: "An error occurred while fetching your data.",
-						});
-						return;
-					}
+				.then(({ data }) => {
 					if (data) setData(data.map(databaseManager.parseMetadata));
 				});
 		}, []),

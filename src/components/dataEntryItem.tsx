@@ -77,7 +77,7 @@ export default (props: DataEntryItemProps) => {
 						source={{ uri: props.item.image }}
 						style={{
 							width: imageClicked ? "100%" : 100,
-							height: imageClicked ? heightToDp("30%") : 100,
+							height: imageClicked ? heightToDp("40%") : 100,
 							borderRadius: 8,
 						}}
 						resizeMode="cover"

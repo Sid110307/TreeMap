@@ -4,17 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0f2f6cc9-dd77-41d9-ba42-74e6a37b6fc3" name="Changes" comment="Added local data deletion and updated stats">
+    <list default="true" id="0f2f6cc9-dd77-41d9-ba42-74e6a37b6fc3" name="Changes" comment="Enhanced user auth and data with profile updates, and metadata parsing">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(tabs)/profile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(tabs)/profile.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/sheets/details.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/sheets/details.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/camera.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/camera.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/dataEntryItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dataEntryItem.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/auth.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/auth.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/database.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/database.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/state.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/state.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/types.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/types.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/screens/input.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/input.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -122,7 +114,7 @@
       <workItem from="1743176019975" duration="98000" />
       <workItem from="1743241031079" duration="5138000" />
       <workItem from="1743250467101" duration="7506000" />
-      <workItem from="1743261323647" duration="4245000" />
+      <workItem from="1743261323647" duration="4626000" />
     </task>
     <task id="LOCAL-00001" summary="v2 init">
       <option name="closed" value="true" />
@@ -276,7 +268,15 @@
       <option name="project" value="LOCAL" />
       <updated>1743263075600</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Enhanced user auth and data with profile updates, and metadata parsing">
+      <option name="closed" value="true" />
+      <created>1743265755854</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1743265755854</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -303,6 +303,7 @@
     <MESSAGE value="Finished db communication, added syncing, and added account deletion request button" />
     <MESSAGE value="Moved local queries to supabase" />
     <MESSAGE value="Added local data deletion and updated stats" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added local data deletion and updated stats" />
+    <MESSAGE value="Enhanced user auth and data with profile updates, and metadata parsing" />
+    <option name="LAST_COMMIT_MESSAGE" value="Enhanced user auth and data with profile updates, and metadata parsing" />
   </component>
 </project>
