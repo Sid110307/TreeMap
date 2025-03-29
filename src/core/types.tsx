@@ -9,6 +9,7 @@ export interface DataEntry {
 	updated_at: string;
 	metadata: Record<string, string>;
 	image: string;
+	is_dirty: boolean;
 }
 
 export interface GeoState {

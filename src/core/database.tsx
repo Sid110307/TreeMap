@@ -22,27 +22,27 @@ class DatabaseManager {
 			{ auth: { storage: AsyncStorage } },
 		);
 
-		const sql = `
-            CREATE TABLE IF NOT EXISTS TreeMap
-            (
-                id              TEXT NOT NULL PRIMARY KEY,
-                title           TEXT NOT NULL,
-                description     TEXT NOT NULL,
-                scientific_name TEXT NOT NULL,
-                latitude        REAL NOT NULL,
-                longitude       REAL NOT NULL,
-                created_at      DATETIME DEFAULT CURRENT_TIMESTAMP,
-                updated_at      DATETIME DEFAULT CURRENT_TIMESTAMP,
-                metadata        TEXT,
-                image           TEXT
-            );
+		await this.localDB.execAsync(
+			`CREATE TABLE IF NOT EXISTS TreeMap
+             (
+                 id              TEXT NOT NULL PRIMARY KEY,
+                 title           TEXT NOT NULL,
+                 description     TEXT NOT NULL,
+                 scientific_name TEXT NOT NULL,
+                 latitude        REAL NOT NULL,
+                 longitude       REAL NOT NULL,
+                 created_at      DATETIME DEFAULT CURRENT_TIMESTAMP,
+                 updated_at      DATETIME DEFAULT CURRENT_TIMESTAMP,
+                 metadata        TEXT,
+                 image           TEXT,
+                 is_dirty        INTEGER  DEFAULT 0
+             );
             CREATE INDEX IF NOT EXISTS TreeMap_latitude_longitude_index ON TreeMap (latitude, longitude);
             CREATE INDEX IF NOT EXISTS TreeMap_title_index ON TreeMap (title);
             CREATE INDEX IF NOT EXISTS TreeMap_scientific_name_index ON TreeMap (scientific_name);
             CREATE INDEX IF NOT EXISTS TreeMap_created_at_index ON TreeMap (created_at);
-		`;
-
-		await this.localDB.execAsync(sql);
+			`,
+		);
 		AppState.addEventListener("change", state => {
 			if (!this.supabaseDB) return;
 
@@ -65,18 +65,21 @@ class DatabaseManager {
 		await this.init();
 		if (!this.localDB) throw new Error("Database Error: Database not initialized");
 
-		const statement = await this.localDB.prepareAsync(`
-            INSERT INTO TreeMap (id, title, description, scientific_name, latitude, longitude, metadata, image)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-            ON CONFLICT(id) DO UPDATE SET title           = EXCLUDED.title,
-                                          description     = EXCLUDED.description,
-                                          scientific_name = EXCLUDED.scientific_name,
-                                          latitude        = EXCLUDED.latitude,
-                                          longitude       = EXCLUDED.longitude,
-                                          updated_at      = CURRENT_TIMESTAMP,
-                                          metadata        = EXCLUDED.metadata,
-                                          image           = EXCLUDED.image;
-		`);
+		const statement = await this.localDB.prepareAsync(
+			`INSERT INTO TreeMap (id, title, description, scientific_name, latitude, longitude, metadata, image,
+                                  is_dirty)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1)
+             ON CONFLICT(id) DO UPDATE SET title           = EXCLUDED.title,
+                                           description     = EXCLUDED.description,
+                                           scientific_name = EXCLUDED.scientific_name,
+                                           latitude        = EXCLUDED.latitude,
+                                           longitude       = EXCLUDED.longitude,
+                                           updated_at      = CURRENT_TIMESTAMP,
+                                           metadata        = EXCLUDED.metadata,
+                                           image           = EXCLUDED.image,
+                                           is_dirty        = 1
+			`,
+		);
 
 		try {
 			await this.localDB.withTransactionAsync(async () => {
@@ -91,6 +94,36 @@ class DatabaseManager {
 					data.image ?? null,
 				]);
 			});
+
+			try {
+				await this.supabaseDB!.from("TreeMap")
+					.upsert({
+						id: data.id,
+						title: data.title,
+						description: data.description,
+						scientific_name: data.scientific_name,
+						latitude: data.latitude,
+						longitude: data.longitude,
+						metadata: JSON.stringify(data.metadata ?? null),
+						image: data.image ?? null,
+					})
+					.throwOnError();
+				await this.localDB!.runAsync(
+					`UPDATE TreeMap
+                     SET is_dirty = 0
+                     WHERE id = ?`,
+					[data.id],
+				);
+			} catch (error) {
+				await this.localDB.runAsync(
+					`UPDATE TreeMap
+                     SET is_dirty = 1
+                     WHERE id = ?`,
+					[data.id],
+				);
+				console.warn(`Error syncing with Supabase: ${error}`);
+			}
+
 			return true;
 		} catch (error) {
 			throw new Error(`Database Error: ${error}`);
@@ -103,20 +136,74 @@ class DatabaseManager {
 		await this.init();
 		if (!this.localDB) throw new Error("Database Error: Database not initialized");
 
-		const statement = await this.localDB.prepareAsync(`DELETE
-                                                           FROM TreeMap
-                                                           WHERE id = ?`);
+		const statement = await this.localDB.prepareAsync(
+			`DELETE
+             FROM TreeMap
+             WHERE id = ?`,
+		);
 
 		try {
 			await this.localDB.withTransactionAsync(async () => {
 				await statement.executeAsync<DataEntry>([id]);
 			});
+
+			try {
+				await this.supabaseDB!.from("TreeMap").delete().eq("id", id).throwOnError();
+			} catch (error) {
+				await this.localDB!.runAsync(
+					`UPDATE TreeMap
+                     SET is_dirty = 1
+                     WHERE id = ?`,
+					[id],
+				);
+				console.warn(`Error deleting from Supabase: ${error}`);
+			}
+
 			return true;
 		} catch (error) {
 			throw new Error(`Database Error: ${error}`);
 		} finally {
 			await statement.finalizeAsync();
 		}
+	};
+
+	syncDirtyRecords = async () => {
+		await this.init();
+
+		if (!this.localDB) throw new Error("Database Error: Database not initialized");
+		if (!this.supabaseDB) return;
+
+		const dirtyEntries = await this.query(
+			`SELECT *
+             FROM TreeMap
+             WHERE is_dirty = 1`,
+		);
+		if (!dirtyEntries || dirtyEntries.length === 0) return;
+
+		for (const entry of dirtyEntries)
+			try {
+				await this.supabaseDB
+					.from("TreeMap")
+					.upsert({
+						id: entry.id,
+						title: entry.title,
+						description: entry.description,
+						scientific_name: entry.scientific_name,
+						latitude: entry.latitude,
+						longitude: entry.longitude,
+						metadata: JSON.stringify(entry.metadata ?? null),
+						image: entry.image ?? null,
+					})
+					.throwOnError();
+				await this.localDB.runAsync(
+					`UPDATE TreeMap
+                     SET is_dirty = 0
+                     WHERE id = ?`,
+					[entry.id],
+				);
+			} catch (error) {
+				console.warn(`Retry sync failed for ${entry.id}:`, error);
+			}
 	};
 
 	private async runStatement<T>(sql: string, mode: "first", params?: any[]): Promise<T | null>;
@@ -143,7 +230,7 @@ class DatabaseManager {
 		})();
 	}
 
-	private parseMetadata(entry: any) {
+	private parseMetadata = (entry: any) => {
 		if (entry && entry.metadata)
 			try {
 				entry.metadata = JSON.parse(entry.metadata as unknown as string);
@@ -151,7 +238,7 @@ class DatabaseManager {
 				entry.metadata = {};
 			}
 		return entry;
-	}
+	};
 }
 
 export const databaseManager = new DatabaseManager();

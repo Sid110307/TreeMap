@@ -1,6 +1,7 @@
 import React from "react";
 import { Image, StatusBar, View } from "react-native";
 
+import NetInfo from "@react-native-community/netinfo";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import * as Font from "expo-font";
 import * as Location from "expo-location";
@@ -34,6 +35,10 @@ export default () => {
 			iosClientId:
 				"1099367355723-vj98fh5unekmrn1s0dm0vhe62nd8na3h.apps.googleusercontent.com",
 			offlineAccess: true,
+		});
+
+		NetInfo.addEventListener(state => {
+			if (state.isConnected) databaseManager.syncDirtyRecords().catch(console.error);
 		});
 
 		refetchGeoState()

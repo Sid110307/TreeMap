@@ -1,5 +1,5 @@
 import React from "react";
-import { View } from "react-native";
+import { Alert, View } from "react-native";
 import Toast from "react-native-toast-message";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -20,7 +20,7 @@ export default () => {
 	const router = useRouter();
 
 	const [loading, setLoading] = React.useState(false);
-	const { updateIsLoggedIn } = useUserState();
+	const { user, isLoggedIn, updateIsLoggedIn } = useUserState();
 
 	return (
 		<View
@@ -35,6 +35,7 @@ export default () => {
 			<Button
 				text="Logout"
 				loading={loading}
+				disabled={loading || !databaseManager.supabaseDB || !isLoggedIn}
 				onPress={async () => {
 					setLoading(true);
 					await AsyncStorage.clear();
@@ -60,7 +61,59 @@ export default () => {
 				}}
 			>
 				Your offline/local data will remain in the app even after logging out. To delete
-				your local data, please clear the app data from your device settings.
+				your local data, please clear the app data from your device settings.{"\n"}
+				<Text
+					disabled={!isLoggedIn}
+					onPress={async () => {
+						Alert.alert(
+							"Delete Account",
+							"Are you sure you want to request account deletion?",
+							[
+								{ text: "Cancel", style: "cancel" },
+								{
+									text: "OK",
+									style: "destructive",
+									onPress: async () => {
+										try {
+											await databaseManager.supabaseDB
+												?.from("DeleteRequests")
+												.upsert(
+													{
+														user_id: user?.id,
+														email: user?.email,
+														created_at: new Date().toISOString(),
+													},
+													{ onConflict: "user_id" },
+												)
+												.throwOnError();
+											Toast.show({
+												type: "success",
+												text1: "Account deletion requested!",
+												text2: "We will process your request and delete your account.",
+											});
+										} catch (error) {
+											console.error(error);
+											Toast.show({
+												type: "error",
+												text1: "Error requesting account deletion",
+												text2: "Please try again later.",
+											});
+										}
+									},
+								},
+							],
+						);
+					}}
+					style={{
+						fontFamily: "Light",
+						fontSize: 12,
+						color: colors.primary,
+						textDecorationLine: "underline",
+						marginTop: 4,
+					}}
+				>
+					Request to delete your account
+				</Text>
 			</Text>
 		</View>
 	);

@@ -39,10 +39,7 @@ export const ProfileCard = () => {
 				<Text style={{ fontFamily: "Light", fontSize: 12, color: colors.dark[500] }}>
 					{user.email}
 				</Text>
-				<Text style={{ fontFamily: "Light", fontSize: 12, color: colors.dark[500] }}>
-					User ID: {user.id}
-				</Text>
-				<Text style={{ marginTop: 12, color: colors.dark[500] }}>
+				<Text style={{ marginTop: 8, color: colors.dark[500] }}>
 					Member since{" "}
 					{DateTime.fromISO(user.memberSince.replace(" ", "T"), {
 						zone: "utc",

@@ -65,6 +65,7 @@ export default () => {
 			<Button
 				onPress={async () => await handleGoogleAuth()}
 				loading={loading}
+				disabled={loading}
 				color={colors.primary}
 				textComponent={
 					<View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>

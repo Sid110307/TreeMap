@@ -44,10 +44,12 @@ export const useAuth = () => {
 				provider: "google",
 				token: user.idToken,
 			});
-			if (!supabaseAuthData?.data) {
+			if (!supabaseAuthData?.data?.user) {
+				await GoogleSignin.signOut();
+				console.error("Supabase sign-in failed!", supabaseAuthData?.error);
 				Toast.show({
 					type: "error",
-					text1: `Error logging in (${supabaseAuthData?.error?.code})`,
+					text1: `Error logging in (${supabaseAuthData?.error?.code ?? "unknown_error"})`,
 					text2: "An error occurred while logging in. Please try again later.",
 				});
 
@@ -74,6 +76,9 @@ export const useAuth = () => {
 				text1: "Error logging in",
 				text2: "An error occurred while logging in. Please try again later.",
 			});
+
+			await GoogleSignin.signOut();
+			updateIsLoggedIn(false);
 		} finally {
 			setLoading(false);
 		}
