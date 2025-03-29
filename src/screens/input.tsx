@@ -137,16 +137,19 @@ export const StatsCard = () => {
 	const { listNearby } = useGeoState();
 
 	React.useEffect(() => {
-		databaseManager
-			.query("SELECT COUNT(*) as count FROM TreeMap")
-			.then(res => setIdentifiedTrees(res[0].count))
-			.catch(err => {
-				console.error(err);
-				Toast.show({
-					type: "error",
-					text1: "Error Fetching Data",
-					text2: "An error occurred while fetching your data.",
-				});
+		databaseManager.supabaseDB
+			?.from("TreeMap")
+			.select("*", { count: "exact" })
+			.then(({ count }) => {
+				if (count === null) {
+					Toast.show({
+						type: "error",
+						text1: "Error Fetching Data",
+						text2: "An error occurred while fetching your data.",
+					});
+					return;
+				}
+				setIdentifiedTrees(count);
 			});
 		listNearby()
 			.then(data => setNearbyTrees(data.length))
@@ -257,16 +260,22 @@ export const RecentEntries = () => {
 	const [data, setData] = React.useState<DataEntry[]>([]);
 
 	React.useEffect(() => {
-		databaseManager
-			.query("SELECT * FROM TreeMap ORDER BY updated_at DESC LIMIT 5")
-			.then(setData)
-			.catch(err => {
-				console.error(err);
-				Toast.show({
-					type: "error",
-					text1: "Error Fetching Data",
-					text2: "An error occurred while fetching your data.",
-				});
+		databaseManager.supabaseDB
+			?.from("TreeMap")
+			.select("*")
+			.order("updated_at", { ascending: false })
+			.limit(5)
+			.then(({ data, error }) => {
+				if (error) {
+					console.error(error);
+					Toast.show({
+						type: "error",
+						text1: "Error Fetching Data",
+						text2: "An error occurred while fetching your data.",
+					});
+					return;
+				}
+				if (data) setData(data);
 			});
 	}, []);
 

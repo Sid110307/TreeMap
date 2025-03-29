@@ -24,21 +24,29 @@ export const useGeoState = create<GeoState>((set, get) => ({
 		const lngRange = get().radius / (111320 * Math.cos(lat * (Math.PI / 180)));
 
 		try {
-			const rows = await databaseManager.query(
-				`SELECT *
-                 FROM TreeMap
-                 WHERE latitude BETWEEN ? AND ?
-                   AND longitude BETWEEN ? AND ?`,
-				[lat - latRange, lat + latRange, lng - lngRange, lng + lngRange],
-			);
+			const rows = await databaseManager.supabaseDB
+				?.from("TreeMap")
+				.select("*")
+				.gte("latitude", lat - latRange)
+				.lte("latitude", lat + latRange)
+				.gte("longitude", lng - lngRange)
+				.lte("longitude", lng + lngRange)
+				.order("latitude", { ascending: true })
+				.order("longitude", { ascending: true });
 
-			return rows
-				.map(row => ({
-					...row,
-					distance: haversineDistance(lat, lng, row.latitude, row.longitude),
-				}))
-				.filter(row => row.distance <= get().radius)
-				.sort((a, b) => a.distance - b.distance);
+			if (rows?.error) {
+				console.error(rows?.error);
+				return [];
+			}
+			return (
+				rows?.data
+					.map(row => ({
+						...row,
+						distance: haversineDistance(lat, lng, row.latitude, row.longitude),
+					}))
+					.filter(row => row.distance <= get().radius)
+					.sort((a, b) => a.distance - b.distance) ?? []
+			);
 		} catch (err) {
 			console.error(err);
 			Toast.show({

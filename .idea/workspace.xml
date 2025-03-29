@@ -4,17 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0f2f6cc9-dd77-41d9-ba42-74e6a37b6fc3" name="Changes" comment="Added profile screen + logout">
+    <list default="true" id="0f2f6cc9-dd77-41d9-ba42-74e6a37b6fc3" name="Changes" comment="Finished db communication, added syncing, and added account deletion request button">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.yarn/install-state.gz" beforeDir="false" afterPath="$PROJECT_DIR$/.yarn/install-state.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(tabs)/profile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(tabs)/profile.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/auth.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/auth.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/auth.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/auth.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/database.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/database.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/types.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/types.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/screens/profile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/profile.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/state.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/state.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/input.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/input.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,7 +113,7 @@
       <workItem from="1743173709092" duration="1710000" />
       <workItem from="1743176019975" duration="98000" />
       <workItem from="1743241031079" duration="5138000" />
-      <workItem from="1743250467101" duration="6599000" />
+      <workItem from="1743250467101" duration="7329000" />
     </task>
     <task id="LOCAL-00001" summary="v2 init">
       <option name="closed" value="true" />
@@ -250,7 +243,15 @@
       <option name="project" value="LOCAL" />
       <updated>1743246258549</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Finished db communication, added syncing, and added account deletion request button">
+      <option name="closed" value="true" />
+      <created>1743257966035</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1743257966035</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -274,6 +275,7 @@
     <MESSAGE value="Update details" />
     <MESSAGE value="Added supabase + authentication" />
     <MESSAGE value="Added profile screen + logout" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added profile screen + logout" />
+    <MESSAGE value="Finished db communication, added syncing, and added account deletion request button" />
+    <option name="LAST_COMMIT_MESSAGE" value="Finished db communication, added syncing, and added account deletion request button" />
   </component>
 </project>
