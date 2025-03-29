@@ -4,10 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0f2f6cc9-dd77-41d9-ba42-74e6a37b6fc3" name="Changes" comment="Refactored account deletion option">
+    <list default="true" id="0f2f6cc9-dd77-41d9-ba42-74e6a37b6fc3" name="Changes" comment="Showed tree distance in data entry item">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/dataEntryItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dataEntryItem.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/utils.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/utils.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.yarn/install-state.gz" beforeDir="false" afterPath="$PROJECT_DIR$/.yarn/install-state.gz" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(tabs)/map.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(tabs)/map.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,7 +116,7 @@
       <workItem from="1743241031079" duration="5138000" />
       <workItem from="1743250467101" duration="7506000" />
       <workItem from="1743261323647" duration="8677000" />
-      <workItem from="1743270137102" duration="535000" />
+      <workItem from="1743270137102" duration="1363000" />
     </task>
     <task id="LOCAL-00001" summary="v2 init">
       <option name="closed" value="true" />
@@ -309,14 +310,21 @@
       <option name="project" value="LOCAL" />
       <updated>1743270055944</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="Showed tree distance in data entry item">
+      <option name="closed" value="true" />
+      <created>1743270703599</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1743270703599</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="v2 init" />
     <MESSAGE value="Added tab layout and started work on input screen" />
     <MESSAGE value="Added manual data entry with camera+gallery+url image" />
     <MESSAGE value="Added SQLite starter class" />
@@ -341,6 +349,7 @@
     <MESSAGE value="Added user trees page and fixed auth bugs" />
     <MESSAGE value="UI updates" />
     <MESSAGE value="Refactored account deletion option" />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactored account deletion option" />
+    <MESSAGE value="Showed tree distance in data entry item" />
+    <option name="LAST_COMMIT_MESSAGE" value="Showed tree distance in data entry item" />
   </component>
 </project>
