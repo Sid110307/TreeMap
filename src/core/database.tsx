@@ -61,7 +61,7 @@ class DatabaseManager {
 		return result;
 	};
 
-	upsert = async (data: Omit<DataEntry, "created_at" | "updated_at">) => {
+	upsert = async (data: Omit<DataEntry, "created_at" | "updated_at" | "is_dirty">) => {
 		await this.init();
 		if (!this.localDB) throw new Error("Database Error: Database not initialized");
 

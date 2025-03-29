@@ -49,12 +49,6 @@ export const useGeoState = create<GeoState>((set, get) => ({
 			);
 		} catch (err) {
 			console.error(err);
-			Toast.show({
-				type: "error",
-				text1: "Error Fetching Data",
-				text2: "An error occurred while fetching your data.",
-			});
-
 			return [];
 		}
 	},
@@ -96,6 +90,7 @@ const initialState = {
 	metadata: { "Trunk Diameter (cm)": "", "Height (m)": "", "Age (years)": "" },
 };
 
+// TODO: Multiple images
 export const useEntryState = create<EntryState>(set => ({
 	...initialState,
 	setTitle: title => set({ title }),

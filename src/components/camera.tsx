@@ -6,7 +6,7 @@ import Toast from "react-native-toast-message";
 import { CameraType, CameraView, FlashMode } from "expo-camera";
 import { ImageManipulator, SaveFormat } from "expo-image-manipulator";
 import { requestCameraPermissionsAsync } from "expo-image-picker";
-import { useRouter } from "expo-router";
+import { useFocusEffect, useRouter } from "expo-router";
 import {
 	AutoFlash,
 	Camera as CameraIcon,
@@ -37,11 +37,13 @@ export default (props: CameraProps) => {
 	const [face, setFace] = React.useState<CameraType>("back");
 	const [flash, setFlash] = React.useState<FlashMode>("off");
 
-	React.useEffect(() => {
-		requestCameraPermissionsAsync()
-			.then(res => setPermissionGranted(res.granted))
-			.catch(console.error);
-	}, []);
+	useFocusEffect(
+		React.useCallback(() => {
+			requestCameraPermissionsAsync()
+				.then(res => setPermissionGranted(res.granted))
+				.catch(console.error);
+		}, []),
+	);
 
 	return (
 		<View style={{ alignItems: "center", justifyContent: "center" }}>

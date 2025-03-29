@@ -6,7 +6,7 @@ import Toast from "react-native-toast-message";
 import { FlashList } from "@shopify/flash-list";
 import { LinearGradient } from "expo-linear-gradient";
 import * as Location from "expo-location";
-import { useRouter } from "expo-router";
+import { useFocusEffect, useRouter } from "expo-router";
 import * as Updates from "expo-updates";
 import { NavigatorAlt, Refresh, RefreshDouble } from "iconoir-react-native";
 
@@ -16,7 +16,7 @@ import Text, { HeadText, IncrementText } from "../components/text";
 
 import colors from "../core/colors";
 import { databaseManager } from "../core/database";
-import { useGeoState } from "../core/state";
+import { useGeoState, useUserState } from "../core/state";
 import { DataEntry } from "../core/types";
 import { heightToDp, widthToDp } from "../core/utils";
 
@@ -94,9 +94,11 @@ export const CoordinatesCard = () => {
 	const [hasLocation, setHasLocation] = React.useState(false);
 	const { latitude, longitude, refetchGeoState } = useGeoState();
 
-	React.useEffect(() => {
-		Location.hasServicesEnabledAsync().then(enabled => setHasLocation(enabled));
-	}, []);
+	useFocusEffect(
+		React.useCallback(() => {
+			Location.hasServicesEnabledAsync().then(enabled => setHasLocation(enabled));
+		}, []),
+	);
 
 	return (
 		<Card
@@ -134,32 +136,30 @@ export const StatsCard = () => {
 	const [identifiedTrees, setIdentifiedTrees] = React.useState<number>(0);
 	const [nearbyTrees, setNearbyTrees] = React.useState<number>(0);
 
+	const { user, updateUser } = useUserState();
 	const { listNearby } = useGeoState();
 
 	React.useEffect(() => {
 		databaseManager.supabaseDB
 			?.from("TreeMap")
 			.select("*", { count: "exact" })
-			.then(({ count }) => {
-				if (count === null) {
-					Toast.show({
-						type: "error",
-						text1: "Error Fetching Data",
-						text2: "An error occurred while fetching your data.",
-					});
-					return;
-				}
-				setIdentifiedTrees(count);
-			});
+			.then(({ count }) => setIdentifiedTrees(count ?? 0));
+		databaseManager.supabaseDB
+			?.from("TreeMap")
+			.select("*", { count: "exact" })
+			.eq("user_id", user.id)
+			.then(({ count }) => updateUser({ ...user, totalIdentified: count ?? 0 }));
+
 		listNearby()
 			.then(data => setNearbyTrees(data.length))
 			.catch(console.error);
-	}, []);
+	}, [user.id]);
 
 	return (
 		<Card title="Statistics">
 			<View
 				style={{
+					marginTop: 8,
 					flexDirection: "row",
 					justifyContent: "space-between",
 					flexWrap: "wrap",
@@ -172,6 +172,13 @@ export const StatsCard = () => {
 						value={identifiedTrees}
 					/>
 					<Text>Identified Tree{identifiedTrees === 1 ? "" : "s"}</Text>
+				</Card>
+				<Card style={{ alignItems: "center", width: widthToDp("40%"), marginVertical: 0 }}>
+					<IncrementText
+						style={{ fontFamily: "Bold", fontSize: 24, color: colors.primary }}
+						value={user.totalIdentified}
+					/>
+					<Text>Tree{user.totalIdentified === 1 ? "" : "s"} added by you</Text>
 				</Card>
 				<Card style={{ alignItems: "center", width: widthToDp("40%"), marginVertical: 0 }}>
 					<IncrementText
